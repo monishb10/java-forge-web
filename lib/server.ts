@@ -1,0 +1,15 @@
+import {env} from 'cloudflare:workers';
+export function db(){const e=env as unknown as {DB?:D1Database};if(!e.DB)throw new Error('Saved progress is temporarily unavailable. Please keep your work and try again.');return e.DB;}
+// build/worker.ts removes browser-supplied identity headers and injects only a verified session ID.
+export function identity(req:Request){const id=req.headers.get('oai-authenticated-user-id');if(!id)throw new ApiError('Sign in with GitHub to save progress and run code.',401);return id;}
+export function mutation(req:Request){const origin=req.headers.get('origin');if(origin&&origin!==new URL(req.url).origin)throw new ApiError('Request origin does not match this site.',403);}
+export class ApiError extends Error {constructor(message:string,public status=400){super(message)}}
+export function json(data:unknown,status=200){return Response.json(data,{status,headers:{'Cache-Control':'no-store'}})}
+export function failure(e:unknown){if(e instanceof ApiError)return json({error:e.message},e.status);console.error('Java Forge request failed',e instanceof Error?e.name:'unknown');return json({error:'This operation is unavailable right now. Your editor content has been kept; please try again.'},503)}
+export async function body(req:Request){if(Number(req.headers.get('content-length')||0)>150000)throw new ApiError('Request is too large.');const s=await req.text();if(s.length>150000)throw new ApiError('Request is too large.');try{return JSON.parse(s)}catch{throw new ApiError('Invalid request.')}}
+export async function getRecord(user:string,id:string){const r=await db().prepare('SELECT data FROM records WHERE user_id=? AND id=?').bind(user,id).first<{data:string}>();return r?JSON.parse(r.data):{};}
+export async function setRecord(user:string,id:string,data:unknown){await db().prepare('INSERT INTO records(user_id,id,data,updated_at) VALUES(?,?,?,?) ON CONFLICT(user_id,id) DO UPDATE SET data=excluded.data,updated_at=excluded.updated_at').bind(user,id,JSON.stringify(data),new Date().toISOString()).run();}
+export async function settingsFor(user:string){const r=await db().prepare('SELECT data,token FROM settings WHERE user_id=?').bind(user).first<{data:string;token:string}>();return r?{...JSON.parse(r.data),encryptedToken:r.token}:{};}
+async function encryptionKey(){const key=(env as unknown as Record<string,string>).TOKEN_ENCRYPTION_KEY;if(!key)throw new ApiError('GitHub connection is temporarily unavailable.',503);return crypto.subtle.importKey('raw',Uint8Array.from(atob(key),c=>c.charCodeAt(0)),'AES-GCM',false,['encrypt','decrypt']);}
+export async function encrypt(value:string){const iv=crypto.getRandomValues(new Uint8Array(12));const bytes=await crypto.subtle.encrypt({name:'AES-GCM',iv},await encryptionKey(),new TextEncoder().encode(value));return btoa(String.fromCharCode(...iv))+'.'+btoa(String.fromCharCode(...new Uint8Array(bytes)));}
+export async function decrypt(value:string){const [v,c]=value.split('.');const b=await crypto.subtle.decrypt({name:'AES-GCM',iv:Uint8Array.from(atob(v),x=>x.charCodeAt(0))},await encryptionKey(),Uint8Array.from(atob(c),x=>x.charCodeAt(0)));return new TextDecoder().decode(b);}

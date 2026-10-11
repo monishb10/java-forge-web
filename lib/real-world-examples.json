@@ -1,0 +1,1010 @@
+{
+  "variables": {
+    "title": "Keep a café order in memory",
+    "situation": "A café needs to remember how many sandwiches you ordered, the price of one sandwich, and whether you want takeaway. Different kinds of values need different Java types.",
+    "steps": [
+      {
+        "title": "Name the information",
+        "text": "quantity is an int, price is a double, and takeaway is a boolean. Each variable gives one value a meaningful name."
+      },
+      {
+        "title": "Calculate with those values",
+        "text": "Three sandwiches at Rs 40.5 each cost 3 × 40.5 = Rs 121.5."
+      },
+      {
+        "title": "Update only what changed",
+        "text": "When you order one more sandwich, quantity becomes 4. Recalculate total to get Rs 162.0."
+      }
+    ],
+    "body": "int quantity = 3;\n double price = 40.5;\n boolean takeaway = true;\n double total = quantity * price;\n System.out.println(\"First total: \" + total);\n quantity = quantity + 1;\n total = quantity * price;\n System.out.println(\"Updated total: \" + total);\n System.out.println(\"Takeaway: \" + takeaway);",
+    "output": "First total: 121.5\nUpdated total: 162.0\nTakeaway: true",
+    "change": "Change quantity or price, then run again. Notice that total changes only when the multiplication runs again."
+  },
+  "input-output": {
+    "title": "Read a ticket booking",
+    "situation": "A booking screen receives a customer name and a ticket count. Scanner reads that information; println displays a confirmation. This demonstration uses fixed text as input so you can run it immediately.",
+    "steps": [
+      {
+        "title": "Receive the input",
+        "text": "The input contains Meena on one line and 3 on the next."
+      },
+      {
+        "title": "Read the right types",
+        "text": "nextLine reads the name as text. nextInt reads the ticket count as a whole number."
+      },
+      {
+        "title": "Show a useful response",
+        "text": "The program combines the two values into a confirmation message."
+      }
+    ],
+    "body": "String booking = \"Meena\\n3\\n\";\n Scanner input = new Scanner(booking);\n String name = input.nextLine();\n int tickets = input.nextInt();\n System.out.println(name + \" booked \" + tickets + \" tickets.\");",
+    "output": "Meena booked 3 tickets.",
+    "change": "Change the booking text to another name and number. To read your own standard input instead, use new Scanner(System.in) and enter the two lines in Playground’s input box."
+  },
+  "operators": {
+    "title": "Split a bill and check the remainder",
+    "situation": "Three friends split Rs 250. Whole-number division tells you what each person pays equally, and the remainder tells you what is left to cover.",
+    "steps": [
+      {
+        "title": "Divide into equal shares",
+        "text": "250 / 3 is 83 because both operands are integers."
+      },
+      {
+        "title": "Find what is left",
+        "text": "250 % 3 is 1. Three payments of Rs 83 account for only Rs 249."
+      },
+      {
+        "title": "Check a condition",
+        "text": "remainder == 0 asks whether the bill divided exactly. Here the answer is false."
+      }
+    ],
+    "body": "int bill = 250;\n int friends = 3;\n int share = bill / friends;\n int remainder = bill % friends;\n System.out.println(\"Each pays: \" + share);\n System.out.println(\"Left over: \" + remainder);\n System.out.println(\"Exact split: \" + (remainder == 0));",
+    "output": "Each pays: 83\nLeft over: 1\nExact split: false",
+    "change": "Change bill to 252 and predict the remainder. Keep friends above zero because division by zero is invalid."
+  },
+  "conditions": {
+    "title": "Choose a delivery charge",
+    "situation": "An online shop gives free delivery when the order is at least Rs 500. Smaller orders have a Rs 40 delivery charge. A switch also turns a delivery code into a readable label.",
+    "steps": [
+      {
+        "title": "Ask one yes-or-no question",
+        "text": "orderTotal >= 500 checks whether this order qualifies. At exactly 500, the answer is true."
+      },
+      {
+        "title": "Choose just one branch",
+        "text": "An order of 420 follows else, setting the fee to 40."
+      },
+      {
+        "title": "Translate a fixed choice",
+        "text": "The code S matches the Standard case in switch."
+      }
+    ],
+    "body": "int orderTotal = 420;\n int fee;\n if (orderTotal >= 500) {\n     fee = 0;\n } else {\n     fee = 40;\n }\n String code = \"S\";\n String delivery;\n switch (code) {\n     case \"E\": delivery = \"Express\"; break;\n     case \"S\": delivery = \"Standard\"; break;\n     default: delivery = \"Unknown\";\n }\n System.out.println(delivery + \" delivery: Rs \" + fee);",
+    "output": "Standard delivery: Rs 40",
+    "change": "Try order totals 499 and 500. Then change code to E or an unknown value and follow the matching switch branch."
+  },
+  "loops": {
+    "title": "Build a savings total day by day",
+    "situation": "You save Rs 20 each day for five days. A loop repeats the same update, while the day number tells you which repetition is happening.",
+    "steps": [
+      {
+        "title": "Start with zero",
+        "text": "total begins at 0 before the first day."
+      },
+      {
+        "title": "Repeat an update",
+        "text": "Each iteration adds 20, so the totals are 20, 40, 60, 80, and 100."
+      },
+      {
+        "title": "Stop at the right boundary",
+        "text": "day <= 5 includes day 5. After day becomes 6, the loop ends."
+      }
+    ],
+    "body": "int total = 0;\n for (int day = 1; day <= 5; day++) {\n     total += 20;\n     System.out.println(\"Day \" + day + \": \" + total);\n }",
+    "output": "Day 1: 20\nDay 2: 40\nDay 3: 60\nDay 4: 80\nDay 5: 100",
+    "change": "Change the daily saving to 30, or change the number of days. Predict the final total before running."
+  },
+  "tracing": {
+    "title": "Trace a prepaid wallet",
+    "situation": "A wallet starts with Rs 200. You buy a bus ticket, add money, and buy lunch. A dry run records the balance after each statement instead of guessing the final answer.",
+    "steps": [
+      {
+        "title": "Start from the known state",
+        "text": "balance starts at 200."
+      },
+      {
+        "title": "Apply statements in order",
+        "text": "Subtract 35 to get 165, then add 100 to get 265."
+      },
+      {
+        "title": "Record the final change",
+        "text": "Subtracting 60 from 265 leaves 205. Printing intermediate balances makes the trace visible."
+      }
+    ],
+    "body": "int balance = 200;\n System.out.println(\"Start: \" + balance);\n balance -= 35;\n System.out.println(\"Bus ticket: \" + balance);\n balance += 100;\n System.out.println(\"Top up: \" + balance);\n balance -= 60;\n System.out.println(\"Lunch: \" + balance);",
+    "output": "Start: 200\nBus ticket: 165\nTop up: 265\nLunch: 205",
+    "change": "Change one transaction and trace each new balance on paper. Compare your trace with the printed lines."
+  },
+  "number-problems": {
+    "title": "Read the digits of an order number",
+    "situation": "A shop makes a simple demonstration checksum by adding the digits of order number 4827. This is useful for learning digit extraction; it is not a secure checksum.",
+    "steps": [
+      {
+        "title": "Take the last digit",
+        "text": "4827 % 10 gives 7, which is added to the sum."
+      },
+      {
+        "title": "Remove that digit",
+        "text": "Integer division 4827 / 10 gives 482. Repeating this reveals 2, 8, and 4."
+      },
+      {
+        "title": "Stop when no digits remain",
+        "text": "The final sum is 7 + 2 + 8 + 4 = 21."
+      }
+    ],
+    "body": "int order = 4827;\n int sum = 0;\n while (order > 0) {\n     sum += order % 10;\n     order /= 10;\n }\n System.out.println(\"Digit sum: \" + sum);",
+    "output": "Digit sum: 21",
+    "change": "Try order 1005 and trace the zeros too. This version assumes a nonnegative order number."
+  },
+  "pattern-problems": {
+    "title": "Print a small cinema seating plan",
+    "situation": "A small cinema has three rows with four seats in each row. Nested loops match this structure: the outer loop chooses the row and the inner loop prints its seats.",
+    "steps": [
+      {
+        "title": "Choose a row",
+        "text": "The outer loop runs for rows 1, 2, and 3."
+      },
+      {
+        "title": "Print its seats",
+        "text": "The inner loop prints four [ ] symbols before it ends."
+      },
+      {
+        "title": "Move to a new line",
+        "text": "println runs after the inner loop, so the next row starts underneath."
+      }
+    ],
+    "body": "for (int row = 1; row <= 3; row++) {\n     for (int seat = 1; seat <= 4; seat++) {\n         System.out.print(\"[ ]\");\n     }\n     System.out.println();\n }",
+    "output": "[ ][ ][ ][ ]\n[ ][ ][ ][ ]\n[ ][ ][ ][ ]",
+    "change": "Change the row and seat limits separately. Notice which change affects the height and which affects the width."
+  },
+  "methods": {
+    "title": "Reuse a delivery-fee calculation",
+    "situation": "Two orders need the same delivery-fee rule. Putting the rule in a method avoids copying the if-else logic for every order.",
+    "steps": [
+      {
+        "title": "Give the method one input",
+        "text": "deliveryFee receives an order total through its total parameter."
+      },
+      {
+        "title": "Return one result",
+        "text": "It returns 0 for totals of at least 500 and 40 for smaller totals."
+      },
+      {
+        "title": "Call it for each order",
+        "text": "The same method produces 40 for 420 and 0 for 800."
+      }
+    ],
+    "body": "static int deliveryFee(int total) {\n     return total >= 500 ? 0 : 40;\n }\n public static void main(String[] args) {\n     System.out.println(\"Order A fee: \" + deliveryFee(420));\n     System.out.println(\"Order B fee: \" + deliveryFee(800));\n }",
+    "output": "Order A fee: 40\nOrder B fee: 0",
+    "change": "Add a call with 500. Change the free-delivery threshold in the method and observe that every call uses the updated rule."
+  },
+  "arrays": {
+    "title": "Find the hottest day this week",
+    "situation": "You have seven daily temperatures. An array stores them together, and one scan can find the maximum without creating a separate variable for each day.",
+    "steps": [
+      {
+        "title": "Store values in order",
+        "text": "temperatures[0] is Monday’s 30. The array keeps seven integer values."
+      },
+      {
+        "title": "Keep the best value so far",
+        "text": "hottest starts with the first temperature. Replace it only when a larger value appears."
+      },
+      {
+        "title": "Read each value once",
+        "text": "After visiting all seven days, hottest is 34."
+      }
+    ],
+    "body": "int[] temperatures = {30, 32, 31, 34, 29, 33, 30};\n int hottest = temperatures[0];\n for (int temperature : temperatures) {\n     if (temperature > hottest) hottest = temperature;\n }\n System.out.println(\"Hottest: \" + hottest);",
+    "output": "Hottest: 34",
+    "change": "Change one temperature to 38. This example assumes at least one day; an empty array needs a separate check before reading index 0."
+  },
+  "strings": {
+    "title": "Clean a name entered in a form",
+    "situation": "A user types extra spaces around their name. String methods can clean the input and compare the result with another value.",
+    "steps": [
+      {
+        "title": "Remove outside spaces",
+        "text": "trim produces a new string containing Meena from the spaced input."
+      },
+      {
+        "title": "Remember that strings do not change in place",
+        "text": "Assign the returned string to name; raw still holds the original characters."
+      },
+      {
+        "title": "Compare text by content",
+        "text": "equalsIgnoreCase recognises MEENA as the same letters, regardless of case."
+      }
+    ],
+    "body": "String raw = \"  Meena  \";\n String name = raw.trim();\n System.out.println(\"Name: \" + name);\n System.out.println(\"Characters: \" + name.length());\n System.out.println(\"Matches: \" + name.equalsIgnoreCase(\"MEENA\"));",
+    "output": "Name: Meena\nCharacters: 5\nMatches: true",
+    "change": "Replace Meena with another name. Compare equals and equalsIgnoreCase when you change only the capital letters."
+  },
+  "stringbuilder": {
+    "title": "Build a shopping receipt",
+    "situation": "A receipt grows as you add items. StringBuilder gives you one editable text buffer to which you can append each line.",
+    "steps": [
+      {
+        "title": "Create an empty builder",
+        "text": "It begins without any receipt text."
+      },
+      {
+        "title": "Append pieces in order",
+        "text": "Append a label, a price, and a newline. Each append extends the same builder."
+      },
+      {
+        "title": "Convert when you need a String",
+        "text": "toString gives the final receipt to print or save."
+      }
+    ],
+    "body": "StringBuilder receipt = new StringBuilder();\n receipt.append(\"Tea: \").append(15).append(\"\\n\");\n receipt.append(\"Sandwich: \").append(40).append(\"\\n\");\n receipt.append(\"Total: \").append(55);\n System.out.println(receipt.toString());",
+    "output": "Tea: 15\nSandwich: 40\nTotal: 55",
+    "change": "Append another item before the total and update the total. Use a loop when the item list becomes longer."
+  },
+  "array-problems": {
+    "title": "Find a student’s improvement",
+    "situation": "A student records four test scores. Comparing each score with the previous score tells you the improvement or decline between consecutive tests.",
+    "steps": [
+      {
+        "title": "Start at the second score",
+        "text": "Index 1 has a previous value at index 0. Starting at index 0 would access index -1."
+      },
+      {
+        "title": "Compare neighbours",
+        "text": "Use scores[i] - scores[i - 1] to calculate each change."
+      },
+      {
+        "title": "Interpret the sign",
+        "text": "A positive change means improvement; a negative change means a lower score."
+      }
+    ],
+    "body": "int[] scores = {50, 65, 60, 80};\n for (int i = 1; i < scores.length; i++) {\n     int change = scores[i] - scores[i - 1];\n     System.out.println(\"Change \" + i + \": \" + change);\n }",
+    "output": "Change 1: 15\nChange 2: -5\nChange 3: 20",
+    "change": "Try one score or two equal scores. A one-element array produces no changes because there is no pair to compare."
+  },
+  "string-problems": {
+    "title": "Count a letter in a message",
+    "situation": "A small text tool counts how many times the letter a appears in banana. This turns a string problem into visiting characters and updating a counter.",
+    "steps": [
+      {
+        "title": "Visit each character",
+        "text": "charAt(i) reads one character at a valid index from 0 to length - 1."
+      },
+      {
+        "title": "Test the character",
+        "text": "Only a matching lowercase a increments count."
+      },
+      {
+        "title": "Accumulate the answer",
+        "text": "Matches at indices 1, 3, and 5 make the final count 3."
+      }
+    ],
+    "body": "String message = \"banana\";\n int count = 0;\n for (int i = 0; i < message.length(); i++) {\n     if (message.charAt(i) == 'a') count++;\n }\n System.out.println(\"Letter a: \" + count);",
+    "output": "Letter a: 3",
+    "change": "Try Banana, an empty string, and a string without a. Decide whether your tool should treat A and a as equal."
+  },
+  "edge-cases": {
+    "title": "Handle an empty shopping basket",
+    "situation": "An average item price needs a count of items. An empty basket is a boundary case: dividing the total by zero would be invalid.",
+    "steps": [
+      {
+        "title": "Check the empty case first",
+        "text": "prices.length == 0 detects that there is nothing to average."
+      },
+      {
+        "title": "Return a meaningful response",
+        "text": "For an empty basket, print No items instead of attempting division."
+      },
+      {
+        "title": "Use the normal path for real data",
+        "text": "For prices 20 and 40, the sum is 60 and the average is 30.0."
+      }
+    ],
+    "body": "static void printAverage(int[] prices) {\n     if (prices.length == 0) {\n         System.out.println(\"No items\");\n         return;\n     }\n     int sum = 0;\n     for (int price : prices) sum += price;\n     System.out.println(\"Average: \" + (double) sum / prices.length);\n }\n public static void main(String[] args) {\n     printAverage(new int[]{});\n     printAverage(new int[]{20, 40});\n }",
+    "output": "No items\nAverage: 30.0",
+    "change": "Try a basket with one item and one with a zero-priced item. An empty basket and a basket containing zero are different cases."
+  },
+  "mathematical-logic": {
+    "title": "Find when two buses meet again",
+    "situation": "One bus arrives every 6 minutes and another every 8 minutes. If both arrive now, their next shared arrival is the least common multiple of 6 and 8.",
+    "steps": [
+      {
+        "title": "Find the shared factor",
+        "text": "The greatest common divisor is 2. Euclid’s algorithm finds it with repeated remainders."
+      },
+      {
+        "title": "Use the relationship",
+        "text": "LCM(a, b) = a / GCD(a, b) × b for positive integers."
+      },
+      {
+        "title": "Interpret the number",
+        "text": "6 / 2 × 8 = 24, so both buses return together after 24 minutes."
+      }
+    ],
+    "body": "static int gcd(int a, int b) {\n     while (b != 0) {\n         int remainder = a % b;\n         a = b;\n         b = remainder;\n     }\n     return a;\n }\n public static void main(String[] args) {\n     int first = 6, second = 8;\n     int together = first / gcd(first, second) * second;\n     System.out.println(\"Together after \" + together + \" minutes\");\n }",
+    "output": "Together after 24 minutes",
+    "change": "Try intervals 5 and 10. For large intervals, use long to avoid overflowing int during multiplication."
+  },
+  "oop": {
+    "title": "Represent two library books",
+    "situation": "A library book has information and behaviour: a title, a borrowed flag, and an action that marks it borrowed. A class groups these related ideas.",
+    "steps": [
+      {
+        "title": "Define a blueprint",
+        "text": "Book declares the fields and borrow method shared by all book objects."
+      },
+      {
+        "title": "Create separate objects",
+        "text": "java and maths are two Book instances. Each has its own borrowed field."
+      },
+      {
+        "title": "Change one object",
+        "text": "Calling java.borrow changes only the Java book. The maths book remains available."
+      }
+    ],
+    "body": "static class Book {\n     String title;\n     boolean borrowed;\n     Book(String title) { this.title = title; }\n     void borrow() { borrowed = true; }\n }\n public static void main(String[] args) {\n     Book java = new Book(\"Java Basics\");\n     Book maths = new Book(\"Maths\");\n     java.borrow();\n     System.out.println(java.title + \": \" + java.borrowed);\n     System.out.println(maths.title + \": \" + maths.borrowed);\n }",
+    "output": "Java Basics: true\nMaths: false",
+    "change": "Borrow the maths book too, or create a third book. Notice that a method call needs an object whose state it can change."
+  },
+  "recursion-basics": {
+    "title": "Count down to an event",
+    "situation": "A countdown says the current number, then asks a smaller countdown to do the rest. The work must reach a base case so it can stop.",
+    "steps": [
+      {
+        "title": "Stop at zero",
+        "text": "The base case prints Go! and returns without making another call."
+      },
+      {
+        "title": "Make the task smaller",
+        "text": "For a positive number n, print n and call countdown(n - 1)."
+      },
+      {
+        "title": "Follow the calls",
+        "text": "countdown(3) leads to 3, 2, 1, and then the base case at 0."
+      }
+    ],
+    "body": "static void countdown(int n) {\n     if (n == 0) {\n         System.out.println(\"Go!\");\n         return;\n     }\n     System.out.println(n);\n     countdown(n - 1);\n }\n public static void main(String[] args) {\n     countdown(3);\n }",
+    "output": "3\n2\n1\nGo!",
+    "change": "Try 5 and trace the calls. This version assumes n >= 0; a negative input would never reach its stopping condition."
+  },
+  "complexity": {
+    "title": "Compare two ways to find a parcel",
+    "situation": "Eight parcel IDs are already sorted. A linear scan may check every ID; binary search repeatedly halves the remaining candidates. Count the inspected elements for this one example.",
+    "steps": [
+      {
+        "title": "Check one by one",
+        "text": "Looking for ID 8 visits all eight elements with linear search."
+      },
+      {
+        "title": "Discard half each time",
+        "text": "Binary search checks 4, 6, 7, and 8: four comparisons here."
+      },
+      {
+        "title": "Describe growth, not milliseconds",
+        "text": "For n IDs, a scan is O(n), while binary search on sorted data is O(log n). Both examples use O(1) extra space."
+      }
+    ],
+    "body": "int[] ids = {1, 2, 3, 4, 5, 6, 7, 8};\n int target = 8, linearChecks = 0;\n for (int id : ids) {\n     linearChecks++;\n     if (id == target) break;\n }\n int low = 0, high = ids.length - 1, binaryChecks = 0;\n while (low <= high) {\n     int mid = low + (high - low) / 2;\n     binaryChecks++;\n     if (ids[mid] == target) break;\n     if (ids[mid] < target) low = mid + 1;\n     else high = mid - 1;\n }\n System.out.println(\"Linear checks: \" + linearChecks);\n System.out.println(\"Binary checks: \" + binaryChecks);",
+    "output": "Linear checks: 8\nBinary checks: 4",
+    "change": "Try target 1. A faster result on one input does not change worst-case complexity; describe how the work grows as n increases."
+  },
+  "arraylist": {
+    "title": "Edit a shopping list",
+    "situation": "A shopping list changes size as you add and remove items. ArrayList handles the changing length while keeping the items in an ordered sequence.",
+    "steps": [
+      {
+        "title": "Create an empty list",
+        "text": "ArrayList<String> holds strings and starts with size 0."
+      },
+      {
+        "title": "Add and remove items",
+        "text": "Add Milk, Bread, and Eggs, then remove the item whose text is Bread."
+      },
+      {
+        "title": "Read the updated sequence",
+        "text": "Milk remains at index 0 and Eggs shifts left into index 1."
+      }
+    ],
+    "body": "ArrayList<String> shopping = new ArrayList<>();\n shopping.add(\"Milk\");\n shopping.add(\"Bread\");\n shopping.add(\"Eggs\");\n shopping.remove(\"Bread\");\n System.out.println(shopping);\n System.out.println(\"Items: \" + shopping.size());",
+    "output": "[Milk, Eggs]\nItems: 2",
+    "change": "Add a fourth item or remove index 0. Compare remove(\"Milk\") with remove(0): one selects a value, the other an index."
+  },
+  "linkedlist-api": {
+    "title": "Change both ends of a playlist",
+    "situation": "A playlist needs an intro at the front and a closing track at the end. Java’s LinkedList exposes operations for both ends; it is a library class, separate from building nodes yourself.",
+    "steps": [
+      {
+        "title": "Add tracks at either end",
+        "text": "addFirst inserts Intro before the existing Track A. addLast appends Outro."
+      },
+      {
+        "title": "Take the first track",
+        "text": "removeFirst returns Intro and removes it from the list."
+      },
+      {
+        "title": "Inspect what remains",
+        "text": "The remaining order is Track A, then Outro. Random indexed access would need traversal."
+      }
+    ],
+    "body": "LinkedList<String> playlist = new LinkedList<>();\n playlist.add(\"Track A\");\n playlist.addFirst(\"Intro\");\n playlist.addLast(\"Outro\");\n System.out.println(\"Playing: \" + playlist.removeFirst());\n System.out.println(\"Next: \" + playlist);",
+    "output": "Playing: Intro\nNext: [Track A, Outro]",
+    "change": "Insert another track at the front. Before removing from an empty list, check isEmpty or use a non-throwing method such as pollFirst."
+  },
+  "hashmap": {
+    "title": "Look up a product price by name",
+    "situation": "A shop maps each product name to its price. HashMap lets you ask for the price using the product name as a key instead of scanning a list of products.",
+    "steps": [
+      {
+        "title": "Pair keys and values",
+        "text": "Tea maps to 15 and Coffee maps to 25. Product names are keys; prices are values."
+      },
+      {
+        "title": "Update an existing key",
+        "text": "Putting Tea again replaces its old value with 20; it does not create a second Tea entry."
+      },
+      {
+        "title": "Handle missing keys",
+        "text": "getOrDefault returns -1 for Juice, which this example uses as a missing-product marker."
+      }
+    ],
+    "body": "HashMap<String, Integer> prices = new HashMap<>();\n prices.put(\"Tea\", 15);\n prices.put(\"Coffee\", 25);\n prices.put(\"Tea\", 20);\n System.out.println(\"Tea: \" + prices.get(\"Tea\"));\n System.out.println(\"Juice: \" + prices.getOrDefault(\"Juice\", -1));\n System.out.println(\"Products: \" + prices.size());",
+    "output": "Tea: 20\nJuice: -1\nProducts: 2",
+    "change": "Add Juice before looking it up. Use containsKey when a default value could be confused with a valid price."
+  },
+  "hashset": {
+    "title": "Count unique event visitors",
+    "situation": "The same visitor may scan their pass several times. HashSet keeps each distinct visitor ID once, making it suitable for counting unique visitors.",
+    "steps": [
+      {
+        "title": "Add visitor IDs",
+        "text": "Add A12, B34, and then A12 again."
+      },
+      {
+        "title": "Let the set remove duplication",
+        "text": "The second A12 does not increase the size."
+      },
+      {
+        "title": "Ask a membership question",
+        "text": "contains checks whether B34 has already visited. A set does not promise an iteration order."
+      }
+    ],
+    "body": "HashSet<String> visitors = new HashSet<>();\n visitors.add(\"A12\");\n visitors.add(\"B34\");\n visitors.add(\"A12\");\n System.out.println(\"Unique visitors: \" + visitors.size());\n System.out.println(\"B34 visited: \" + visitors.contains(\"B34\"));",
+    "output": "Unique visitors: 2\nB34 visited: true",
+    "change": "Add C56 and try contains(\"D78\"). Print size or specific membership results rather than relying on set order."
+  },
+  "deque-api": {
+    "title": "Undo the most recent action",
+    "situation": "A drawing app needs to undo the newest action first. A Deque used as a stack follows last in, first out. ArrayDeque is a common Java implementation.",
+    "steps": [
+      {
+        "title": "Push actions as they happen",
+        "text": "Circle is pushed first, then Line is pushed above it."
+      },
+      {
+        "title": "Undo the newest action",
+        "text": "pop removes and returns Line because it was added last."
+      },
+      {
+        "title": "Look without removing",
+        "text": "peek returns Circle, the next action that could be undone."
+      }
+    ],
+    "body": "Deque<String> history = new ArrayDeque<>();\n history.push(\"Circle\");\n history.push(\"Line\");\n System.out.println(\"Undo: \" + history.pop());\n System.out.println(\"Next undo: \" + history.peek());",
+    "output": "Undo: Line\nNext undo: Circle",
+    "change": "Push Rectangle before the pop. Check isEmpty before popping because an empty stack has no action to undo."
+  },
+  "queue-api": {
+    "title": "Serve print jobs in arrival order",
+    "situation": "A printer receives Report before Invoice. A Queue follows first in, first out, so the older job is processed first.",
+    "steps": [
+      {
+        "title": "Join the back",
+        "text": "offer adds Report, then Invoice, to the queue."
+      },
+      {
+        "title": "Serve the front",
+        "text": "poll removes and returns Report."
+      },
+      {
+        "title": "Inspect the next job",
+        "text": "peek sees Invoice without removing it. ArrayDeque implements the Queue interface here."
+      }
+    ],
+    "body": "Queue<String> printJobs = new ArrayDeque<>();\n printJobs.offer(\"Report\");\n printJobs.offer(\"Invoice\");\n System.out.println(\"Printing: \" + printJobs.poll());\n System.out.println(\"Next: \" + printJobs.peek());",
+    "output": "Printing: Report\nNext: Invoice",
+    "change": "Add a third print job. Call poll until the queue is empty; a final poll then returns null."
+  },
+  "priorityqueue": {
+    "title": "Pick the next scheduled reminder",
+    "situation": "Reminders are stored as minutes after midnight. A PriorityQueue<Integer> gives the smallest time first, even when reminders arrive in another order.",
+    "steps": [
+      {
+        "title": "Add unsorted times",
+        "text": "540, 480, and 510 represent 9:00, 8:00, and 8:30."
+      },
+      {
+        "title": "Retrieve the earliest",
+        "text": "poll returns 480 because it has the smallest value."
+      },
+      {
+        "title": "Retrieve the next earliest",
+        "text": "After removing 480, the next poll returns 510. Iterating a heap is not the same as sorted polling."
+      }
+    ],
+    "body": "PriorityQueue<Integer> reminders = new PriorityQueue<>();\n reminders.offer(540);\n reminders.offer(480);\n reminders.offer(510);\n System.out.println(\"First minute: \" + reminders.poll());\n System.out.println(\"Next minute: \" + reminders.poll());",
+    "output": "First minute: 480\nNext minute: 510",
+    "change": "Add minute 450 and predict the first result. Use repeated poll calls when you need the complete sorted order."
+  },
+  "comparator": {
+    "title": "Sort names by length, then alphabetically",
+    "situation": "A label screen wants shorter names first. When two names have equal length, alphabetical order breaks the tie. A Comparator expresses those rules.",
+    "steps": [
+      {
+        "title": "Choose the primary rule",
+        "text": "comparingInt(String::length) compares the number of characters."
+      },
+      {
+        "title": "Define the tie-breaker",
+        "text": "thenComparing orders equal-length names alphabetically, placing Ali before Sam."
+      },
+      {
+        "title": "Apply the rules consistently",
+        "text": "Jo comes first, followed by Ali, Sam, and Meena."
+      }
+    ],
+    "body": "List<String> names = new ArrayList<>(Arrays.asList(\"Sam\", \"Meena\", \"Jo\", \"Ali\"));\n names.sort(Comparator.comparingInt(String::length).thenComparing(Comparator.naturalOrder()));\n System.out.println(names);",
+    "output": "[Jo, Ali, Sam, Meena]",
+    "change": "Add another three-letter name. Remove thenComparing temporarily and see why an explicit tie-breaker makes the intended order clear."
+  },
+  "collections": {
+    "title": "Summarise a group of scores",
+    "situation": "Collections provides ready-made utilities for a Java List. You can find a maximum, count a repeated score, and sort the list without implementing each operation yourself.",
+    "steps": [
+      {
+        "title": "Inspect the original list",
+        "text": "Scores are 70, 90, 70, and 80."
+      },
+      {
+        "title": "Ask useful questions",
+        "text": "max is 90 and frequency of 70 is 2."
+      },
+      {
+        "title": "Sort when order matters",
+        "text": "sort modifies this list into ascending order."
+      }
+    ],
+    "body": "List<Integer> scores = new ArrayList<>(Arrays.asList(70, 90, 70, 80));\n System.out.println(\"Highest: \" + Collections.max(scores));\n System.out.println(\"Seventies: \" + Collections.frequency(scores, 70));\n Collections.sort(scores);\n System.out.println(scores);",
+    "output": "Highest: 90\nSeventies: 2\n[70, 70, 80, 90]",
+    "change": "Use Collections.reverse after sorting. Remember that max needs a nonempty collection."
+  },
+  "searching": {
+    "title": "Find a name on an unsorted guest list",
+    "situation": "A small guest list is not sorted. Linear search checks each name until it finds the requested guest, or reaches the end.",
+    "steps": [
+      {
+        "title": "Begin with not found",
+        "text": "index starts at -1, a value that is not a valid array position."
+      },
+      {
+        "title": "Compare each name",
+        "text": "Check Ravi, Meena, and then Asha using equals."
+      },
+      {
+        "title": "Stop on a match",
+        "text": "Asha is at index 2, so store 2 and break out of the loop."
+      }
+    ],
+    "body": "String[] guests = {\"Ravi\", \"Meena\", \"Asha\"};\n String target = \"Asha\";\n int index = -1;\n for (int i = 0; i < guests.length; i++) {\n     if (guests[i].equals(target)) { index = i; break; }\n }\n System.out.println(\"Guest index: \" + index);",
+    "output": "Guest index: 2",
+    "change": "Search for a missing name and confirm that -1 remains. Also try the first guest to see early stopping."
+  },
+  "sorting": {
+    "title": "Arrange delivery distances",
+    "situation": "A courier wants to see nearby stops before distant stops. Sorting the distances reveals their order; it does not by itself solve the full route-planning problem.",
+    "steps": [
+      {
+        "title": "Start with unordered values",
+        "text": "The distances are 7, 2, 5, and 1 kilometres."
+      },
+      {
+        "title": "Move the smallest remaining value forward",
+        "text": "Selection sort scans the unsorted part, selects its minimum, and swaps it into the next position."
+      },
+      {
+        "title": "Repeat for each position",
+        "text": "The result is 1, 2, 5, 7. This teaching algorithm takes O(n²) time."
+      }
+    ],
+    "body": "int[] distances = {7, 2, 5, 1};\n for (int i = 0; i < distances.length; i++) {\n     int smallest = i;\n     for (int j = i + 1; j < distances.length; j++) {\n         if (distances[j] < distances[smallest]) smallest = j;\n     }\n     int temp = distances[i];\n     distances[i] = distances[smallest];\n     distances[smallest] = temp;\n }\n System.out.println(Arrays.toString(distances));",
+    "output": "[1, 2, 5, 7]",
+    "change": "Try duplicate distances or an already sorted array. Trace where the smallest value moves on each outer-loop iteration."
+  },
+  "binary-search": {
+    "title": "Find a seat in sorted booking IDs",
+    "situation": "Booking IDs 101, 105, 110, 120, and 130 are sorted. Binary search uses that ordering to eliminate half the remaining candidates after each comparison.",
+    "steps": [
+      {
+        "title": "Inspect the middle",
+        "text": "The first middle ID is 110. Since 120 is larger, the left part cannot contain it."
+      },
+      {
+        "title": "Narrow the bounds",
+        "text": "Move low to mid + 1, keeping the possible answer inside low through high."
+      },
+      {
+        "title": "Recognise the match",
+        "text": "The next middle ID is 120 at index 3. Stop with that index."
+      }
+    ],
+    "body": "int[] bookings = {101, 105, 110, 120, 130};\n int target = 120, low = 0, high = bookings.length - 1, answer = -1;\n while (low <= high) {\n     int mid = low + (high - low) / 2;\n     if (bookings[mid] == target) { answer = mid; break; }\n     if (bookings[mid] < target) low = mid + 1;\n     else high = mid - 1;\n }\n System.out.println(\"Booking index: \" + answer);",
+    "output": "Booking index: 3",
+    "change": "Try 101, 130, and missing ID 115. Keep the IDs sorted; binary search is not valid on arbitrary order."
+  },
+  "brute-force": {
+    "title": "Find two purchases that use a gift card",
+    "situation": "You want two distinct items costing exactly Rs 100 together. You can try every pair first, then replace that repeated search with a set of prices already seen.",
+    "steps": [
+      {
+        "title": "Understand the simple approach",
+        "text": "A pair of nested loops would check every pair of item positions."
+      },
+      {
+        "title": "Reuse what you have already seen",
+        "text": "At price 60, ask whether 100 - 60 = 40 is in the set. It is, because the previous item cost 40."
+      },
+      {
+        "title": "Improve the amount of work",
+        "text": "One scan with expected O(1) set lookups gives expected O(n) time and O(n) extra space, instead of O(n²) pair checks."
+      }
+    ],
+    "body": "int[] prices = {40, 60, 25, 75};\n int target = 100;\n HashSet<Integer> seen = new HashSet<>();\n for (int price : prices) {\n     int needed = target - price;\n     if (seen.contains(needed)) {\n         System.out.println(needed + \" + \" + price + \" = \" + target);\n         break;\n     }\n     seen.add(price);\n }",
+    "output": "40 + 60 = 100",
+    "change": "Try prices {50, 50}. Checking before adding ensures that you use two positions instead of reusing the current item."
+  },
+  "two-pointers": {
+    "title": "Choose two snacks within an exact budget",
+    "situation": "Snack prices are already sorted: 10, 20, 30, 40, 50. Two pointers can find a pair totalling 60 by using one pointer at each end.",
+    "steps": [
+      {
+        "title": "Begin at both ends",
+        "text": "10 + 50 is 60, so this pair meets the budget."
+      },
+      {
+        "title": "Know how to move",
+        "text": "If the sum is too small, advance the left pointer. If too large, move the right pointer left."
+      },
+      {
+        "title": "Keep items distinct",
+        "text": "The condition left < right prevents choosing the same position twice."
+      }
+    ],
+    "body": "int[] prices = {10, 20, 30, 40, 50};\n int left = 0, right = prices.length - 1, target = 60;\n while (left < right) {\n     int sum = prices[left] + prices[right];\n     if (sum == target) {\n         System.out.println(prices[left] + \" + \" + prices[right]);\n         break;\n     }\n     if (sum < target) left++;\n     else right--;\n }",
+    "output": "10 + 50",
+    "change": "Try target 70 to see the left pointer move. This pointer rule relies on sorted prices."
+  },
+  "sliding-window": {
+    "title": "Find the busiest three-hour period",
+    "situation": "A shop records hourly orders: 2, 5, 1, 3, 6. You want the largest total over exactly three consecutive hours.",
+    "steps": [
+      {
+        "title": "Add the first window",
+        "text": "2 + 5 + 1 gives 8."
+      },
+      {
+        "title": "Slide without rebuilding",
+        "text": "Remove 2 and add 3 to get 9. Then remove 5 and add 6 to get 10."
+      },
+      {
+        "title": "Keep the best total",
+        "text": "The largest three-hour total is 10, from the last three hours."
+      }
+    ],
+    "body": "int[] orders = {2, 5, 1, 3, 6};\n int k = 3, window = 0;\n for (int i = 0; i < k; i++) window += orders[i];\n int best = window;\n for (int i = k; i < orders.length; i++) {\n     window += orders[i] - orders[i - k];\n     best = Math.max(best, window);\n }\n System.out.println(\"Busiest total: \" + best);",
+    "output": "Busiest total: 10",
+    "change": "Try k = 2 and trace what leaves and enters each window. Keep 1 <= k <= orders.length."
+  },
+  "prefix-sum": {
+    "title": "Answer a date-range spending question",
+    "situation": "Your daily spending is 20, 30, 10, and 40. A prefix-sum array lets you answer repeated range-total questions with one subtraction after a single setup pass.",
+    "steps": [
+      {
+        "title": "Store totals before each boundary",
+        "text": "prefix becomes [0, 20, 50, 60, 100]. prefix[i] totals the first i days."
+      },
+      {
+        "title": "Use a half-open range",
+        "text": "Array indices 1 through 3 inclusive mean spending 30 + 10 + 40."
+      },
+      {
+        "title": "Subtract the earlier total",
+        "text": "prefix[4] - prefix[1] = 100 - 20 = 80."
+      }
+    ],
+    "body": "int[] spending = {20, 30, 10, 40};\n int[] prefix = new int[spending.length + 1];\n for (int i = 0; i < spending.length; i++) prefix[i + 1] = prefix[i] + spending[i];\n int left = 1, right = 3;\n int total = prefix[right + 1] - prefix[left];\n System.out.println(\"Range total: \" + total);",
+    "output": "Range total: 80",
+    "change": "Try left = 0 and right = 3 for the whole array. Keep left and right inside the array and left <= right."
+  },
+  "hashing": {
+    "title": "Count votes by candidate",
+    "situation": "Votes arrive as names. A frequency map groups equal names and counts how often each appears, without repeatedly scanning the whole vote list.",
+    "steps": [
+      {
+        "title": "Use the name as a key",
+        "text": "Each distinct candidate has one entry in the HashMap."
+      },
+      {
+        "title": "Increment the frequency",
+        "text": "A missing name starts at 0. Add 1 for each arriving vote."
+      },
+      {
+        "title": "Read the final counts",
+        "text": "Asha appears three times; Ravi appears twice. Hashing supports expected constant-time map operations."
+      }
+    ],
+    "body": "String[] votes = {\"Asha\", \"Ravi\", \"Asha\", \"Asha\", \"Ravi\"};\n Map<String, Integer> counts = new HashMap<>();\n for (String vote : votes) counts.put(vote, counts.getOrDefault(vote, 0) + 1);\n System.out.println(\"Asha: \" + counts.get(\"Asha\"));\n System.out.println(\"Ravi: \" + counts.get(\"Ravi\"));",
+    "output": "Asha: 3\nRavi: 2",
+    "change": "Add a new candidate. Decide whether differences in case or surrounding spaces should represent the same candidate before counting."
+  },
+  "problem-patterns": {
+    "title": "Recognise a fixed-window question",
+    "situation": "“What is the highest total over two consecutive days?” contains clues: the items must be adjacent and the length is fixed. Those clues suggest a sliding window.",
+    "steps": [
+      {
+        "title": "Name the required shape",
+        "text": "Consecutive means one continuous segment. Exactly two days means every candidate has length 2."
+      },
+      {
+        "title": "Choose a reusable pattern",
+        "text": "Compute one window sum, then subtract the leaving day and add the entering day."
+      },
+      {
+        "title": "Check against a tiny example",
+        "text": "For 4, 2, 7, 1 the candidate sums are 6, 9, and 8. The answer is 9."
+      }
+    ],
+    "body": "int[] sales = {4, 2, 7, 1};\n int k = 2, sum = sales[0] + sales[1], best = sum;\n for (int i = k; i < sales.length; i++) {\n     sum += sales[i] - sales[i - k];\n     best = Math.max(best, sum);\n }\n System.out.println(\"Best two-day total: \" + best);",
+    "output": "Best two-day total: 9",
+    "change": "Compare “two consecutive days” with “any two days”. The second question removes adjacency, so the same window pattern no longer answers it."
+  },
+  "linked-list": {
+    "title": "Build a simple chain of train coaches",
+    "situation": "Think of each coach as a node holding a label and a link to the next coach. Here you build those nodes yourself instead of using Java’s LinkedList class.",
+    "steps": [
+      {
+        "title": "Create individual nodes",
+        "text": "Each Node stores its coach name and a next reference."
+      },
+      {
+        "title": "Connect the chain",
+        "text": "Engine.next points to A1; A1.next points to A2. A2.next stays null."
+      },
+      {
+        "title": "Traverse using links",
+        "text": "Start at head and repeatedly follow next until null. No array index is needed."
+      }
+    ],
+    "body": "static class Node {\n     String coach;\n     Node next;\n     Node(String coach) { this.coach = coach; }\n }\n public static void main(String[] args) {\n     Node head = new Node(\"Engine\");\n     head.next = new Node(\"A1\");\n     head.next.next = new Node(\"A2\");\n     for (Node node = head; node != null; node = node.next) {\n         System.out.println(node.coach);\n     }\n }",
+    "output": "Engine\nA1\nA2",
+    "change": "Insert a new coach after Engine. First preserve the old next reference, then reconnect both links so the rest of the train stays reachable."
+  },
+  "stack-structure": {
+    "title": "Match opening and closing brackets",
+    "situation": "An editor checks whether brackets are properly nested. The most recent opening bracket must be matched first, which is a last-in, first-out rule.",
+    "steps": [
+      {
+        "title": "Push each opening bracket",
+        "text": "For ([, the stack remembers ( and then [."
+      },
+      {
+        "title": "Match the newest opening",
+        "text": "The closing ] must match the top [. Later, ) must match (."
+      },
+      {
+        "title": "Require an empty stack at the end",
+        "text": "A leftover opening bracket or a mismatched closing bracket makes the text invalid."
+      }
+    ],
+    "body": "String text = \"([])\";\n Deque<Character> stack = new ArrayDeque<>();\n boolean valid = true;\n for (char ch : text.toCharArray()) {\n     if (ch == '(' || ch == '[') stack.push(ch);\n     else if (ch == ')' || ch == ']') {\n         if (stack.isEmpty()) { valid = false; break; }\n         char open = stack.pop();\n         if ((ch == ')' && open != '(') || (ch == ']' && open != '[')) {\n             valid = false; break;\n         }\n     }\n }\n System.out.println(\"Balanced: \" + (valid && stack.isEmpty()));",
+    "output": "Balanced: true",
+    "change": "Try ([)] and (() to expose different failures. This demonstration recognises round and square brackets only."
+  },
+  "queue-structure": {
+    "title": "Build a small service-counter queue",
+    "situation": "A service counter has room for three waiting IDs. A circular array can implement a queue without shifting every element after each customer is served.",
+    "steps": [
+      {
+        "title": "Track the occupied region",
+        "text": "front points to the next customer. size counts how many slots are used."
+      },
+      {
+        "title": "Wrap around the array",
+        "text": "The next insertion index is (front + size) % capacity."
+      },
+      {
+        "title": "Reuse freed space",
+        "text": "Serve 101, then add 103. The remaining service order is 102, then 103."
+      }
+    ],
+    "body": "static class CounterQueue {\n     int[] items = new int[3];\n     int front = 0, size = 0;\n     void add(int id) {\n         if (size == items.length) throw new IllegalStateException(\"Full\");\n         items[(front + size) % items.length] = id;\n         size++;\n     }\n     int remove() {\n         if (size == 0) throw new IllegalStateException(\"Empty\");\n         int id = items[front];\n         front = (front + 1) % items.length;\n         size--;\n         return id;\n     }\n }\n public static void main(String[] args) {\n     CounterQueue queue = new CounterQueue();\n     queue.add(101); queue.add(102);\n     System.out.println(\"Served: \" + queue.remove());\n     queue.add(103);\n     System.out.println(\"Next: \" + queue.remove());\n     System.out.println(\"Then: \" + queue.remove());\n }",
+    "output": "Served: 101\nNext: 102\nThen: 103",
+    "change": "Add and remove enough times to wrap front back to zero. Try filling all three slots to understand the full condition."
+  },
+  "binary-tree": {
+    "title": "Read a two-branch organisation chart",
+    "situation": "A small demonstration team chart has a Lead with two direct reports: Engineering and Design. A binary tree allows at most two children per node; real organisations may need more.",
+    "steps": [
+      {
+        "title": "Represent the relationships",
+        "text": "Each node has a name plus left and right child references."
+      },
+      {
+        "title": "Visit one level at a time",
+        "text": "A queue begins with Lead, then receives its children."
+      },
+      {
+        "title": "Read the result",
+        "text": "Breadth-first traversal visits Lead, Engineering, and Design in level order."
+      }
+    ],
+    "body": "static class Node {\n     String name; Node left, right;\n     Node(String name) { this.name = name; }\n }\n public static void main(String[] args) {\n     Node root = new Node(\"Lead\");\n     root.left = new Node(\"Engineering\");\n     root.right = new Node(\"Design\");\n     Queue<Node> queue = new ArrayDeque<>();\n     queue.offer(root);\n     while (!queue.isEmpty()) {\n         Node node = queue.poll();\n         System.out.println(node.name);\n         if (node.left != null) queue.offer(node.left);\n         if (node.right != null) queue.offer(node.right);\n     }\n }",
+    "output": "Lead\nEngineering\nDesign",
+    "change": "Give Engineering two children and predict the level-order result. Compare it with a depth-first traversal."
+  },
+  "bst": {
+    "title": "Look up a product ID in a search tree",
+    "situation": "Product IDs are arranged with smaller values on the left and larger values on the right. A binary search tree uses this rule to guide a lookup.",
+    "steps": [
+      {
+        "title": "Compare at the root",
+        "text": "Searching for 70 starts at 50. Since 70 is larger, go right."
+      },
+      {
+        "title": "Follow only one branch",
+        "text": "The right child is 70, so the search succeeds without visiting 30."
+      },
+      {
+        "title": "Understand the condition",
+        "text": "The ordering rule must hold throughout the tree. A badly unbalanced tree can still take O(n) time."
+      }
+    ],
+    "body": "static class Node {\n     int id; Node left, right;\n     Node(int id) { this.id = id; }\n }\n public static void main(String[] args) {\n     Node root = new Node(50);\n     root.left = new Node(30); root.right = new Node(70);\n     int target = 70;\n     Node current = root;\n     while (current != null && current.id != target) {\n         current = target < current.id ? current.left : current.right;\n     }\n     System.out.println(\"Found: \" + (current != null));\n }",
+    "output": "Found: true",
+    "change": "Search for 60 and follow the path to null. Then insert 60 as the left child of 70 and search again."
+  },
+  "heap": {
+    "title": "Promote the most urgent support ticket",
+    "situation": "Three support tickets have priority scores 20, 50, and 30. In a max-heap, every parent has at least as high a priority as its children, so the largest value reaches the root.",
+    "steps": [
+      {
+        "title": "Use array positions as tree links",
+        "text": "For parent index 0, its children are at indices 1 and 2."
+      },
+      {
+        "title": "Choose the larger child",
+        "text": "50 is larger than 30 and larger than the parent 20, so swap 50 with 20."
+      },
+      {
+        "title": "Inspect the root",
+        "text": "The heap becomes [50, 20, 30]. The root is largest, but the entire array is not sorted."
+      }
+    ],
+    "body": "int[] heap = {20, 50, 30};\n int parent = 0;\n while (2 * parent + 1 < heap.length) {\n     int child = 2 * parent + 1;\n     if (child + 1 < heap.length && heap[child + 1] > heap[child]) child++;\n     if (heap[parent] >= heap[child]) break;\n     int temp = heap[parent]; heap[parent] = heap[child]; heap[child] = temp;\n     parent = child;\n }\n System.out.println(Arrays.toString(heap));\n System.out.println(\"Highest priority: \" + heap[0]);",
+    "output": "[50, 20, 30]\nHighest priority: 50",
+    "change": "Change the root to 60. This example repairs the root when its child subtrees already satisfy the heap rule; arbitrary arrays need bottom-up heap construction."
+  },
+  "recursion": {
+    "title": "Count files in nested folders",
+    "situation": "A folder contains its own files and may contain smaller folders. Counting the files can be expressed as the folder’s own count plus the same calculation for every child folder.",
+    "steps": [
+      {
+        "title": "Define the result for one folder",
+        "text": "totalFiles returns that folder’s own file count plus its children’s totals."
+      },
+      {
+        "title": "Recognise the base case",
+        "text": "A folder with no children simply returns its own count."
+      },
+      {
+        "title": "Combine returned results",
+        "text": "Root has 2 files, Notes has 1, and Photos has 3. The returned total is 6."
+      }
+    ],
+    "body": "static class Folder {\n     int ownFiles; List<Folder> children = new ArrayList<>();\n     Folder(int ownFiles) { this.ownFiles = ownFiles; }\n }\n static int totalFiles(Folder folder) {\n     int total = folder.ownFiles;\n     for (Folder child : folder.children) total += totalFiles(child);\n     return total;\n }\n public static void main(String[] args) {\n     Folder root = new Folder(2);\n     root.children.add(new Folder(1));\n     root.children.add(new Folder(3));\n     System.out.println(\"Files: \" + totalFiles(root));\n }",
+    "output": "Files: 6",
+    "change": "Add a folder inside another child and trace when its count returns to its parent. This demonstration assumes an acyclic folder tree."
+  },
+  "backtracking": {
+    "title": "Choose a two-person project team",
+    "situation": "From Asha, Bala, and Charu, list every possible team of two without listing the same team in reversed order. Backtracking builds a choice, explores it, then undoes it.",
+    "steps": [
+      {
+        "title": "Choose one person",
+        "text": "Add a name to the current team and explore later names only."
+      },
+      {
+        "title": "Record a complete team",
+        "text": "When the team has two people, print it and return."
+      },
+      {
+        "title": "Undo before the next choice",
+        "text": "Remove the last name so the next branch starts from the correct partial team."
+      }
+    ],
+    "body": "static String[] names = {\"Asha\", \"Bala\", \"Charu\"};\n static void teams(int start, List<String> chosen) {\n     if (chosen.size() == 2) {\n         System.out.println(chosen);\n         return;\n     }\n     for (int i = start; i < names.length; i++) {\n         chosen.add(names[i]);\n         teams(i + 1, chosen);\n         chosen.remove(chosen.size() - 1);\n     }\n }\n public static void main(String[] args) {\n     teams(0, new ArrayList<>());\n }",
+    "output": "[Asha, Bala]\n[Asha, Charu]\n[Bala, Charu]",
+    "change": "Add a fourth person. Watch how removing the last choice prevents names from leaking into another branch."
+  },
+  "greedy": {
+    "title": "Fit the most meetings in one room",
+    "situation": "Meetings occupy [1,3), [2,4), [3,5), and [5,7). If each meeting is equally valuable and you want the most non-overlapping meetings, choosing the earliest finishing available meeting is optimal.",
+    "steps": [
+      {
+        "title": "Order by finish time",
+        "text": "Sorting by each meeting’s end time reveals which one frees the room first."
+      },
+      {
+        "title": "Accept only compatible meetings",
+        "text": "Choose [1,3), skip [2,4), then choose [3,5) and [5,7). Adjacent endpoints are allowed."
+      },
+      {
+        "title": "Know why the rule fits",
+        "text": "Finishing earlier leaves at least as much room for future meetings. This rule does not solve weighted-value scheduling."
+      }
+    ],
+    "body": "int[][] meetings = {{1, 3}, {2, 4}, {3, 5}, {5, 7}};\n Arrays.sort(meetings, Comparator.comparingInt(m -> m[1]));\n int end = Integer.MIN_VALUE, count = 0;\n for (int[] meeting : meetings) {\n     if (meeting[0] >= end) {\n         count++;\n         end = meeting[1];\n     }\n }\n System.out.println(\"Meetings: \" + count);",
+    "output": "Meetings: 3",
+    "change": "Add [1,7) and see why selecting the longest meeting first would be a poor strategy for maximising the number of meetings."
+  },
+  "graphs": {
+    "title": "Find the fewest bus links between stops",
+    "situation": "Stops A, B, C, and D are connected by bus links. Each link counts as one step, so breadth-first search can find the fewest links from A to D.",
+    "steps": [
+      {
+        "title": "Store neighbours for each stop",
+        "text": "A connects to B and C; both B and C connect to D. This example uses directed links."
+      },
+      {
+        "title": "Explore by distance",
+        "text": "Start A at distance 0, discover B and C at distance 1, then D at distance 2."
+      },
+      {
+        "title": "Visit each stop once",
+        "text": "The distance array also marks visited stops, preventing repeated exploration."
+      }
+    ],
+    "body": "int[][] neighbours = {{1, 2}, {3}, {3}, {}};\n int[] distance = new int[4];\n Arrays.fill(distance, -1);\n Queue<Integer> queue = new ArrayDeque<>();\n distance[0] = 0; queue.offer(0);\n while (!queue.isEmpty()) {\n     int stop = queue.poll();\n     for (int next : neighbours[stop]) {\n         if (distance[next] == -1) {\n             distance[next] = distance[stop] + 1;\n             queue.offer(next);\n         }\n     }\n }\n System.out.println(\"Links from A to D: \" + distance[3]);",
+    "output": "Links from A to D: 2",
+    "change": "Add a direct link from A to D. BFS finds the fewest edges when all edges have equal cost; different travel times need a different shortest-path method."
+  },
+  "dynamic-programming": {
+    "title": "Use the fewest vouchers to pay exactly",
+    "situation": "Vouchers are worth 1, 3, or 4 credits, with unlimited copies. To pay 6 credits, choosing 4 first uses three vouchers (4 + 1 + 1), while 3 + 3 uses only two.",
+    "steps": [
+      {
+        "title": "Define a smaller answer",
+        "text": "dp[x] means the fewest vouchers that pay exactly x credits. dp[0] is 0."
+      },
+      {
+        "title": "Try each possible last voucher",
+        "text": "For every value x, test dp[x - voucher] + 1 for each voucher that fits."
+      },
+      {
+        "title": "Reuse the best smaller answers",
+        "text": "dp[3] is 1, so using another 3 gives dp[6] = 2. The answer is built from already solved totals."
+      }
+    ],
+    "body": "int[] vouchers = {1, 3, 4};\n int target = 6;\n int[] dp = new int[target + 1];\n Arrays.fill(dp, target + 1);\n dp[0] = 0;\n for (int value = 1; value <= target; value++) {\n     for (int voucher : vouchers) {\n         if (voucher <= value) dp[value] = Math.min(dp[value], dp[value - voucher] + 1);\n     }\n }\n System.out.println(\"Fewest vouchers: \" + (dp[target] > target ? -1 : dp[target]));",
+    "output": "Fewest vouchers: 2",
+    "change": "Try target 8 or remove the 1-credit voucher and try target 2. The value -1 means an exact payment is impossible."
+  }
+}

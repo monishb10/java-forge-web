@@ -1,0 +1,7 @@
+# Copy to .dev.vars for local development only. No real credentials belong in this example.
+# Use a separate local OAuth app: callback http://127.0.0.1:5173/auth/callback
+APP_URL=http://127.0.0.1:5173
+GITHUB_CLIENT_ID=replace_with_local_oauth_client_id
+GITHUB_CLIENT_SECRET=replace_with_local_oauth_client_secret
+# Generate with: node -e "console.log(require('node:crypto').randomBytes(32).toString('base64'))"
+TOKEN_ENCRYPTION_KEY=replace_with_base64_32_byte_key

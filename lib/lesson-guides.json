@@ -1,0 +1,2969 @@
+{
+  "variables": {
+    "goal": "Learn to store a value, choose its type, and update it.",
+    "idea": "A variable gives a name to a value. Instead of repeating the number 2 everywhere, you can store it as hours and use that name in calculations.",
+    "use": "Store a score, count solved problems, or calculate a total from several values.",
+    "before": [],
+    "steps": [
+      {
+        "title": "Choose what kind of value you need",
+        "text": "Use int for ordinary whole numbers, long for larger whole numbers, double for decimal approximations, and boolean for true or false. String stores text.",
+        "code": "int score = 75;\nlong population = 1400000000L;\ndouble price = 19.5;\nboolean passed = true;\nString name = \"Monish\";"
+      },
+      {
+        "title": "Give the value a name",
+        "text": "In int hours = 2, int is the type, hours is the name, and 2 is the starting value. The equals sign stores the value on its right in the variable on its left.",
+        "code": "int hours = 2;"
+      },
+      {
+        "title": "Use names in a calculation",
+        "text": "Java reads the values stored in hours and days, multiplies them, then stores the result in practice. Changing hours later does not automatically recalculate practice.",
+        "code": "int days = 7;\nint practice = hours * days;"
+      },
+      {
+        "title": "Change a value or keep it fixed",
+        "text": "After declaring a variable, update it without repeating the type. Use final when its value should not be reassigned.",
+        "code": "hours = 3;\nfinal int DAYS_IN_WEEK = 7;"
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Statement",
+        "Values after it",
+        "Meaning"
+      ],
+      "rows": [
+        [
+          "hours = 2",
+          "hours: 2",
+          "Store daily hours."
+        ],
+        [
+          "days = 7",
+          "days: 7",
+          "Store the number of days."
+        ],
+        [
+          "practice = hours * days",
+          "practice: 14",
+          "Multiply 2 by 7."
+        ],
+        [
+          "println(practice)",
+          "Output: 14",
+          "Show the answer."
+        ]
+      ]
+    },
+    "remember": "A declaration creates a named variable. Assignment stores a value. A calculation reads the values available at that moment.",
+    "check": {
+      "question": "If int a = 5; int b = a; a = 9; what is b?",
+      "answer": "b is still 5. The assignment copied the value 5 into b; it did not create a permanent link to a."
+    },
+    "mistake": "A large result can overflow int. For the rectangle challenge, read the sides as long so the multiplication is performed using long."
+  },
+  "input-output": {
+    "goal": "Read values from input and print only the required answer.",
+    "idea": "Input is information your program receives. Output is information it prints. A coding problem gives you the input format so your program knows what to read, and the output format so you know what to print.",
+    "use": "Let the same program solve different inputs without editing its source code.",
+    "before": [
+      "variables"
+    ],
+    "steps": [
+      {
+        "title": "Create a reader",
+        "text": "Scanner reads from System.in, the standard input supplied by the test case. The import makes Scanner available.",
+        "code": "Scanner sc = new Scanner(System.in);"
+      },
+      {
+        "title": "Read values in the stated order",
+        "text": "nextInt reads one whole number. Two calls read two numbers, even when they are separated by a newline instead of a space.",
+        "code": "int a = sc.nextInt();\nint b = sc.nextInt();"
+      },
+      {
+        "title": "Print a value or join text",
+        "text": "println prints one line. With a String, + joins text. Without a String, + adds numbers. The example below joins a name, a separator, and a count.",
+        "code": "System.out.println(a + b);\nSystem.out.println(\"Score: \" + a);"
+      },
+      {
+        "title": "Read a whole line when spaces matter",
+        "text": "next reads one word; nextLine reads the rest of a line. After nextInt, a pending newline may make the next nextLine return an empty string. Consume that newline before reading a new full line.",
+        "code": "String word = sc.next();"
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Statement",
+        "Value",
+        "What it does"
+      ],
+      "rows": [
+        [
+          "name = \"Monish\"",
+          "Monish",
+          "Store text."
+        ],
+        [
+          "solved = 3",
+          "3",
+          "Store a count."
+        ],
+        [
+          "name + \": \" + solved",
+          "Monish: 3",
+          "Join the parts as text."
+        ],
+        [
+          "println(...)",
+          "Monish: 3",
+          "Print the joined text."
+        ]
+      ]
+    },
+    "remember": "Read exactly what the input format supplies. Print exactly what the output format requests.",
+    "check": {
+      "question": "For input 4 7, what does println(a + b) print after reading a and b?",
+      "answer": "11. Both values are integers, so + performs addition. Printing \"a + b\" in quotes would print those characters instead."
+    },
+    "mistake": "Do not print prompts such as “Enter a number” in judged programs. Those extra words make the output incorrect."
+  },
+  "operators": {
+    "goal": "Use arithmetic, comparisons, and true/false conditions correctly.",
+    "idea": "An operator tells Java what to do with values. For example, + adds numbers, > compares numbers, and && asks whether two conditions are both true.",
+    "use": "Calculate a result and decide whether a condition is satisfied.",
+    "before": [
+      "variables",
+      "input-output"
+    ],
+    "steps": [
+      {
+        "title": "Calculate with numbers",
+        "text": "Use +, -, *, /, and %. When both operands are integers, / gives an integer quotient and % gives the remainder.",
+        "code": "17 / 5  // 3\n17 % 5  // 2"
+      },
+      {
+        "title": "Compare values",
+        "text": "A comparison produces true or false. Use == to compare primitive values and != for “not equal”. A single = performs assignment.",
+        "code": "boolean adult = age >= 18;"
+      },
+      {
+        "title": "Combine conditions",
+        "text": "A && B is true only when both are true. A || B is true when at least one is true. ! reverses a boolean. Java may skip the right side once it knows the result.",
+        "code": "a > 10 && b != 0"
+      },
+      {
+        "title": "Make the order clear",
+        "text": "Multiplication and division happen before addition and subtraction. Parentheses let you explicitly choose a group to evaluate first.",
+        "code": "(2 + 3) * 4  // 20"
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Expression",
+        "Working",
+        "Result"
+      ],
+      "rows": [
+        [
+          "17 / 5",
+          "5 fits into 17 three times",
+          "3"
+        ],
+        [
+          "17 % 5",
+          "17 - 3 × 5",
+          "2"
+        ],
+        [
+          "17 > 10 && 5 != 0",
+          "true && true",
+          "true"
+        ]
+      ]
+    },
+    "remember": "Choose the operator for the job: calculate a number, compare values, or combine boolean conditions.",
+    "check": {
+      "question": "What does 7 / 2 print when both operands are int?",
+      "answer": "3. Integer division discards the fractional part. 7.0 / 2 uses decimal arithmetic and produces 3.5."
+    },
+    "mistake": "Integer division by zero fails at runtime. Put a nonzero check before a division when zero is allowed in the input."
+  },
+  "conditions": {
+    "goal": "Make a program choose the right action for each input.",
+    "idea": "An if-else chain checks conditions in order. Java runs the first matching branch and skips the remaining branches in that chain.",
+    "use": "Classify a number, assign a grade, or choose an action from a menu.",
+    "before": [
+      "operators"
+    ],
+    "steps": [
+      {
+        "title": "Write a condition that gives true or false",
+        "text": "If the condition is true, run the statements inside the braces. Otherwise, skip that block.",
+        "code": "if (score >= 80) {\n    System.out.println(\"A\");\n}"
+      },
+      {
+        "title": "Add other possibilities",
+        "text": "else if is checked only when the earlier condition was false. else handles everything left over. Put stricter grade ranges first.",
+        "code": "if (score >= 80) { ... }\nelse if (score >= 60) { ... }\nelse { ... }"
+      },
+      {
+        "title": "Choose between a chain and separate checks",
+        "text": "Separate if statements can all run. A single if-else chain chooses at most one branch. Decide which behavior the problem needs."
+      },
+      {
+        "title": "Use switch for fixed choices",
+        "text": "switch is useful for exact choices such as menu numbers. In traditional case syntax, break stops execution from falling into the next case. Use if-else for ranges.",
+        "code": "switch (choice) {\n    case 1: System.out.println(\"Start\"); break;\n    default: System.out.println(\"Unknown\");\n}"
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Check for score 72",
+        "Result",
+        "Action"
+      ],
+      "rows": [
+        [
+          "72 >= 80",
+          "false",
+          "Skip A."
+        ],
+        [
+          "72 >= 60",
+          "true",
+          "Print B."
+        ],
+        [
+          "else",
+          "Not reached",
+          "The chain has already chosen B."
+        ]
+      ]
+    },
+    "remember": "Check conditions in a deliberate order and make sure every valid input has a defined outcome.",
+    "check": {
+      "question": "What grade does score 60 get in the example?",
+      "answer": "B, because 60 >= 80 is false and 60 >= 60 is true. The equals part of >= includes the boundary."
+    },
+    "mistake": "Checking score >= 60 before score >= 80 would classify a score of 90 as B in the same chain."
+  },
+  "loops": {
+    "goal": "Repeat an action with a clear start, stopping rule, and update.",
+    "idea": "A loop repeats a block of code. It checks a condition, runs the block if the condition is true, changes something, and checks again.",
+    "use": "Add many values, visit every array item, or print a pattern.",
+    "before": [
+      "conditions"
+    ],
+    "steps": [
+      {
+        "title": "Read the three parts of a for loop",
+        "text": "Start i at 1. Keep going while i <= 4. Increase i after each repetition. The body uses the current value of i.",
+        "code": "for (int i = 1; i <= 4; i++) {\n    // work for this i\n}"
+      },
+      {
+        "title": "Keep a running answer",
+        "text": "An accumulator remembers work from earlier iterations. A sum starts at 0. sum += i means sum = sum + i.",
+        "code": "int sum = 0;\nsum += i;"
+      },
+      {
+        "title": "Know when to use while",
+        "text": "while checks before running. Use it when you repeat until a changing condition becomes false. A do-while checks afterward and runs at least once.",
+        "code": "while (n > 0) {\n    n /= 10;\n}"
+      },
+      {
+        "title": "Check how it stops",
+        "text": "The loop must eventually make its condition false. break exits the loop; continue skips to its next iteration. Trace the smallest allowed input before running a large one."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Iteration",
+        "i",
+        "sum after adding i"
+      ],
+      "rows": [
+        [
+          "Start",
+          "—",
+          "0"
+        ],
+        [
+          "1",
+          "1",
+          "1"
+        ],
+        [
+          "2",
+          "2",
+          "3"
+        ],
+        [
+          "3",
+          "3",
+          "6"
+        ],
+        [
+          "4",
+          "4",
+          "10"
+        ],
+        [
+          "Stop",
+          "5",
+          "Condition is false; print 10."
+        ]
+      ]
+    },
+    "remember": "A correct loop has a starting state, work for one iteration, an update, and a stopping condition.",
+    "check": {
+      "question": "What changes if i <= 4 becomes i < 4?",
+      "answer": "The loop visits 1, 2, and 3, so the sum becomes 6. It skips 4."
+    },
+    "mistake": "Using int for a large running sum can overflow even when each individual input fits in int. Use long when the total needs it."
+  },
+  "tracing": {
+    "goal": "Work out a program’s behavior one statement at a time.",
+    "idea": "A dry run means acting like the computer using paper or a table. You update values in the same order as the program instead of guessing its final output.",
+    "use": "Find the exact statement where your actual result starts to differ from your intended result.",
+    "before": [
+      "loops"
+    ],
+    "steps": [
+      {
+        "title": "Write the starting values",
+        "text": "Make a column for each important variable. Before the example’s loop, x is 2 and total is 0."
+      },
+      {
+        "title": "Follow the statement order",
+        "text": "The example adds the current x to total before increasing x. Reversing these two operations would change the result.",
+        "code": "total += x;\nx += 2;"
+      },
+      {
+        "title": "Record the condition and the final output",
+        "text": "Use one row per iteration. After the last update, check the loop condition again. Printed output is separate from values that stay only in memory."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Point in program",
+        "x after update",
+        "total"
+      ],
+      "rows": [
+        [
+          "Before loop",
+          "2",
+          "0"
+        ],
+        [
+          "After i = 0",
+          "4",
+          "2"
+        ],
+        [
+          "After i = 1",
+          "6",
+          "6"
+        ],
+        [
+          "After i = 2",
+          "8",
+          "12"
+        ],
+        [
+          "i = 3 fails i < 3",
+          "8",
+          "Print 12."
+        ]
+      ]
+    },
+    "remember": "Always trace assignments in their actual execution order.",
+    "check": {
+      "question": "If x starts at 1 instead of 2, what total does the same loop produce?",
+      "answer": "9. The loop adds 1, then 3, then 5. The final x is 7, but x itself is not the printed result."
+    },
+    "mistake": "Do not put the newly increased x into the earlier addition. That would trace a different program."
+  },
+  "number-problems": {
+    "goal": "Break a number into digits and build a result with a loop.",
+    "idea": "You can process a decimal number from right to left. Remainder by 10 gives its final digit; integer division by 10 removes that digit.",
+    "use": "Solve digit sum, digit count, reversal, and number-palindrome problems.",
+    "before": [
+      "operators",
+      "loops"
+    ],
+    "steps": [
+      {
+        "title": "Extract one digit",
+        "text": "For a non-negative integer, n % 10 is the last digit. For 472 it gives 2.",
+        "code": "int digit = n % 10;"
+      },
+      {
+        "title": "Use that digit",
+        "text": "Choose an operation based on the task: add it for a digit sum, count it for digit count, or append it to a reversed number.",
+        "code": "sum += digit;"
+      },
+      {
+        "title": "Remove the digit and repeat",
+        "text": "n / 10 drops the final digit because integer division removes the fractional part. Stop when no digits remain.",
+        "code": "n /= 10;"
+      },
+      {
+        "title": "Handle zero deliberately",
+        "text": "The number 0 has one digit, but while (n > 0) runs zero times for it. A digit sum of 0 is still correct; a digit count needs a separate zero case."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "n before iteration",
+        "Digit",
+        "sum after adding"
+      ],
+      "rows": [
+        [
+          "472",
+          "2",
+          "2"
+        ],
+        [
+          "47",
+          "7",
+          "9"
+        ],
+        [
+          "4",
+          "4",
+          "13"
+        ],
+        [
+          "0",
+          "Stop",
+          "Print 13."
+        ]
+      ]
+    },
+    "remember": "For a non-negative number: % 10 reads the last digit, and / 10 removes it.",
+    "check": {
+      "question": "What is the digit sum of 1002?",
+      "answer": "3. The digits processed are 2, 0, 0, and 1. Zero digits still get removed even though they add nothing."
+    },
+    "mistake": "Processing n destroys its original value. Save a copy first if you need to compare against the original later."
+  },
+  "pattern-problems": {
+    "goal": "Turn a printed pattern into a rule for each row.",
+    "idea": "A pattern becomes easier when you stop looking at the whole picture and describe just one row: how many spaces, how many symbols, then a newline.",
+    "use": "Practise nested loops and learn to convert a visual rule into code.",
+    "before": [
+      "loops",
+      "tracing"
+    ],
+    "steps": [
+      {
+        "title": "Number the rows",
+        "text": "Use row = 1 through n. For a left star triangle, row 1 has one star, row 2 has two, and so on."
+      },
+      {
+        "title": "Print the symbols for one row",
+        "text": "The inner loop prints row stars. print keeps them on the same line.",
+        "code": "for (int col = 1; col <= row; col++) {\n    System.out.print(\"*\");\n}"
+      },
+      {
+        "title": "Move to the next line once",
+        "text": "Call println after the inner loop, not inside it. The outer loop then chooses the next row.",
+        "code": "System.out.println();"
+      },
+      {
+        "title": "Add spaces only when the pattern needs them",
+        "text": "A right-aligned triangle needs n - row spaces before its row stars. Work out those two counts before writing the loops."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "row",
+        "Number of stars",
+        "Printed line"
+      ],
+      "rows": [
+        [
+          "1",
+          "1",
+          "*"
+        ],
+        [
+          "2",
+          "2",
+          "**"
+        ],
+        [
+          "3",
+          "3",
+          "***"
+        ]
+      ]
+    },
+    "remember": "Outer loop: choose the row. Inner loop: print that row. Newline: finish the row.",
+    "check": {
+      "question": "How many stars does the left triangle print in total for n = 3?",
+      "answer": "6: one on the first row, two on the second, and three on the third."
+    },
+    "mistake": "println inside the inner loop would put each star on a separate line instead of forming a row."
+  },
+  "methods": {
+    "goal": "Put a reusable calculation behind a meaningful name.",
+    "idea": "A method is a named block of code. You give it inputs called arguments, it does a job, and it may return a result to the place that called it.",
+    "use": "Avoid copying the same calculation and test one small operation at a time.",
+    "before": [
+      "loops"
+    ],
+    "steps": [
+      {
+        "title": "Read a method declaration",
+        "text": "In static int square(int x), square is the name, int x is the input parameter, and the first int says the returned result is a whole number.",
+        "code": "static int square(int x) {\n    return x * x;\n}"
+      },
+      {
+        "title": "Call it with a value",
+        "text": "square(5) gives the parameter x the value 5. The method computes 25 and returns it. Think of the call as becoming its returned value.",
+        "code": "int answer = square(5);"
+      },
+      {
+        "title": "Separate returning from printing",
+        "text": "return sends a value to the caller. println displays a value. A method can return something without printing anything.",
+        "code": "System.out.println(answer);"
+      },
+      {
+        "title": "Understand copied arguments",
+        "text": "Java passes arguments by value. A primitive parameter receives a copy of the caller’s value. Changing that parameter does not change the caller’s primitive variable."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Step",
+        "Inside the method",
+        "Back in main"
+      ],
+      "rows": [
+        [
+          "Call square(5)",
+          "x receives 5",
+          "Wait for the result."
+        ],
+        [
+          "Calculate x * x",
+          "5 × 5 = 25",
+          "Still waiting."
+        ],
+        [
+          "Return 25",
+          "Method finishes",
+          "println prints 25."
+        ]
+      ]
+    },
+    "remember": "Give each method a clear job, clear inputs, and a clear result.",
+    "check": {
+      "question": "If square(3) is called without printing or saving the result, does 9 appear on screen?",
+      "answer": "No. The method returns 9, but nothing prints it. You need println(square(3)) to display it."
+    },
+    "mistake": "A method declared to return int must return an int on every possible path. void means there is no returned value."
+  },
+  "arrays": {
+    "goal": "Store several values and visit them safely by index.",
+    "idea": "An array stores a fixed number of values of one type. Each position has an index. In Java, the first index is 0, not 1.",
+    "use": "Keep marks, prices, or other sequences and calculate totals, counts, or positions.",
+    "before": [
+      "loops",
+      "methods"
+    ],
+    "steps": [
+      {
+        "title": "Create an array",
+        "text": "The values 4, 2, and 7 occupy indexes 0, 1, and 2. a.length is 3.",
+        "code": "int[] a = {4, 2, 7};"
+      },
+      {
+        "title": "Read or change a position",
+        "text": "Use a[index] to access an element. The final valid index is length - 1.",
+        "code": "int first = a[0];\na[1] = 5;"
+      },
+      {
+        "title": "Visit all values",
+        "text": "An enhanced for loop gives you each value in order. Use an index loop when you need positions or want to replace elements.",
+        "code": "for (int x : a) {\n    sum += x;\n}"
+      },
+      {
+        "title": "Consider an empty array",
+        "text": "An empty array has length 0. A loop can safely run zero times, but a[0] does not exist. Check length before accessing it."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Visited value",
+        "Calculation",
+        "sum"
+      ],
+      "rows": [
+        [
+          "Before loop",
+          "Start at zero",
+          "0"
+        ],
+        [
+          "4",
+          "0 + 4",
+          "4"
+        ],
+        [
+          "2",
+          "4 + 2",
+          "6"
+        ],
+        [
+          "7",
+          "6 + 7",
+          "13"
+        ]
+      ]
+    },
+    "remember": "For an array of length n, valid indexes are 0 through n - 1.",
+    "check": {
+      "question": "For int[] a = {4, 2, 7}, what are a[1] and a.length?",
+      "answer": "a[1] is 2, and a.length is 3. The index identifies a position; length counts all positions."
+    },
+    "mistake": "Use i < a.length in an index loop. i <= a.length tries to access one position beyond the array."
+  },
+  "strings": {
+    "goal": "Read characters, compare text, and take a part of a String.",
+    "idea": "A String stores text. You can read its characters, find its length, and create new text from it. A String’s existing contents cannot be changed in place.",
+    "use": "Work with names, words, and text-based problem inputs.",
+    "before": [
+      "arrays"
+    ],
+    "steps": [
+      {
+        "title": "Read the length and a character",
+        "text": "length() gives the number of UTF-16 units. For basic English text this matches the character count. charAt uses a zero-based index.",
+        "code": "String text = \"Java\";\ntext.length();  // 4\ntext.charAt(0); // J"
+      },
+      {
+        "title": "Take a substring",
+        "text": "substring(start, end) includes start and excludes end. substring(1, 3) takes indexes 1 and 2.",
+        "code": "text.substring(1, 3); // av"
+      },
+      {
+        "title": "Compare content with equals",
+        "text": "Use equals to ask whether two Strings have the same content. == asks whether the references identify the same object.",
+        "code": "text.equals(\"Java\"); // true"
+      },
+      {
+        "title": "Save a changed result",
+        "text": "Methods such as toUpperCase return another String; they do not edit the original String in place.",
+        "code": "String upper = text.toUpperCase();"
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "Which part is used?",
+        "Result"
+      ],
+      "rows": [
+        [
+          "length()",
+          "J, a, v, a",
+          "4"
+        ],
+        [
+          "substring(1, 3)",
+          "a at 1, v at 2",
+          "av"
+        ],
+        [
+          "equals(\"Java\")",
+          "All text content",
+          "true"
+        ]
+      ]
+    },
+    "remember": "String indexes start at zero. For substring, the end index is excluded.",
+    "check": {
+      "question": "What does \"hello\".substring(1, 4) return?",
+      "answer": "ell: the characters at indexes 1, 2, and 3. Index 4 is excluded."
+    },
+    "mistake": "Calling a String method does not automatically update your variable. Store the returned result when you want to use the changed text."
+  },
+  "stringbuilder": {
+    "goal": "Build text by adding or changing pieces without creating a new String for every edit.",
+    "idea": "StringBuilder is a changeable text buffer. Its methods update the builder itself, so it is useful when a loop creates a long answer piece by piece.",
+    "use": "Collect many output values, reverse text, or construct a pattern.",
+    "before": [
+      "strings",
+      "loops"
+    ],
+    "steps": [
+      {
+        "title": "Start with a builder",
+        "text": "A builder can start empty or with existing text. It is an object, so create it with new.",
+        "code": "StringBuilder b = new StringBuilder();"
+      },
+      {
+        "title": "Append pieces",
+        "text": "append adds to the end and returns the same builder, so calls can be chained. Spaces must be added deliberately.",
+        "code": "b.append(\"Java\").append(\" \").append(17);"
+      },
+      {
+        "title": "Convert when you need a String",
+        "text": "toString returns a String containing the current text. Methods such as reverse and setCharAt change the builder.",
+        "code": "String result = b.toString();"
+      },
+      {
+        "title": "Keep spacing exact",
+        "text": "If the problem says reverse the entire line, spaces are part of that line. Do not trim them away before or after reversing."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "Builder contents",
+        "Length"
+      ],
+      "rows": [
+        [
+          "new StringBuilder()",
+          "Empty",
+          "0"
+        ],
+        [
+          "append(\"Java\")",
+          "Java",
+          "4"
+        ],
+        [
+          "append(\" \")",
+          "Java followed by a space",
+          "5"
+        ],
+        [
+          "append(17)",
+          "Java 17",
+          "7"
+        ]
+      ]
+    },
+    "remember": "append changes the builder. toString gives you its current text as a String.",
+    "check": {
+      "question": "What does a new builder produce after append(\"a\"), append(2), append(\"b\")?",
+      "answer": "a2b. Appending a number adds its text representation; it does not perform arithmetic with the previous text."
+    },
+    "mistake": "Every space matters in the reverse-line challenge. A leading space in the input becomes a trailing space in the output."
+  },
+  "array-problems": {
+    "goal": "Turn a task about an array into a clear rule for each element.",
+    "idea": "Array problems usually ask you to scan, count, rearrange, or compare values. Decide what you are keeping track of before writing the loop.",
+    "use": "Solve counting, maximum, movement, and filtering problems using a small amount of extra state.",
+    "before": [
+      "arrays",
+      "tracing"
+    ],
+    "steps": [
+      {
+        "title": "State the goal precisely",
+        "text": "In the example, move nonzero values to the front in their original order and put zeros at the end. For [0, 3, 0, 2], the goal is [3, 2, 0, 0]."
+      },
+      {
+        "title": "Separate reading from writing",
+        "text": "The loop reads each value. write records the next position where a kept value should go. Read zeros but do not write them.",
+        "code": "if (x != 0) {\n    a[write] = x;\n    write++;\n}"
+      },
+      {
+        "title": "Finish the remaining positions",
+        "text": "After keeping 3 and 2, write is 2. Fill indexes 2 and 3 with zeros. The kept prefix is already correct."
+      },
+      {
+        "title": "Say what stays true",
+        "text": "Before each iteration, positions before write contain the nonzero values seen so far, in order. This is an invariant: a fact the loop keeps true."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Read value",
+        "Next write position",
+        "Kept values"
+      ],
+      "rows": [
+        [
+          "Start",
+          "0",
+          "None"
+        ],
+        [
+          "0",
+          "0",
+          "None"
+        ],
+        [
+          "3",
+          "1",
+          "3"
+        ],
+        [
+          "0",
+          "1",
+          "3"
+        ],
+        [
+          "2",
+          "2",
+          "3, 2"
+        ],
+        [
+          "Fill remaining positions",
+          "4",
+          "Final array: [3, 2, 0, 0]"
+        ]
+      ]
+    },
+    "remember": "Choose a small piece of state, such as a count or write position, and explain exactly what it means.",
+    "check": {
+      "question": "Why does the write position not increase when the value is zero?",
+      "answer": "A zero is not kept in the front part. Increasing write would leave a gap and break the rule that all kept values occupy the prefix."
+    },
+    "mistake": "Changing an array while reading it is safe only when you can prove that writes will not destroy values you still need to read."
+  },
+  "string-problems": {
+    "goal": "Translate a text task into character operations and clear rules.",
+    "idea": "For a string problem, first decide what counts as the same character. Then choose whether to compare positions, count occurrences, or build new text.",
+    "use": "Check palindromes, count letters, compare anagrams, or find repeated characters.",
+    "before": [
+      "strings",
+      "arrays"
+    ],
+    "steps": [
+      {
+        "title": "Read the character rules",
+        "text": "Lowercase a–z permits a 26-slot count array. Mixed case, spaces, or other scripts need different handling. Never ignore characters unless the task permits it."
+      },
+      {
+        "title": "Map a letter to a slot",
+        "text": "For lowercase English letters, c - 'a' maps a to 0, b to 1, and z to 25. This works because those character codes are consecutive.",
+        "code": "count[c - 'a']++;"
+      },
+      {
+        "title": "Use the stored information",
+        "text": "For banana, counting every character stores a: 3, n: 2, b: 1. The example prints the count for a."
+      },
+      {
+        "title": "Choose comparison when order matters",
+        "text": "A palindrome reads the same forward and backward. Compare the first and last characters, then move inward. Equal counts alone do not prove a palindrome."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Character processed",
+        "a count",
+        "Other counts"
+      ],
+      "rows": [
+        [
+          "b",
+          "0",
+          "b: 1"
+        ],
+        [
+          "a",
+          "1",
+          "b: 1"
+        ],
+        [
+          "n",
+          "1",
+          "n: 1, b: 1"
+        ],
+        [
+          "a",
+          "2",
+          "n: 1, b: 1"
+        ],
+        [
+          "n",
+          "2",
+          "n: 2, b: 1"
+        ],
+        [
+          "a",
+          "3",
+          "Print 3."
+        ]
+      ]
+    },
+    "remember": "Choose your operation from the actual text rule: positions for order, counts for frequency.",
+    "check": {
+      "question": "Do \"aab\" and \"aba\" have the same letter counts? Are they both palindromes?",
+      "answer": "Their counts match: two a characters and one b. Only aba is a palindrome. Frequency does not capture order."
+    },
+    "mistake": "A 26-slot array with c - 'a' is only safe when every character is a lowercase English letter."
+  },
+  "edge-cases": {
+    "goal": "Test the smallest, largest, and unusual valid inputs.",
+    "idea": "An edge case is an input that exposes an assumption in your solution. It may be empty, contain just one value, use a boundary number, or contain only negative values.",
+    "use": "Catch mistakes that a normal example does not reveal.",
+    "before": [
+      "arrays",
+      "conditions"
+    ],
+    "steps": [
+      {
+        "title": "List what the input allows",
+        "text": "Can the array be empty? Can values be negative or repeated? These are facts from the problem statement, not guesses."
+      },
+      {
+        "title": "Initialize from a valid starting point",
+        "text": "To find the maximum of a nonempty array, starting at a[0] means the answer begins as a real value from the input.",
+        "code": "int best = a[0];"
+      },
+      {
+        "title": "Trace a case that could break your assumption",
+        "text": "For [-7, -3, -9], starting best at 0 would incorrectly keep 0. The example starts at -7, so -3 correctly replaces it."
+      },
+      {
+        "title": "Handle empty data before accessing it",
+        "text": "When n = 0 is allowed, a[0] is invalid. Decide the specified empty result before entering the normal maximum calculation."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Action",
+        "best",
+        "Reason"
+      ],
+      "rows": [
+        [
+          "Initialize from first value",
+          "-7",
+          "It is a real input value."
+        ],
+        [
+          "Compare -7",
+          "-7",
+          "Equal; no change."
+        ],
+        [
+          "Compare -3",
+          "-3",
+          "-3 is greater than -7."
+        ],
+        [
+          "Compare -9",
+          "-3",
+          "-9 is smaller."
+        ]
+      ]
+    },
+    "remember": "Create a test that targets each assumption, not just several similar normal examples.",
+    "check": {
+      "question": "Why is 0 a bad initial maximum for an all-negative array?",
+      "answer": "0 is greater than every input value but is not present in the array. It prevents the answer from becoming the actual maximum."
+    },
+    "mistake": "Do not access a[0] until you know the array is nonempty. “No answer exists” needs its own defined output."
+  },
+  "mathematical-logic": {
+    "goal": "Turn a mathematical rule into a reliable algorithm.",
+    "idea": "A mathematical fact can let you skip unnecessary work. First understand why it is true, then translate it into operations that preserve that fact.",
+    "use": "Solve divisibility, greatest-common-divisor, prime, and counting problems more efficiently.",
+    "before": [
+      "number-problems",
+      "methods"
+    ],
+    "steps": [
+      {
+        "title": "Understand the question",
+        "text": "The greatest common divisor, or GCD, is the largest positive integer that divides both values. For 24 and 18, it is 6."
+      },
+      {
+        "title": "Use an equivalent smaller question",
+        "text": "For positive b, gcd(a, b) equals gcd(b, a % b). A common divisor is unchanged when you subtract whole multiples of one number from the other."
+      },
+      {
+        "title": "Repeat until the remainder is zero",
+        "text": "When b becomes 0, a is the answer. For a nonzero a, gcd(a, 0) is a.",
+        "code": "int r = a % b;\na = b;\nb = r;"
+      },
+      {
+        "title": "Check arithmetic limits",
+        "text": "A mathematically valid formula can still overflow a Java type. For a divisor loop, i <= n / i avoids computing an overflowing i * i when n is positive."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "a",
+        "b",
+        "Next remainder"
+      ],
+      "rows": [
+        [
+          "24",
+          "18",
+          "6"
+        ],
+        [
+          "18",
+          "6",
+          "0"
+        ],
+        [
+          "6",
+          "0",
+          "Stop; GCD is 6."
+        ]
+      ]
+    },
+    "remember": "A good mathematical shortcut replaces the original problem with a smaller equivalent problem.",
+    "check": {
+      "question": "What is gcd(8, 0), and does the loop run?",
+      "answer": "The answer is 8. The loop condition b != 0 is already false, so the program immediately uses a."
+    },
+    "mistake": "The challenge excludes (0, 0). Respect that contract instead of inventing an answer for an input the problem does not define."
+  },
+  "oop": {
+    "goal": "Group related values and actions into an object.",
+    "idea": "A class describes what an object stores and what it can do. An object is one instance of that class, with its own state.",
+    "use": "Model a rectangle, counter, student, or another thing whose data and operations belong together.",
+    "before": [
+      "methods"
+    ],
+    "steps": [
+      {
+        "title": "Separate the class from its objects",
+        "text": "A class is a description. new Counter() creates one Counter object. Creating a second one gives it a separate value field.",
+        "code": "Counter c = new Counter();"
+      },
+      {
+        "title": "Store state in fields",
+        "text": "A field belongs to an object. In the example, private int value starts at 0. private stops code outside the Counter class from directly accessing that field."
+      },
+      {
+        "title": "Expose meaningful actions",
+        "text": "increment changes the stored value; get returns it. The object controls how its state can be changed. This is a simple example of encapsulation.",
+        "code": "c.increment();\nSystem.out.println(c.get());"
+      },
+      {
+        "title": "Initialize objects with constructors",
+        "text": "A constructor runs when you use new. It can receive starting values, such as a Rectangle’s width and height. It has the class’s name and no return type."
+      },
+      {
+        "title": "Add inheritance and interfaces after the basics",
+        "text": "Inheritance describes an “is a” relationship. An interface describes actions an implementing class promises to provide. Start by understanding fields, methods, and independent objects before combining these ideas."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Action",
+        "c.value",
+        "Result"
+      ],
+      "rows": [
+        [
+          "new Counter()",
+          "0",
+          "Create one object."
+        ],
+        [
+          "First increment()",
+          "1",
+          "Change that object."
+        ],
+        [
+          "Second increment()",
+          "2",
+          "Change it again."
+        ],
+        [
+          "get()",
+          "2",
+          "Return 2; println displays it."
+        ]
+      ]
+    },
+    "remember": "A class defines state and behavior. Each ordinary instance field belongs to a particular object.",
+    "check": {
+      "question": "If you create counters a and b and call a.increment(), what does b.get() return?",
+      "answer": "0. The two objects have separate instance fields. Increasing a does not increase b."
+    },
+    "mistake": "A static field is shared by the class, unlike an instance field. Making a counter’s value static would make its objects share one count."
+  },
+  "recursion-basics": {
+    "goal": "Understand a method that solves a smaller version of its own task.",
+    "idea": "Recursion happens when a method calls itself. Each call gets its own parameters and waits for smaller calls to return before it finishes.",
+    "use": "Solve naturally nested tasks, then prepare for trees and backtracking.",
+    "before": [
+      "methods",
+      "conditions"
+    ],
+    "steps": [
+      {
+        "title": "Define what one call means",
+        "text": "sum(n) means the sum of integers from 1 through n. This precise meaning tells you what the method must return."
+      },
+      {
+        "title": "Choose the stopping case",
+        "text": "The sum through 0 is 0. Return immediately here so recursion has a stopping point. This is the base case.",
+        "code": "if (n == 0) return 0;"
+      },
+      {
+        "title": "Make the problem smaller",
+        "text": "For n > 0, sum(n) is n plus sum(n - 1). Every call moves closer to 0.",
+        "code": "return n + sum(n - 1);"
+      },
+      {
+        "title": "Follow the return journey",
+        "text": "sum(4) waits for sum(3). After reaching sum(0), results return upward: 0, 1, 3, 6, 10. Waiting calls use call-stack memory."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Call",
+        "What it waits for",
+        "Returned value"
+      ],
+      "rows": [
+        [
+          "sum(0)",
+          "Nothing; base case",
+          "0"
+        ],
+        [
+          "sum(1)",
+          "1 + sum(0)",
+          "1"
+        ],
+        [
+          "sum(2)",
+          "2 + sum(1)",
+          "3"
+        ],
+        [
+          "sum(3)",
+          "3 + sum(2)",
+          "6"
+        ],
+        [
+          "sum(4)",
+          "4 + sum(3)",
+          "10"
+        ]
+      ]
+    },
+    "remember": "Every recursive solution needs a correct base case and progress toward it.",
+    "check": {
+      "question": "What goes wrong if sum(n) calls sum(n) again instead of sum(n - 1)?",
+      "answer": "The argument never gets smaller. For positive n, the base case is never reached and the growing call stack eventually overflows."
+    },
+    "mistake": "Do not trace every recursive call as if it shared one local variable. Each call has its own parameters and local state."
+  },
+  "complexity": {
+    "goal": "Describe how work and extra memory grow when input grows.",
+    "idea": "Complexity is about growth, not an exact stopwatch time. Big O describes an upper bound on how the work or memory increases as the input size increases.",
+    "use": "Compare a simple solution with an improved one and check whether it can handle the allowed input size.",
+    "before": [
+      "loops",
+      "recursion-basics"
+    ],
+    "steps": [
+      {
+        "title": "Define n before counting",
+        "text": "n might mean the number of array items, the string length, or a numeric value. Say which one you mean."
+      },
+      {
+        "title": "Count repeated work",
+        "text": "A single scan of n values is O(n). Visiting every pair with two full nested loops is O(n²). A constant number of operations is O(1)."
+      },
+      {
+        "title": "Recognize repeated halving",
+        "text": "When x becomes x / 2 each time, it takes about log₂(n) halvings to reach zero. Doubling n adds about one iteration, rather than doubling the loop count."
+      },
+      {
+        "title": "Count extra storage too",
+        "text": "An extra array of n values uses O(n) auxiliary space. A few variables use O(1). Recursion uses memory for the calls still waiting to return."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Iteration",
+        "x at the start",
+        "steps after increment"
+      ],
+      "rows": [
+        [
+          "1",
+          "8",
+          "1"
+        ],
+        [
+          "2",
+          "4",
+          "2"
+        ],
+        [
+          "3",
+          "2",
+          "3"
+        ],
+        [
+          "4",
+          "1",
+          "4"
+        ],
+        [
+          "Stop",
+          "0",
+          "Print 4."
+        ]
+      ]
+    },
+    "remember": "Ask two separate questions: how much repeated work grows, and how much extra memory grows.",
+    "check": {
+      "question": "If n changes from 8 to 16 in this example, how many iterations run?",
+      "answer": "5 instead of 4. The values are 16, 8, 4, 2, and 1. This is the growth pattern of a logarithmic loop."
+    },
+    "mistake": "Two nested loops are not automatically O(n²). Inspect their bounds and how often the inner work actually runs."
+  },
+  "arraylist": {
+    "goal": "Use a list that grows while keeping values in order.",
+    "idea": "ArrayList is a resizable list. Like an array, it gives each item an index; unlike a fixed array, its size can grow when you add items.",
+    "use": "Collect a result when you do not know its final size in advance.",
+    "before": [
+      "arrays",
+      "oop"
+    ],
+    "steps": [
+      {
+        "title": "Choose the element type",
+        "text": "Collections store object types. Use Integer for integer values rather than the primitive type int. Java usually converts between them automatically.",
+        "code": "List<Integer> a = new ArrayList<>();"
+      },
+      {
+        "title": "Add and access items",
+        "text": "add appends a value, get reads by index, and set replaces an existing indexed value. size() counts stored items.",
+        "code": "a.add(4);\na.get(0); // 4"
+      },
+      {
+        "title": "Distinguish removal by index and value",
+        "text": "For List<Integer>, remove(1) removes the item at index 1. remove(Integer.valueOf(7)) removes the first matching value 7.",
+        "code": "a.remove(Integer.valueOf(7));"
+      },
+      {
+        "title": "Know the main cost",
+        "text": "Indexed access is constant time. Inserting or deleting in the middle shifts later items. Appending is fast on average, but occasional growth copies the backing array."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "List",
+        "Size"
+      ],
+      "rows": [
+        [
+          "Start",
+          "[]",
+          "0"
+        ],
+        [
+          "Add 4, 7, 9",
+          "[4, 7, 9]",
+          "3"
+        ],
+        [
+          "Remove the value 7",
+          "[4, 9]",
+          "2"
+        ],
+        [
+          "Print",
+          "[4, 9]",
+          "2"
+        ]
+      ]
+    },
+    "remember": "ArrayList grows dynamically, but its indexes still run from 0 through size() - 1.",
+    "check": {
+      "question": "What does remove(1) remove from [4, 7, 9]?",
+      "answer": "The value 7, because it is at index 1. It does not mean “find and remove the number 1”."
+    },
+    "mistake": "Creating a list with an initial capacity does not create that many elements. Use add before accessing a new index."
+  },
+  "linkedlist-api": {
+    "goal": "Use Java’s LinkedList methods to work with both ends of a list.",
+    "idea": "Java LinkedList stores linked nodes behind a ready-made collection API. Each node connects to its neighbors, so you can add or remove values at either end.",
+    "use": "Practise list and deque operations. A later topic teaches you to build the links yourself.",
+    "before": [
+      "arraylist"
+    ],
+    "steps": [
+      {
+        "title": "Create the collection",
+        "text": "Declare which element type the LinkedList holds. The empty list has no first or last element.",
+        "code": "LinkedList<Integer> list = new LinkedList<>();"
+      },
+      {
+        "title": "Choose the end you mean",
+        "text": "addFirst inserts at the front. addLast appends at the back. These names describe both the action and the position.",
+        "code": "list.addLast(2);\nlist.addFirst(1);"
+      },
+      {
+        "title": "Read and remove deliberately",
+        "text": "removeFirst returns the first value and removes it. getFirst reads without removal. These operations throw if the list is empty; pollFirst returns null instead."
+      },
+      {
+        "title": "Do not assume fast indexed access",
+        "text": "To reach an arbitrary index, the linked list must walk through nodes. ArrayList is usually more suitable when frequent indexed access is the goal."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "List order",
+        "Returned value"
+      ],
+      "rows": [
+        [
+          "addLast(2)",
+          "[2]",
+          "—"
+        ],
+        [
+          "addFirst(1)",
+          "[1, 2]",
+          "—"
+        ],
+        [
+          "addLast(3)",
+          "[1, 2, 3]",
+          "—"
+        ],
+        [
+          "removeFirst()",
+          "[2, 3]",
+          "1"
+        ]
+      ]
+    },
+    "remember": "Choose an operation by its end: first or last. A linked list’s index access requires traversal.",
+    "check": {
+      "question": "What remains after removeLast() is called on [1, 2, 3]?",
+      "answer": "[1, 2] remains, and the call returns 3."
+    },
+    "mistake": "Removing from an empty list is not the same as removing a zero. Check emptiness or use a method whose empty behavior you understand."
+  },
+  "hashmap": {
+    "goal": "Store a value for each key and update it efficiently.",
+    "idea": "A HashMap connects a key to a value. Each key appears at most once. Putting a new value under an existing key replaces the old value for that key.",
+    "use": "Count frequencies or look up information by a name, number, or other key.",
+    "before": [
+      "arraylist",
+      "oop"
+    ],
+    "steps": [
+      {
+        "title": "Name the key and value types",
+        "text": "In Map<String, Integer>, the key is text and the value is an integer. Think of “java” as a label for its current count.",
+        "code": "Map<String, Integer> count = new HashMap<>();"
+      },
+      {
+        "title": "Start missing keys from zero",
+        "text": "getOrDefault(key, 0) returns the stored value, or 0 if the key is missing. This avoids trying to add to a missing Integer value."
+      },
+      {
+        "title": "Store the updated value",
+        "text": "For each word, read its old count, add one, then put the new count back under that same key.",
+        "code": "count.put(word, count.getOrDefault(word, 0) + 1);"
+      },
+      {
+        "title": "Choose between key lookup and ordered traversal",
+        "text": "HashMap is useful for quick key lookup. It does not promise insertion order or sorted order when you iterate through entries."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Word",
+        "Old count",
+        "Map after update"
+      ],
+      "rows": [
+        [
+          "java",
+          "0",
+          "java: 1"
+        ],
+        [
+          "sql",
+          "0",
+          "java: 1, sql: 1"
+        ],
+        [
+          "java",
+          "1",
+          "java: 2, sql: 1"
+        ],
+        [
+          "get(\"java\")",
+          "2",
+          "Print 2."
+        ]
+      ]
+    },
+    "remember": "One key has one current value. Counting means repeatedly replacing that value with old count + 1.",
+    "check": {
+      "question": "After put(\"x\", 2) followed by put(\"x\", 5), what are size() and get(\"x\")?",
+      "answer": "The size is 1 and the value is 5. The second put updates the existing key instead of adding a second x key."
+    },
+    "mistake": "get on a missing key returns null. Use getOrDefault or check the key before using the result in arithmetic."
+  },
+  "hashset": {
+    "goal": "Keep only distinct values and test whether you have seen one before.",
+    "idea": "A HashSet stores values without duplicates. It answers a simple question: is this value already present?",
+    "use": "Count unique items, detect duplicates, or remember values already processed.",
+    "before": [
+      "hashmap"
+    ],
+    "steps": [
+      {
+        "title": "Create a set of the right type",
+        "text": "A set stores elements, not key-value pairs. For integer elements, use Integer.",
+        "code": "Set<Integer> seen = new HashSet<>();"
+      },
+      {
+        "title": "Notice what add returns",
+        "text": "add returns true when the value is new. It returns false when the same value was already present.",
+        "code": "seen.add(4); // true first time"
+      },
+      {
+        "title": "Ask about membership or count",
+        "text": "contains checks whether a value is present. size counts distinct stored values, not the number of attempted insertions.",
+        "code": "seen.contains(4); // true"
+      },
+      {
+        "title": "Use a map when you need counts",
+        "text": "A set can tell you whether 4 occurred, but not how many times it occurred. Use a frequency map for that."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "Set contents",
+        "Returned result"
+      ],
+      "rows": [
+        [
+          "add(4)",
+          "{4}",
+          "true"
+        ],
+        [
+          "add(4) again",
+          "{4}",
+          "false"
+        ],
+        [
+          "size()",
+          "{4}",
+          "1"
+        ]
+      ]
+    },
+    "remember": "A set remembers presence; a map can remember additional information such as frequency.",
+    "check": {
+      "question": "What is the set size after adding 2, 2, 3, and 2?",
+      "answer": "2. Its distinct elements are 2 and 3."
+    },
+    "mistake": "HashSet does not promise a sorted or insertion-preserving iteration order. Do not use that order as part of your answer."
+  },
+  "deque-api": {
+    "goal": "Use a Deque as a stack and understand which value comes out first.",
+    "idea": "A stack removes the most recently added value first. This rule is called LIFO: last in, first out. Java’s Deque interface supports this behavior through push, pop, and peek.",
+    "use": "Manage nested work, undo steps, and the most recent unresolved item.",
+    "before": [
+      "linkedlist-api"
+    ],
+    "steps": [
+      {
+        "title": "Create a stack using ArrayDeque",
+        "text": "Deque describes the operations; ArrayDeque is the implementation. This is generally preferred over the older Stack class.",
+        "code": "Deque<Integer> stack = new ArrayDeque<>();"
+      },
+      {
+        "title": "Put values onto the top",
+        "text": "push adds at the front. After pushing 2 and then 5, 5 is the top value.",
+        "code": "stack.push(2);\nstack.push(5);"
+      },
+      {
+        "title": "Distinguish pop from peek",
+        "text": "pop removes and returns the top. peek returns the top without removing it. Check emptiness before pop."
+      },
+      {
+        "title": "Keep the end convention consistent",
+        "text": "Do not mix stack push/pop with unrelated opposite-end removals unless you intentionally want different behavior. ArrayDeque also supports queue operations."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "Stack, top first",
+        "Returned value"
+      ],
+      "rows": [
+        [
+          "push(2)",
+          "[2]",
+          "—"
+        ],
+        [
+          "push(5)",
+          "[5, 2]",
+          "—"
+        ],
+        [
+          "pop()",
+          "[2]",
+          "5"
+        ],
+        [
+          "peek()",
+          "[2]",
+          "2"
+        ]
+      ]
+    },
+    "remember": "push adds the newest item; pop removes that newest item; peek only observes it.",
+    "check": {
+      "question": "After pushing 1, 2, and 3, what do two pop calls return?",
+      "answer": "3 and then 2. The stack still contains 1."
+    },
+    "mistake": "pop on an empty deque throws. Also, ArrayDeque does not allow null elements."
+  },
+  "queue-api": {
+    "goal": "Process values in the order they arrive.",
+    "idea": "A queue removes the earliest waiting value first. This rule is FIFO: first in, first out, like an orderly line of people.",
+    "use": "Process tasks in arrival order and prepare for breadth-first search.",
+    "before": [
+      "deque-api"
+    ],
+    "steps": [
+      {
+        "title": "Create the queue",
+        "text": "Declare the Queue interface with an ArrayDeque implementation.",
+        "code": "Queue<String> q = new ArrayDeque<>();"
+      },
+      {
+        "title": "Add at the back",
+        "text": "offer adds a new waiting item. If A is offered before B, A must be processed first.",
+        "code": "q.offer(\"A\");\nq.offer(\"B\");"
+      },
+      {
+        "title": "Remove or inspect the front",
+        "text": "poll returns and removes the front. peek returns it without removal. Both return null when the queue is empty."
+      },
+      {
+        "title": "Compare with a stack",
+        "text": "A stack would take B first. This queue takes A first. The names queue and stack describe different processing rules."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "Queue, front first",
+        "Returned value"
+      ],
+      "rows": [
+        [
+          "offer(\"A\")",
+          "[A]",
+          "—"
+        ],
+        [
+          "offer(\"B\")",
+          "[A, B]",
+          "—"
+        ],
+        [
+          "poll()",
+          "[B]",
+          "A"
+        ],
+        [
+          "peek()",
+          "[B]",
+          "B"
+        ]
+      ]
+    },
+    "remember": "offer joins the back; poll removes the front. The earliest waiting value leaves first.",
+    "check": {
+      "question": "What is left after offering 4, 9, 2 and polling once?",
+      "answer": "[9, 2]. The poll returns 4 because it arrived first."
+    },
+    "mistake": "Do not use push when you intend normal FIFO insertion. push adds at the front and can reverse the processing order."
+  },
+  "priorityqueue": {
+    "goal": "Always take the smallest waiting value first.",
+    "idea": "A PriorityQueue chooses by priority rather than arrival order. Java’s default numeric priority queue puts the smallest value at the head.",
+    "use": "Repeatedly process the smallest cost or keep track of the best candidates.",
+    "before": [
+      "queue-api"
+    ],
+    "steps": [
+      {
+        "title": "Insert values without manually sorting",
+        "text": "offer adds a value and updates the internal heap. Inserting 8, 2, and 5 makes 2 the head.",
+        "code": "PriorityQueue<Integer> pq = new PriorityQueue<>();\npq.offer(8); pq.offer(2); pq.offer(5);"
+      },
+      {
+        "title": "Read or remove the best value",
+        "text": "peek reads the head. poll removes it, allowing the next-smallest value to become the head.",
+        "code": "pq.poll(); // 2\npq.peek(); // 5"
+      },
+      {
+        "title": "Do not confuse the heap with a sorted list",
+        "text": "Iterating over the queue does not guarantee sorted order. Repeatedly polling does produce priority order. Insertion and removal cost O(log n); peek costs O(1)."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Operation",
+        "Remaining values",
+        "Head"
+      ],
+      "rows": [
+        [
+          "Insert 8, 2, 5",
+          "8, 2, 5",
+          "2"
+        ],
+        [
+          "poll returns 2",
+          "8, 5",
+          "5"
+        ],
+        [
+          "peek returns 5",
+          "8, 5",
+          "5"
+        ]
+      ]
+    },
+    "remember": "A priority queue exposes the best-priority item, not the earliest arrival.",
+    "check": {
+      "question": "If you offer 9, then 1, then 4, which number does poll return?",
+      "answer": "1. Numeric priority, rather than insertion time, determines the head."
+    },
+    "mistake": "Printing the queue directly does not give you a guaranteed sorted sequence. Poll repeatedly if the output must be ordered."
+  },
+  "comparator": {
+    "goal": "Tell Java what “comes before” means for your data.",
+    "idea": "A comparator compares two values according to your rule. Its result is negative when the first should come before the second, zero for an ordering tie, and positive when it should come after.",
+    "use": "Sort words by length, students by marks, or tasks by priority.",
+    "before": [
+      "arraylist",
+      "priorityqueue"
+    ],
+    "steps": [
+      {
+        "title": "Choose the main comparison",
+        "text": "To put shorter words first, compare their lengths. comparingInt creates this comparator for you.",
+        "code": "Comparator.comparingInt(String::length)"
+      },
+      {
+        "title": "Decide how to break ties",
+        "text": "kiwi and pear both have length 4. thenComparing adds another rule: alphabetical order when the lengths match.",
+        "code": "Comparator.comparingInt(String::length)\n    .thenComparing(Comparator.naturalOrder())"
+      },
+      {
+        "title": "Apply the rule consistently",
+        "text": "List.sort changes the list using that comparator. The rule must be consistent: if a precedes b and b precedes c, a should precede c."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Words being considered",
+        "Main rule",
+        "Tie rule or outcome"
+      ],
+      "rows": [
+        [
+          "fig, kiwi, pear",
+          "Lengths: 3, 4, 4",
+          "fig comes first."
+        ],
+        [
+          "kiwi, pear",
+          "Both length 4",
+          "Alphabetically, kiwi comes first."
+        ],
+        [
+          "Final order",
+          "[fig, kiwi, pear]",
+          "Print that list."
+        ]
+      ]
+    },
+    "remember": "Write down the primary ordering rule and its tie-breaker before creating a comparator.",
+    "check": {
+      "question": "Under length-then-alphabetical order, which comes first: dog or ant?",
+      "answer": "ant. Both have length 3, so alphabetical order decides."
+    },
+    "mistake": "For arbitrary integer values, use Integer.compare(a, b) instead of a - b. Subtraction can overflow and give the wrong ordering."
+  },
+  "collections": {
+    "goal": "Use Java’s existing utilities while understanding what they change.",
+    "idea": "Collections is a helper class with operations such as sorting, reversing, and finding a maximum. It is not the same thing as a particular collection object.",
+    "use": "Perform common list operations without rewriting a library algorithm.",
+    "before": [
+      "arraylist",
+      "comparator"
+    ],
+    "steps": [
+      {
+        "title": "Start with a list you can change",
+        "text": "The example creates an ArrayList containing 3, 1, and 2. The list supports the replacements needed by sorting.",
+        "code": "List<Integer> a = new ArrayList<>(Arrays.asList(3, 1, 2));"
+      },
+      {
+        "title": "Sort, then reverse",
+        "text": "sort puts values in ascending order. reverse reverses the current order. Both modify this list rather than returning a new list.",
+        "code": "Collections.sort(a);\nCollections.reverse(a);"
+      },
+      {
+        "title": "Check each utility’s requirements",
+        "text": "Collections.binarySearch needs the list sorted using the same ordering. max and min need a nonempty collection. An unmodifiable list rejects operations that change its elements."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Action",
+        "List before",
+        "List after"
+      ],
+      "rows": [
+        [
+          "Create",
+          "—",
+          "[3, 1, 2]"
+        ],
+        [
+          "sort",
+          "[3, 1, 2]",
+          "[1, 2, 3]"
+        ],
+        [
+          "reverse",
+          "[1, 2, 3]",
+          "[3, 2, 1]"
+        ]
+      ]
+    },
+    "remember": "Know whether a method changes the collection and what must already be true before you call it.",
+    "check": {
+      "question": "Does reversing [3, 1, 2] directly produce descending sorted order?",
+      "answer": "No. It produces [2, 1, 3]. Reversal changes the current order; it does not sort the values."
+    },
+    "mistake": "Do not call binarySearch on an unsorted list and expect a reliable answer."
+  },
+  "searching": {
+    "goal": "Find a target and return the position the problem actually requests.",
+    "idea": "Linear search checks values one by one. It works even when the data is unsorted, because it does not assume anything about where the target should be.",
+    "use": "Find the first occurrence of a value or decide whether it exists.",
+    "before": [
+      "arrays",
+      "loops"
+    ],
+    "steps": [
+      {
+        "title": "Choose a result for “not found”",
+        "text": "Valid indexes start at 0. Using -1 makes “not found” distinct from every valid position.",
+        "code": "int answer = -1;"
+      },
+      {
+        "title": "Check each position",
+        "text": "Compare a[i] with the target. When the task asks for the first occurrence, save i and stop at the first match.",
+        "code": "if (a[i] == target) {\n    answer = i;\n    break;\n}"
+      },
+      {
+        "title": "Consider absent targets and duplicates",
+        "text": "If the target never appears, answer stays -1. Stopping immediately matters when duplicates are present. At most n values are checked, so time is O(n)."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Index checked",
+        "Value",
+        "Action"
+      ],
+      "rows": [
+        [
+          "0",
+          "8",
+          "Not 4; continue."
+        ],
+        [
+          "1",
+          "4",
+          "Save index 1 and stop."
+        ],
+        [
+          "2 and 3",
+          "Not checked",
+          "The first match is already known."
+        ]
+      ]
+    },
+    "remember": "Find the requested result: value, existence, first index, or last index are different questions.",
+    "check": {
+      "question": "What would the example return for target 10?",
+      "answer": "-1, because every value is checked and none matches 10."
+    },
+    "mistake": "Removing break while overwriting answer on each match changes a first-occurrence search into a last-occurrence search."
+  },
+  "sorting": {
+    "goal": "Arrange values in order and understand how insertion sort builds that order.",
+    "idea": "Sorting rearranges values according to a rule. In insertion sort, the part on the left is already sorted, and you insert the next value into its correct place.",
+    "use": "Prepare data for binary search, two pointers, or ordered output.",
+    "before": [
+      "arrays",
+      "searching"
+    ],
+    "steps": [
+      {
+        "title": "Treat the first value as sorted",
+        "text": "A one-element section is already sorted. Start processing at index 1. Save the next value as key."
+      },
+      {
+        "title": "Make space for key",
+        "text": "Move larger values in the sorted section one position to the right. Stop when the remaining value is small enough or you reach the start.",
+        "code": "while (j >= 0 && a[j] > key) {\n    a[j + 1] = a[j];\n    j--;\n}"
+      },
+      {
+        "title": "Insert and grow the sorted section",
+        "text": "Put key at j + 1. The sorted section has grown by one. Repeat until it covers the array. Worst-case time is O(n²); auxiliary space is O(1)."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Step",
+        "Key",
+        "Array after insertion"
+      ],
+      "rows": [
+        [
+          "Start",
+          "—",
+          "[3, 1, 2]"
+        ],
+        [
+          "Insert index 1",
+          "1",
+          "[1, 3, 2]"
+        ],
+        [
+          "Insert index 2",
+          "2",
+          "[1, 2, 3]"
+        ]
+      ]
+    },
+    "remember": "Insertion sort keeps a sorted prefix and inserts one new value at a time.",
+    "check": {
+      "question": "Why must key be saved before shifting elements?",
+      "answer": "Shifting can overwrite its original array position. The separate key variable preserves the value you still need to insert."
+    },
+    "mistake": "Check j >= 0 before accessing a[j]. In &&, Java checks the left side first, allowing the boundary check to protect the access."
+  },
+  "binary-search": {
+    "goal": "Use sorted order to cut the remaining search interval in half.",
+    "idea": "Binary search compares with the middle of an ordered search space. The comparison tells you which half can safely be discarded. The example finds the first value greater than or equal to a target.",
+    "use": "Find a boundary or target much faster than scanning a large sorted array.",
+    "before": [
+      "searching",
+      "sorting"
+    ],
+    "steps": [
+      {
+        "title": "Define the exact answer",
+        "text": "This version returns the first index with a[index] >= target. It returns n when every value is smaller. It is often called lower bound."
+      },
+      {
+        "title": "Keep one interval convention",
+        "text": "lo is included and hi is excluded. Start at [0, n). Compute mid without adding two possibly large indexes.",
+        "code": "int mid = lo + (hi - lo) / 2;"
+      },
+      {
+        "title": "Discard only what you can prove wrong",
+        "text": "If a[mid] >= target, mid might be the first valid index: set hi = mid. Otherwise, mid and everything before it are too small: set lo = mid + 1."
+      },
+      {
+        "title": "Stop when the boundary is located",
+        "text": "When lo == hi, the interval is empty and lo is the answer. Each iteration shrinks the interval, giving O(log n) time."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Interval [lo, hi)",
+        "mid and value",
+        "Update"
+      ],
+      "rows": [
+        [
+          "[0, 4)",
+          "2 → 3",
+          "hi = 2"
+        ],
+        [
+          "[0, 2)",
+          "1 → 3",
+          "hi = 1"
+        ],
+        [
+          "[0, 1)",
+          "0 → 1",
+          "lo = 1"
+        ],
+        [
+          "[1, 1)",
+          "Stop",
+          "Return index 1."
+        ]
+      ]
+    },
+    "remember": "Decide your interval boundaries and preserve them consistently throughout the search.",
+    "check": {
+      "question": "For [1, 3, 3, 8] and target 4, what index does this version return?",
+      "answer": "3, where the value is 8. The task asks for the first value at least 4, not an exact match."
+    },
+    "mistake": "The array must already be sorted. This lower-bound implementation does not return -1 for absence; n is its defined end result."
+  },
+  "brute-force": {
+    "goal": "Start with a correct solution, then remove repeated work.",
+    "idea": "Brute force is a direct approach that tries or recomputes what the problem asks for. Optimization improves it by reusing information or reducing unnecessary work while keeping the same answer.",
+    "use": "Build an understandable baseline before trying a more efficient solution.",
+    "before": [
+      "arrays",
+      "complexity"
+    ],
+    "steps": [
+      {
+        "title": "Describe the straightforward method",
+        "text": "To print every prefix sum, you could start from zero and add from the first element up to each ending position."
+      },
+      {
+        "title": "Identify what repeats",
+        "text": "For [2, 4, 6], that would calculate 2, then 2 + 4, then 2 + 4 + 6. The early additions happen again and again."
+      },
+      {
+        "title": "Keep the useful previous result",
+        "text": "Store the previous prefix sum. Add only the new element and print the updated total. This changes O(n²) repeated addition into one O(n) pass.",
+        "code": "running += x;\nSystem.out.println(running);"
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Next value",
+        "Previous total",
+        "New total printed"
+      ],
+      "rows": [
+        [
+          "2",
+          "0",
+          "2"
+        ],
+        [
+          "4",
+          "2",
+          "6"
+        ],
+        [
+          "6",
+          "6",
+          "12"
+        ]
+      ]
+    },
+    "remember": "Name the repeated work first. An optimization should explain why that work is no longer needed.",
+    "check": {
+      "question": "If [2, 4, 6] becomes [2, 4, 6, 1], how much new work is needed for the next prefix?",
+      "answer": "One addition: 12 + 1 = 13. The earlier prefix does not need to be summed again."
+    },
+    "mistake": "Do not optimize by changing the required result. The challenge asks for the sum of all prefix sums, so it needs another total accumulating those prefixes."
+  },
+  "two-pointers": {
+    "goal": "Move two indexes for a reason, rather than checking every pair.",
+    "idea": "Two pointers are two positions you update while scanning data. For a pair sum in a sorted array, start at opposite ends and use the sum to decide which pointer can move.",
+    "use": "Find a pair in sorted data, compare text from both ends, or rearrange values.",
+    "before": [
+      "arrays",
+      "sorting"
+    ],
+    "steps": [
+      {
+        "title": "Start with the smallest and largest available values",
+        "text": "left starts at 0 and right at n - 1. Keep left < right so you use two different positions."
+      },
+      {
+        "title": "Use the order to choose a move",
+        "text": "If the sum is too small, move left rightward to increase its value. If too large, move right leftward to decrease its value."
+      },
+      {
+        "title": "Stop on a match or when the pointers meet",
+        "text": "Every move discards a position that cannot form the needed pair in the current range. Each pointer moves at most n times, so the scan is O(n)."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Pair",
+        "Sum",
+        "Decision for target 8"
+      ],
+      "rows": [
+        [
+          "1 and 8",
+          "9",
+          "Too large: move right left."
+        ],
+        [
+          "1 and 5",
+          "6",
+          "Too small: move left right."
+        ],
+        [
+          "3 and 5",
+          "8",
+          "Found a pair."
+        ]
+      ]
+    },
+    "remember": "The movement rule must be justified by the data’s structure. Here, sorted order is essential.",
+    "check": {
+      "question": "Can this exact pair-sum movement rule be used on an unsorted array?",
+      "answer": "Not reliably. Moving an index would not guarantee a larger or smaller value. Sort first if allowed, or use hashing."
+    },
+    "mistake": "Use left < right for two distinct indexes. Otherwise a single element could incorrectly be paired with itself."
+  },
+  "sliding-window": {
+    "goal": "Reuse the answer for a contiguous section as it moves.",
+    "idea": "A sliding window is a consecutive part of an array or string. When the window moves, remove what leaves and add what enters instead of recalculating everything inside it.",
+    "use": "Calculate sums or counts for consecutive subarrays and substrings.",
+    "before": [
+      "arrays",
+      "two-pointers"
+    ],
+    "steps": [
+      {
+        "title": "Define the window size",
+        "text": "For a fixed window of k elements, calculate the first k-element sum. The example uses k = 2."
+      },
+      {
+        "title": "Move by one position",
+        "text": "When a[r] enters the right side, a[r - k] leaves the left side. Update the sum using those two values.",
+        "code": "sum += a[r] - a[r - k];"
+      },
+      {
+        "title": "Keep the best valid window",
+        "text": "Compare the updated sum with the best seen so far. Initialize best using the first real window, so all-negative arrays work too."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Window",
+        "Update",
+        "Sum / best"
+      ],
+      "rows": [
+        [
+          "[2, 1]",
+          "First window",
+          "3 / 3"
+        ],
+        [
+          "[1, 5]",
+          "3 - 2 + 5",
+          "6 / 6"
+        ],
+        [
+          "[5, 1]",
+          "6 - 1 + 1",
+          "6 / 6"
+        ]
+      ]
+    },
+    "remember": "A fixed-size window moves by removing one old contribution and adding one new contribution.",
+    "check": {
+      "question": "What is the maximum length-2 window sum in [-5, -2, -3]?",
+      "answer": "-5, from [-2, -3]. Starting best at 0 would give an answer that no window achieves."
+    },
+    "mistake": "Variable-size window rules need their own proof. A rule that works for positive numbers may fail when negative numbers are allowed."
+  },
+  "prefix-sum": {
+    "goal": "Answer range-sum questions using totals saved in advance.",
+    "idea": "A prefix-sum array stores the sum of everything before each position. Subtracting two prefix totals removes the unwanted beginning and leaves exactly the desired range.",
+    "use": "Answer many sum queries on an array that is not changing.",
+    "before": [
+      "arrays",
+      "brute-force"
+    ],
+    "steps": [
+      {
+        "title": "Give p[i] one precise meaning",
+        "text": "p[i] is the sum of a[0] through a[i - 1]. Therefore p[0] is 0, and p has n + 1 positions."
+      },
+      {
+        "title": "Build each prefix from the previous one",
+        "text": "Add the next array value to the previous total. Use long when totals can exceed int.",
+        "code": "p[i + 1] = p[i] + a[i];"
+      },
+      {
+        "title": "Subtract the part before the range",
+        "text": "For the inclusive range l through r, use p[r + 1] - p[l]. Building takes O(n); each query then takes O(1)."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Prefix index",
+        "Values included",
+        "Prefix total"
+      ],
+      "rows": [
+        [
+          "0",
+          "None",
+          "0"
+        ],
+        [
+          "1",
+          "2",
+          "2"
+        ],
+        [
+          "2",
+          "2 + 4",
+          "6"
+        ],
+        [
+          "3",
+          "2 + 4 + 1",
+          "7"
+        ],
+        [
+          "4",
+          "2 + 4 + 1 + 3",
+          "10"
+        ],
+        [
+          "Query [1, 3]",
+          "p[4] - p[1]",
+          "10 - 2 = 8"
+        ]
+      ]
+    },
+    "remember": "With a leading zero prefix: sum from l through r is p[r + 1] - p[l].",
+    "check": {
+      "question": "For [2, 4, 1, 3], how do you get the sum of index 0 through index 1?",
+      "answer": "p[2] - p[0] = 6 - 0 = 6. The leading zero lets ranges beginning at index 0 use the same formula."
+    },
+    "mistake": "Keep array indexes and prefix indexes distinct. p[r] excludes a[r], which is why an inclusive query needs p[r + 1]."
+  },
+  "hashing": {
+    "goal": "Remember earlier values so you can check them quickly.",
+    "idea": "Hashing supports quick lookup by key. In problem solving, the useful idea is often to remember something about values you have already processed, using a HashSet or HashMap.",
+    "use": "Detect duplicates, count values, or find a pair in an unsorted array.",
+    "before": [
+      "hashmap",
+      "hashset"
+    ],
+    "steps": [
+      {
+        "title": "Turn the task into a lookup",
+        "text": "For target 9 and current value x, the needed partner is 9 - x. This partner is called the complement."
+      },
+      {
+        "title": "Check earlier values first",
+        "text": "Ask whether the complement is in seen before adding the current value. A match then comes from an earlier, distinct position.",
+        "code": "if (seen.contains(target - x)) {\n    found = true;\n}"
+      },
+      {
+        "title": "Store useful information for later",
+        "text": "If no match is found, add x and continue. A set stores existence; a map can store an index or count if the task needs more information."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Current value",
+        "Needed partner",
+        "Action"
+      ],
+      "rows": [
+        [
+          "2",
+          "7",
+          "Not seen; store 2."
+        ],
+        [
+          "7",
+          "2",
+          "Already seen; pair found."
+        ],
+        [
+          "11",
+          "Not processed",
+          "The loop has stopped."
+        ]
+      ]
+    },
+    "remember": "Choose exactly what to store and when to store it. Those choices make the lookup correct.",
+    "check": {
+      "question": "Why check the set before adding x in a two-distinct-index pair problem?",
+      "answer": "Adding first could let a value match itself when target equals 2 × x. Checking first restricts the partner to an earlier position."
+    },
+    "mistake": "Hash lookup is expected constant time under normal assumptions, not a promise that every operation always takes identical time."
+  },
+  "problem-patterns": {
+    "goal": "Choose a technique from the task’s structure and constraints.",
+    "idea": "A problem-solving pattern is a reusable way of organizing your solution. The right pattern follows from what information you need and what the input guarantees.",
+    "use": "Decide between a scan, set, map, two pointers, sliding window, recursion, or another technique.",
+    "before": [
+      "searching",
+      "two-pointers",
+      "sliding-window",
+      "hashing"
+    ],
+    "steps": [
+      {
+        "title": "Write the required answer in one sentence",
+        "text": "The example asks whether any value appears more than once. It does not ask how many duplicates there are or where they occur."
+      },
+      {
+        "title": "Identify the smallest useful memory",
+        "text": "To detect a duplicate, remember only which values have appeared. A set is enough; a frequency map would store more than this yes/no task needs."
+      },
+      {
+        "title": "Match a technique to its requirements",
+        "text": "Sorted pair sums suggest two pointers. Consecutive fixed-size ranges suggest a window. Earlier-value lookup suggests hashing. Verify the assumptions rather than matching keywords alone."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Read value",
+        "Set before",
+        "Outcome"
+      ],
+      "rows": [
+        [
+          "1",
+          "{}",
+          "Add 1."
+        ],
+        [
+          "2",
+          "{1}",
+          "Add 2."
+        ],
+        [
+          "1",
+          "{1, 2}",
+          "Already present; duplicate is true."
+        ],
+        [
+          "3",
+          "Not reached",
+          "Stop after finding a duplicate."
+        ]
+      ]
+    },
+    "remember": "Explain why a technique applies before you use its code template.",
+    "check": {
+      "question": "If the task changes to “count how often each value occurs”, is a set enough?",
+      "answer": "No. A set stores only presence. A HashMap from value to count stores the extra information the new task requires."
+    },
+    "mistake": "Do not assume that every problem mentioning a subarray uses the same sliding-window rule. Check what makes moving the boundary safe."
+  },
+  "linked-list": {
+    "goal": "Build nodes yourself and follow their links.",
+    "idea": "A singly linked list is a chain of nodes. Each node stores a value and a reference to the next node. Unlike the earlier LinkedList collection lesson, here you create the structure yourself.",
+    "use": "Understand references, traversal, and insertion before using linked-list algorithms.",
+    "before": [
+      "oop",
+      "linkedlist-api"
+    ],
+    "steps": [
+      {
+        "title": "Describe one node",
+        "text": "Node contains a value and next. next is a reference to another Node, or null when there is no next node.",
+        "code": "static class Node {\n    int value;\n    Node next;\n    Node(int v) { value = v; }\n}"
+      },
+      {
+        "title": "Connect nodes through references",
+        "text": "head identifies the first node. Setting head.next connects it to the second node. The last node’s next remains null.",
+        "code": "Node head = new Node(4);\nhead.next = new Node(7);"
+      },
+      {
+        "title": "Move a cursor without losing the start",
+        "text": "Use p = head, then repeatedly move p = p.next. Stop at null. Keeping head unchanged lets you revisit the list later."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Cursor p",
+        "Value added",
+        "Running sum"
+      ],
+      "rows": [
+        [
+          "First node",
+          "4",
+          "4"
+        ],
+        [
+          "Second node",
+          "7",
+          "11"
+        ],
+        [
+          "null",
+          "None",
+          "Stop and print 11."
+        ]
+      ]
+    },
+    "remember": "A node stores data and a link. A traversal follows links until null.",
+    "check": {
+      "question": "Why use a separate cursor p instead of advancing head itself?",
+      "answer": "Advancing p preserves the reference to the start of the list. Advancing head can lose access to earlier nodes unless another reference keeps them."
+    },
+    "mistake": "Check p != null before reading p.value or p.next. null means there is no node to access."
+  },
+  "stack-structure": {
+    "goal": "Use a stack to match nested opening and closing symbols.",
+    "idea": "A stack remembers the most recent unresolved item. In a parentheses problem, the most recent unmatched opening bracket must be resolved by the next closing bracket.",
+    "use": "Handle nested expressions, matching brackets, undo history, and pending work.",
+    "before": [
+      "deque-api",
+      "strings"
+    ],
+    "steps": [
+      {
+        "title": "Store unresolved openings",
+        "text": "When you read an opening parenthesis, push it onto the stack. It is waiting for a later closing parenthesis."
+      },
+      {
+        "title": "Match a closing parenthesis",
+        "text": "When you read a closing parenthesis, one opening must be available. If the stack is empty, the string is already invalid. Otherwise pop one opening."
+      },
+      {
+        "title": "Check what remains at the end",
+        "text": "No early closing must have failed, and the stack must be empty. Any opening left over never received a matching close."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Character",
+        "Unmatched openings after it",
+        "Valid so far?"
+      ],
+      "rows": [
+        [
+          "(",
+          "1",
+          "Yes"
+        ],
+        [
+          "(",
+          "2",
+          "Yes"
+        ],
+        [
+          ")",
+          "1",
+          "Yes"
+        ],
+        [
+          ")",
+          "0",
+          "Yes; no openings remain."
+        ]
+      ]
+    },
+    "remember": "A balanced string never closes before it opens and has no unmatched openings at the end.",
+    "check": {
+      "question": "Is \")(\" balanced just because it has one opening and one closing?",
+      "answer": "No. Its first character tries to close an opening that does not exist. Order matters, not only counts."
+    },
+    "mistake": "For multiple bracket types, you must also check that each closing type matches the most recent opening type."
+  },
+  "queue-structure": {
+    "goal": "Implement FIFO order using an array and a moving front.",
+    "idea": "A queue stores items in arrival order. A circular array implementation can reuse space by wrapping indexes around, avoiding a shift of every element after a removal.",
+    "use": "Understand how a queue works underneath the ready-made Queue interface.",
+    "before": [
+      "queue-api",
+      "arrays"
+    ],
+    "steps": [
+      {
+        "title": "Track the front and the count",
+        "text": "head is the index of the earliest waiting item. size is how many items are currently waiting. The array capacity is fixed."
+      },
+      {
+        "title": "Calculate the next insertion index",
+        "text": "Insert at (head + size) % capacity. The remainder wraps the index back to the beginning when needed.",
+        "code": "buffer[(head + size) % capacity] = value;\nsize++;"
+      },
+      {
+        "title": "Advance the front when removing",
+        "text": "Read buffer[head], then update head = (head + 1) % capacity and decrease size. Check size first: 0 means empty; capacity means full."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Action",
+        "head / size",
+        "Logical queue"
+      ],
+      "rows": [
+        [
+          "Start",
+          "0 / 0",
+          "Empty"
+        ],
+        [
+          "Insert 4",
+          "0 / 1",
+          "[4]"
+        ],
+        [
+          "Insert 9",
+          "0 / 2",
+          "[4, 9]"
+        ],
+        [
+          "Read and remove front",
+          "1 / 1",
+          "[9]; 4 was removed."
+        ],
+        [
+          "Read front again",
+          "1 / 1",
+          "Print 9."
+        ]
+      ]
+    },
+    "remember": "Physical array positions can wrap while the logical order remains FIFO.",
+    "check": {
+      "question": "With capacity 3, head 2, and size 1, where does the next item go?",
+      "answer": "Index 0, because (2 + 1) % 3 is 0. Wrapping does not mean the queue is empty."
+    },
+    "mistake": "Do not overwrite a waiting value when the queue is full. Also, removal must be rejected or handled separately when size is zero."
+  },
+  "binary-tree": {
+    "goal": "Represent a hierarchy and solve it one subtree at a time.",
+    "idea": "A binary tree is made of nodes, each with at most two children: left and right. The root is the starting node. A missing child is represented by null.",
+    "use": "Understand hierarchical data, recursive traversal, height, and node-count problems.",
+    "before": [
+      "linked-list",
+      "recursion-basics"
+    ],
+    "steps": [
+      {
+        "title": "Describe a node and its children",
+        "text": "Each node stores a value plus references to its left and right child. A leaf has no children."
+      },
+      {
+        "title": "Define the empty-tree answer",
+        "text": "The example counts nodes. An empty subtree, represented by null, contains 0 nodes. This is the base case."
+      },
+      {
+        "title": "Combine the two smaller answers",
+        "text": "For a real node, count that node once, then add the sizes of its left and right subtrees.",
+        "code": "return 1 + size(n.l) + size(n.r);"
+      },
+      {
+        "title": "Keep size and height separate",
+        "text": "Size counts all nodes. Height counts levels on the longest root-to-leaf route in this course, with an empty tree having height 0. They are different properties."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Subtree",
+        "Calculation",
+        "Size returned"
+      ],
+      "rows": [
+        [
+          "Missing child",
+          "Base case",
+          "0"
+        ],
+        [
+          "Leaf with value 2",
+          "1 + 0 + 0",
+          "1"
+        ],
+        [
+          "Leaf with value 3",
+          "1 + 0 + 0",
+          "1"
+        ],
+        [
+          "Root with value 1",
+          "1 + 1 + 1",
+          "3"
+        ]
+      ]
+    },
+    "remember": "Define the answer for null, then combine the answers from the left and right subtrees.",
+    "check": {
+      "question": "In this three-node example, what are the tree’s size and height?",
+      "answer": "Size is 3 nodes. Height is 2 levels: the root level and the child level."
+    },
+    "mistake": "A general binary tree is not necessarily sorted. You cannot choose a search direction from value comparisons without an additional ordering rule."
+  },
+  "bst": {
+    "goal": "Use the binary-search-tree ordering rule to choose a search direction.",
+    "idea": "A binary search tree is a binary tree with an ordering rule. In this lesson, every value in a node’s left subtree is smaller and every value in its right subtree is larger. Duplicate handling must be defined separately.",
+    "use": "Search, insert, and traverse ordered values by following tree links.",
+    "before": [
+      "binary-tree",
+      "binary-search"
+    ],
+    "steps": [
+      {
+        "title": "Compare with the current node",
+        "text": "If the target equals the current value, the search succeeds. If the node is null, the target is absent."
+      },
+      {
+        "title": "Choose only one subtree",
+        "text": "A smaller target can only be on the left; a larger target can only be on the right. The ordering rule eliminates the other subtree."
+      },
+      {
+        "title": "Recognize the shape’s effect",
+        "text": "A balanced tree has about log n levels. A badly skewed tree can have n levels. Search is O(h), where h is the tree’s height."
+      },
+      {
+        "title": "Know what the practice challenge allows",
+        "text": "The distinct-values challenge permits TreeSet, Java’s ordered set. A custom BST and TreeSet solve related ordering tasks, but they are not the same implementation."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Current node",
+        "Target 8 compared with node",
+        "Action"
+      ],
+      "rows": [
+        [
+          "5",
+          "8 > 5",
+          "Go right."
+        ],
+        [
+          "8",
+          "8 == 8",
+          "Return true."
+        ],
+        [
+          "Left subtree rooted at 2",
+          "Not visited",
+          "Ordering made it unnecessary."
+        ]
+      ]
+    },
+    "remember": "The ordering rule must hold across each whole subtree, not only between immediate neighbors.",
+    "check": {
+      "question": "Where would a search for 1 go in the example tree?",
+      "answer": "From 5 to its left child 2, then to 2’s missing left child. Reaching null means 1 is absent."
+    },
+    "mistake": "Do not assume every BST gives O(log n) search. That depends on its height remaining small."
+  },
+  "heap": {
+    "goal": "Understand the parent-child priority rule in an array-based tree.",
+    "idea": "A min-heap is a complete binary tree in which every parent is no greater than its children. This places the minimum at the root, without sorting all remaining values.",
+    "use": "Understand priority queues and repeated minimum or maximum extraction.",
+    "before": [
+      "priorityqueue",
+      "binary-tree"
+    ],
+    "steps": [
+      {
+        "title": "Store a complete tree level by level",
+        "text": "A complete tree fills each level from left to right. That shape lets an array represent it without separate child references."
+      },
+      {
+        "title": "Calculate relatives by index",
+        "text": "For an item at index i > 0, its parent is at (i - 1) / 2. A node’s children are at 2*i + 1 and 2*i + 2 when those indexes exist."
+      },
+      {
+        "title": "Check each parent-child relation",
+        "text": "The example checks that every child is at least its parent. That is sufficient to check the min-heap ordering rule.",
+        "code": "if (h[(i - 1) / 2] > h[i]) {\n    valid = false;\n}"
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Child value / index",
+        "Parent value / index",
+        "Order valid?"
+      ],
+      "rows": [
+        [
+          "5 / 1",
+          "2 / 0",
+          "2 <= 5"
+        ],
+        [
+          "4 / 2",
+          "2 / 0",
+          "2 <= 4"
+        ],
+        [
+          "9 / 3",
+          "5 / 1",
+          "5 <= 9"
+        ],
+        [
+          "7 / 4",
+          "5 / 1",
+          "5 <= 7"
+        ]
+      ]
+    },
+    "remember": "A heap guarantees the root priority and parent-child order, not a fully sorted array.",
+    "check": {
+      "question": "Can 5 appear before 4 in the array of a valid min-heap?",
+      "answer": "Yes. In [2, 5, 4], both are children of 2 and satisfy the parent rule. Siblings need not be sorted."
+    },
+    "mistake": "When calculating a child index, check that it is below the array length before reading that position."
+  },
+  "recursion": {
+    "goal": "Combine smaller recursive results efficiently.",
+    "idea": "Once the base case is familiar, the next question is how much smaller each call can be. Exponentiation by squaring computes a power by halving the exponent and reusing the returned result.",
+    "use": "Solve divide-and-conquer tasks while reasoning about return values and call counts.",
+    "before": [
+      "recursion-basics",
+      "complexity"
+    ],
+    "steps": [
+      {
+        "title": "Give one call a precise meaning",
+        "text": "power(a, b) returns a raised to the non-negative integer power b. The base case b = 0 returns 1."
+      },
+      {
+        "title": "Compute the half power once",
+        "text": "Call power(a, b / 2) and store its return value in half. Integer division gives the smaller exponent.",
+        "code": "long half = power(a, b / 2);"
+      },
+      {
+        "title": "Combine according to odd or even",
+        "text": "For an even exponent, return half * half. For an odd exponent, multiply by one extra a. Reusing half avoids computing the same recursive answer twice."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Call returning",
+        "half or base result",
+        "Returned answer"
+      ],
+      "rows": [
+        [
+          "power(2, 0)",
+          "Base case",
+          "1"
+        ],
+        [
+          "power(2, 1)",
+          "half = 1",
+          "1 × 1 × 2 = 2"
+        ],
+        [
+          "power(2, 2)",
+          "half = 2",
+          "2 × 2 = 4"
+        ],
+        [
+          "power(2, 5)",
+          "half = 4",
+          "4 × 4 × 2 = 32"
+        ],
+        [
+          "power(2, 10)",
+          "half = 32",
+          "32 × 32 = 1024"
+        ]
+      ]
+    },
+    "remember": "Understand what each call returns, store it once, and combine it according to the problem’s rule.",
+    "check": {
+      "question": "Why does exponent 5 need an extra multiplication by the base?",
+      "answer": "Integer division makes 5 / 2 equal 2. Squaring a² gives a⁴, so one extra factor of a is needed for a⁵."
+    },
+    "mistake": "Do not call power(a, b / 2) twice when you can save it once. Also check that the final answer fits the numeric type."
+  },
+  "backtracking": {
+    "goal": "Explore choices systematically and keep different branches separate.",
+    "idea": "Backtracking builds an answer by choosing one option, exploring where it leads, and returning to try another. A branch stops when it is complete or cannot become valid.",
+    "use": "Generate combinations, subsets, permutations, and constraint-based arrangements.",
+    "before": [
+      "recursion"
+    ],
+    "steps": [
+      {
+        "title": "Define the partial answer",
+        "text": "In the example, s is the binary string built so far. The target is a length of n. Start with an empty string."
+      },
+      {
+        "title": "Try each possible next choice",
+        "text": "Append 0 and explore that branch, then append 1 and explore the other. Trying 0 first produces lexicographic order.",
+        "code": "bits(s + \"0\", n);\nbits(s + \"1\", n);"
+      },
+      {
+        "title": "Stop at the required length",
+        "text": "When s.length() equals n, print s and return. Do not keep adding characters after a full answer is produced."
+      },
+      {
+        "title": "Restore shared state when necessary",
+        "text": "This example passes new Strings, so the earlier s is unchanged. If you instead edit one shared list or builder, undo the edit before trying the next choice."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Prefix being explored",
+        "Next choices",
+        "Completed outputs"
+      ],
+      "rows": [
+        [
+          "Empty",
+          "0 branch first",
+          "—"
+        ],
+        [
+          "0",
+          "00, then 01",
+          "00, 01"
+        ],
+        [
+          "Empty again",
+          "1 branch next",
+          "—"
+        ],
+        [
+          "1",
+          "10, then 11",
+          "10, 11"
+        ]
+      ]
+    },
+    "remember": "Choose, explore, then return to the previous state before exploring another choice.",
+    "check": {
+      "question": "How many binary strings of length 3 are generated?",
+      "answer": "8, because each of the three positions has two choices: 2 × 2 × 2. Printing all of them necessarily takes time proportional to the output."
+    },
+    "mistake": "If a shared mutable path is not restored, choices from one branch can leak into the next branch and corrupt its answers."
+  },
+  "greedy": {
+    "goal": "Make a safe local choice and understand why it leads to the best overall result.",
+    "idea": "A greedy algorithm commits to a choice without trying every future possibility. It is correct only when you can justify that the choice does not prevent an optimal answer.",
+    "use": "Solve tasks such as selecting the maximum number of non-overlapping intervals.",
+    "before": [
+      "sorting",
+      "comparator"
+    ],
+    "steps": [
+      {
+        "title": "State what “best” means",
+        "text": "The interval example maximizes the number of selected jobs. It does not maximize their total duration or money."
+      },
+      {
+        "title": "Choose the job that finishes earliest",
+        "text": "Sort by end time. Among jobs you can take next, an earlier finish leaves at least as much room for later jobs as a later finish."
+      },
+      {
+        "title": "Keep only compatible jobs",
+        "text": "Select a job when its start is at least the end of the last selected job. Update that end and increase the count. Half-open intervals may touch at an endpoint."
+      },
+      {
+        "title": "Know the proof idea",
+        "text": "Replacing the first job of an optimal schedule with an earliest-finishing job cannot reduce the room available afterward. Apply the same reasoning to the remaining jobs."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Job after sorting by finish",
+        "Previous selected end",
+        "Decision"
+      ],
+      "rows": [
+        [
+          "[1, 3)",
+          "No job yet",
+          "Take; end becomes 3."
+        ],
+        [
+          "[3, 4)",
+          "3",
+          "Take; end becomes 4."
+        ],
+        [
+          "[2, 5)",
+          "4",
+          "Skip; overlaps."
+        ],
+        [
+          "[4, 6)",
+          "4",
+          "Take; count is 3."
+        ]
+      ]
+    },
+    "remember": "A greedy rule needs a reason it preserves a best possible answer, not just a plausible-looking choice.",
+    "check": {
+      "question": "Would choosing the longest interval first always maximize the number of jobs?",
+      "answer": "No. One long interval may block several short, compatible intervals. Earliest finishing is the justified rule for this unweighted interval-count problem."
+    },
+    "mistake": "The same rule does not automatically solve weighted interval scheduling, where jobs have different rewards."
+  },
+  "graphs": {
+    "goal": "Represent connections and visit all vertices reachable from a start.",
+    "idea": "A graph contains vertices and edges. A vertex represents an item, and an edge represents a connection. Unlike a tree, a graph may contain cycles or disconnected groups.",
+    "use": "Model roads, friendships, dependencies, and other relationships.",
+    "before": [
+      "queue-api",
+      "binary-tree",
+      "hashset"
+    ],
+    "steps": [
+      {
+        "title": "Build a list of neighbors for each vertex",
+        "text": "An adjacency list stores the directly connected vertices. For an undirected edge u–v, add v to u’s list and u to v’s list."
+      },
+      {
+        "title": "Start breadth-first search with a queue",
+        "text": "Mark the source as seen and enqueue it. Remove a vertex, count it, then inspect its neighbors."
+      },
+      {
+        "title": "Visit each vertex at most once",
+        "text": "When a neighbor is unseen, mark it immediately before enqueueing it. This prevents multiple parents from adding it again.",
+        "code": "if (!seen[v]) {\n    seen[v] = true;\n    q.offer(v);\n}"
+      },
+      {
+        "title": "Understand what the result includes",
+        "text": "A search from one source reaches only its connected component. To visit every component, start another search from each still-unseen vertex."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "Vertex removed",
+        "New vertex discovered",
+        "Total processed"
+      ],
+      "rows": [
+        [
+          "0",
+          "1",
+          "1"
+        ],
+        [
+          "1",
+          "2; 0 was already seen",
+          "2"
+        ],
+        [
+          "2",
+          "None",
+          "3"
+        ],
+        [
+          "Queue empty",
+          "Stop",
+          "Print 3."
+        ]
+      ]
+    },
+    "remember": "Mark a vertex when you discover it, and use the queue to process discovered vertices in order.",
+    "check": {
+      "question": "Why is the source marked before it is added to the queue?",
+      "answer": "So a neighbor cannot rediscover and enqueue the source through a returning edge. Seen records discovery, not only completed processing."
+    },
+    "mistake": "Adding only one direction for an undirected edge creates the wrong graph. Also, never assume every vertex is reachable from the chosen source."
+  },
+  "dynamic-programming": {
+    "goal": "Reuse answers to smaller repeated questions.",
+    "idea": "Dynamic programming stores solutions to smaller problems so they are not recomputed. Begin by defining exactly what each stored value means, then explain how earlier answers produce the next one.",
+    "use": "Solve counting, minimum-cost, or best-value tasks with overlapping smaller subproblems.",
+    "before": [
+      "recursion-basics",
+      "arrays",
+      "complexity"
+    ],
+    "steps": [
+      {
+        "title": "Define the state",
+        "text": "ways[i] means the number of ordered ways to climb exactly i steps when each move climbs 1 or 2 steps. This sentence is the meaning of the table."
+      },
+      {
+        "title": "Set the base case",
+        "text": "ways[0] is 1: there is one way to make no moves. This lets the first actual one-step or two-step route be counted correctly.",
+        "code": "ways[0] = 1;"
+      },
+      {
+        "title": "Explain the transition",
+        "text": "A route to step i ends with either a 1-step move from i - 1 or a 2-step move from i - 2. These two sets do not overlap, so add their counts."
+      },
+      {
+        "title": "Fill in dependency order",
+        "text": "Calculate smaller indexes first because later indexes depend on them. Memoization stores recursive results; this bottom-up version fills the table using a loop."
+      }
+    ],
+    "trace": {
+      "columns": [
+        "i",
+        "Calculation",
+        "ways[i]"
+      ],
+      "rows": [
+        [
+          "0",
+          "Base case",
+          "1"
+        ],
+        [
+          "1",
+          "ways[0]",
+          "1"
+        ],
+        [
+          "2",
+          "ways[1] + ways[0]",
+          "2"
+        ],
+        [
+          "3",
+          "ways[2] + ways[1]",
+          "3"
+        ],
+        [
+          "4",
+          "ways[3] + ways[2]",
+          "5"
+        ],
+        [
+          "5",
+          "ways[4] + ways[3]",
+          "8"
+        ]
+      ]
+    },
+    "remember": "For every DP solution, state the meaning, base case, transition, calculation order, and final answer.",
+    "check": {
+      "question": "Why are 1 + 2 and 2 + 1 counted separately for three steps?",
+      "answer": "The task counts ordered sequences of moves. They reach the same height but take the moves in different orders. Together with 1 + 1 + 1, there are three ways."
+    },
+    "mistake": "Changing the meaning of the state halfway through a solution breaks the recurrence. Also, growing counts need long here; int cannot hold the larger valid answers."
+  }
+}

@@ -1,0 +1,49 @@
+/* Full-width editor with an adjustable console below it. */
+.playground-toolbar kbd{font:12px Inter,sans-serif;padding:3px 6px;border:1px solid #D8E3EF;border-radius:4px;background:#FFF;color:#476584}
+.playground-panels.terminal-layout{min-height:510px}
+.terminal-layout [data-slot=resizable-panel]{min-width:0;min-height:0}
+.playground-drag-handle[data-slot=resizable-handle]{height:12px!important;min-height:12px;width:100%;background:transparent}
+.playground-drag-handle>div{height:4px;width:38px;transform:none!important;background:#BDCEE2;border:0;border-radius:4px}
+.playground-drag-handle svg{display:none}
+.playground-console{display:grid;grid-template-columns:minmax(240px,27%) minmax(0,1fr);gap:12px;height:100%;min-height:0;min-width:0}
+.program-input-pane{display:flex;flex-direction:column;background:#FFF;border:1px solid #D8E4F1;border-radius:9px;min-width:0;min-height:0;overflow:hidden}
+.program-input-heading{display:flex;align-items:center;gap:9px;padding:9px 14px;min-height:45px;border-bottom:1px solid #E1E9F3;background:#F3F8FE;flex-shrink:0}
+.program-input-heading label{font-size:14px;font-weight:600;color:#2C4C6F}
+.program-input-heading>span{color:#697D94;font:12px ui-monospace,Consolas,monospace}
+.program-input-heading>button{margin-left:auto;display:flex;align-items:center;justify-content:center;width:29px;height:29px;border-radius:5px;color:#507193}
+.program-input-heading>button:hover{background:#E5EFFB}
+.playground-panels .program-input-pane textarea{flex:1;min-height:55px;width:100%;resize:none;border:0;border-radius:0;background:#FFF;padding:13px 15px;font:15px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;box-shadow:none;color:#244463}
+.program-input-pane textarea::placeholder{color:#72839A;font-size:14px}
+.program-input-pane textarea:focus{outline:2px solid #8FBCEE;outline-offset:-2px}
+.program-input-pane>p{padding:8px 13px;border-top:1px solid #E7EDF4;background:#FAFCFF;font-size:12px;line-height:1.7;color:#596E86;flex-shrink:0}
+.playground-terminal{display:flex;flex-direction:column;background:#132034;border:1px solid #273C56;border-radius:9px;min-width:0;min-height:0;overflow:hidden;color:#E2EDF8}
+.terminal-toolbar{display:flex;align-items:center;flex-wrap:wrap;gap:12px;min-height:45px;padding:6px 13px;border-bottom:1px solid #2D4059;background:#1C2C42;flex-shrink:0}
+.terminal-toolbar h2{display:flex;align-items:center;gap:8px;font-family:Inter,sans-serif;font-size:14px;font-weight:600;color:#E5EFFB}
+.terminal-state{font-size:12px;color:#A9C1DA}
+.terminal-state.failed{color:#F4ACA9}
+.terminal-state.busy{color:#B7D8FF}
+.terminal-actions{display:flex;align-items:center;gap:3px;margin-left:auto}
+.terminal-actions button{display:flex;align-items:center;justify-content:center;gap:5px;min-width:31px;min-height:31px;padding:5px 7px;border-radius:4px;font-size:12px;color:#CADBEF}
+.terminal-actions button:hover,.terminal-actions button[aria-pressed=true]{background:#314B6B;color:#FFF}
+.terminal-actions button:disabled{opacity:.4;cursor:default}
+.terminal-actions button:focus-visible,.terminal-viewport:focus-visible{outline:2px solid #92BFFF;outline-offset:-2px}
+.terminal-viewport{flex:1;min-height:0;min-width:0;overflow:auto;padding:17px 19px;scrollbar-color:#506B89 #132034}
+.terminal-viewport pre,.terminal-viewport p{font:14px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;margin:0;letter-spacing:0}
+.terminal-viewport pre{white-space:pre;overflow-wrap:normal;word-break:normal;color:#EDF4FC}
+.wrap-output .terminal-viewport pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.terminal-command{color:#9DB9D7!important;margin-bottom:12px!important}
+.terminal-command>span{color:#83BFFF;margin-right:8px}
+.terminal-stdout{min-height:1.75em}
+.terminal-error-block{margin:12px 0}
+.terminal-error-block>span{display:block;font-size:12px;color:#F7B9B3;margin-bottom:6px}
+.terminal-viewport .terminal-stderr,.terminal-viewport .terminal-failure{color:#FFB4AC}
+.terminal-viewport .terminal-success{color:#A1DFC3}
+.terminal-viewport .terminal-exit{margin-top:18px;padding-top:10px;border-top:1px solid #2A3D56;font-size:13px}
+.terminal-viewport .terminal-meta,.terminal-viewport .terminal-empty p{color:#A6BAD0;font-size:13px;white-space:normal}
+.terminal-empty p+p{margin-top:7px}
+.terminal-viewport .terminal-stale,.terminal-viewport .terminal-input-help{font-size:13px;color:#EDD4A1;white-space:normal;line-height:1.8;margin:10px 0 14px}
+.terminal-running{display:flex;gap:10px;align-items:center;color:#BCD7F7;font:14px/1.8 ui-monospace,Consolas,monospace}
+.terminal-footer{padding:6px 14px;background:#192A40;border-top:1px solid #2B3F58;color:#AFC1D6;font-size:12px;flex-shrink:0}
+@media(min-width:901px){.view-playground{min-height:730px}.terminal-layout .code-editor .cm-editor{font-size:15px}}
+@media(max-width:900px){.playground-panels.terminal-layout{min-height:0;display:flex;flex-direction:column;gap:14px}.playground-console{height:320px;min-height:320px;grid-template-columns:minmax(200px,30%) minmax(0,1fr)}.playground-panels.terminal-layout>.code-editor{height:56dvh;min-height:400px}.terminal-layout .compiler-interaction{min-height:0}}
+@media(max-width:600px){.playground-console{height:auto;min-height:0;grid-template-columns:1fr;gap:13px}.program-input-pane{height:230px}.playground-terminal{height:350px}.terminal-toolbar{gap:9px;padding:7px 11px}.terminal-viewport{padding:15px}.terminal-state{font-size:12px}.terminal-toolbar h2{font-size:14px}.playground-toolbar kbd{font-size:12px}.terminal-actions button span{display:none}}
