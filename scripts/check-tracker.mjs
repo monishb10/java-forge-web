@@ -7,7 +7,7 @@ import {createRequire} from 'node:module';
 import {DatabaseSync} from 'node:sqlite';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..'),out=fs.mkdtempSync(path.join(os.tmpdir(),'java-forge-tracker-'));
 const require=createRequire(root+'/package.json'),ts=require('typescript');
-for(const [name,file]of Object.entries({tracker:'lib/tracker.ts',server:'lib/server.ts','activity-server':'lib/activity-server.ts',activity:'app/api/activity/route.ts',state:'app/api/state/route.ts',curriculum:'lib/curriculum.ts','github-sync':'lib/github-sync.ts'})){
+for(const [name,file]of Object.entries({tracker:'lib/tracker.ts','study-focus':'lib/study-focus.ts',server:'lib/server.ts','activity-server':'lib/activity-server.ts',activity:'app/api/activity/route.ts',state:'app/api/state/route.ts',curriculum:'lib/curriculum.ts','github-sync':'lib/github-sync.ts'})){
  const source=fs.readFileSync(root+'/'+file,'utf8').replace("import {env} from 'cloudflare:workers';",'const env=globalThis.__trackerEnv;').replace("import raw from './curriculum.json';",`const raw=${fs.readFileSync(root+'/lib/curriculum.json','utf8')};`).replace("import rawBank from './practice-bank.json';",`const rawBank=${fs.readFileSync(root+'/lib/practice-bank.json','utf8')};`).replace("import legacyBank from './legacy-practice-bank.json';",`const legacyBank=${fs.readFileSync(root+'/lib/legacy-practice-bank.json','utf8')};`).replace(/'@\/lib\/([^']+)'/g,"'./$1.mjs'");
  fs.writeFileSync(out+'/'+name+'.mjs',ts.transpileModule(source,{compilerOptions:{module:ts.ModuleKind.ESNext,target:ts.ScriptTarget.ES2022}}).outputText);
 }
@@ -15,11 +15,32 @@ const sql=new DatabaseSync(':memory:');sql.exec(fs.readFileSync(root+'/drizzle/0
 function statement(q,args=[]){return{bind(...a){return statement(q,a)},async run(){sql.prepare(q).run(...args);return{success:true}},async all(){return{results:sql.prepare(q).all(...args)}},async first(){return sql.prepare(q).get(...args)||null}}}
 globalThis.__trackerEnv={DB:{prepare:statement,batch:async entries=>Promise.all(entries.map(e=>e.run()))}};
 const {StudyClock,studyDay,dayStart,dailyStats,monthDays,shiftMonth,mergeSessions,mergeActivity,countProgramsByDifficulty}=await import(out+'/tracker.mjs');
+const {watchStudyFocus}=await import(out+'/study-focus.mjs');
 const activity=await import(out+'/activity.mjs'),state=await import(out+'/state.mjs'),{findExercise,lessons,exercises}=await import(out+'/curriculum.mjs');
 const empty=()=>({sessions:[],events:[],commits:[]});let checks=0;
 function check(name,actual,expected){assert.deepEqual(actual,expected,name);checks++}
 async function call(route,data,user='learner',origin){const headers={'content-type':'application/json'};if(user)headers['oai-authenticated-user-id']=user;if(origin)headers.origin=origin;const response=await route[data?'POST':'GET'](new Request('https://test.invalid/api',{method:data?'POST':'GET',headers,body:data?JSON.stringify(data):undefined}));return{httpStatus:response.status,...await response.json()}}
 try{
+ // Exercise actual DOM event handling with a deterministic focus/timer host.
+ const focusDoc=new EventTarget(),focusWindow=new EventTarget(),timeouts=new Map(),intervals=new Map();let focused=true,timerId=0,pauses=0;
+ focusDoc.visibilityState='visible';focusDoc.hasFocus=()=>focused;
+ focusWindow.setTimeout=fn=>{const id=++timerId;timeouts.set(id,fn);return id};focusWindow.clearTimeout=id=>timeouts.delete(id);
+ focusWindow.setInterval=fn=>{const id=++timerId;intervals.set(id,fn);return id};focusWindow.clearInterval=id=>intervals.delete(id);
+ const settle=()=>{const work=[...timeouts.values()];timeouts.clear();for(const fn of work)fn()};
+ const pollFocus=()=>{for(const fn of intervals.values())fn()};
+ const videoClock=new StudyClock();videoClock.start('lesson',1000,'video');
+ const stopFocus=watchStudyFocus(()=>{pauses++;videoClock.pause(5000)},()=>videoClock.running,focusDoc,focusWindow);
+ focused=false;focusWindow.dispatchEvent(new Event('blur'));focused=true;settle();
+ check('Moving focus into the embedded lesson does not pause the session',videoClock.running,true);
+ pollFocus();check('A focused lesson keeps accumulating time',videoClock.snapshot(6000).end-videoClock.snapshot(6000).start,5000);
+ focused=false;focusWindow.dispatchEvent(new Event('blur'));settle();check('Leaving the browser window pauses study',videoClock.running,false);
+ focused=true;pollFocus();check('Returning focus does not restart a manually paused session',videoClock.running,false);
+ videoClock.start('lesson',7000,'video-again');focused=false;pollFocus();check('Leaving while an iframe owns focus is detected without another parent blur',videoClock.running,false);
+ focused=true;videoClock.start('practice',8000,'coding');focusDoc.visibilityState='hidden';focusDoc.dispatchEvent(new Event('visibilitychange'));check('A hidden tab pauses immediately',videoClock.running,false);
+ focusDoc.visibilityState='visible';videoClock.start('playground',9000,'playground');focusWindow.dispatchEvent(new Event('pagehide'));check('Navigating away pauses immediately',videoClock.running,false);
+ videoClock.start('lesson',10000,'last');focused=false;focusWindow.dispatchEvent(new Event('blur'));const pausesBeforeCleanup=pauses;stopFocus();settle();pollFocus();
+ focusWindow.dispatchEvent(new Event('pagehide'));focusDoc.visibilityState='hidden';focusDoc.dispatchEvent(new Event('visibilitychange'));
+ check('Unmount removes timers and listeners without pausing another session',[pauses,timeouts.size,intervals.size],[pausesBeforeCleanup,0,0]);
  check('Difficulty breakdown is available',typeof countProgramsByDifficulty,'function');
  const difficultyFor=id=>findExercise(id)?.exercise.difficulty;
  const levels=['Easy','Medium','Hard'].map(level=>exercises(lessons[0]).find(problem=>problem.difficulty===level)?.id);

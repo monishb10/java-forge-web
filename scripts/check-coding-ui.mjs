@@ -16,31 +16,16 @@ const React=require('react'),{renderToString}=require('react-dom/server');
 const renderWarnings=[],originalError=console.error;console.error=(...args)=>{renderWarnings.push(args.join(' '));originalError(...args)};
 const ui=await import(out+'/components/study/learning.mjs'),{AppContext}=await import(out+'/components/study/shared.mjs'),{lessons,exercises,findExercise}=await import(out+'/lib/curriculum.mjs');
 const defaultCtx={lessonStages:{current:{}},study:{running:false,kind:null,snapshot:null,pending:[],error:false,start:()=>{},pause:()=>{},flush:async()=>true},refreshActivity:async()=>{},data:{records:{},topics:{},timers:{},github:{},activity:{sessions:[],events:[],commits:[]}},ready:true,view:'practice',navigate:async()=>true,saveTopic:async()=>true,updateRecord:()=>{},guard:{current:null},runLock:{current:false},exampleDraft:{current:null}};
-const {lessonVisuals}=await import(out+'/lib/lesson-visuals.mjs');
-const {LessonFrame}=await import(out+'/components/study/lesson-visual.mjs');
-const photos=JSON.parse(fs.readFileSync(root+'/lib/lesson-photos.json','utf8'));
-assert.ok(lessons.every(l=>lessonVisuals[l.id]),'Every active lesson needs its own visual explanation');
-let frameCount=0;
 let checked=0;
 for(const lesson of lessons){
  const ctx={...defaultCtx,lesson};
  const render=component=>renderToString(React.createElement(AppContext.Provider,{value:ctx},React.createElement(component)));
  const practice=render(ui.ProblemLibrary);assert.equal((practice.match(/class="topic-problem-row"/g)||[]).length,32,lesson.id);assert.equal((practice.match(/class="question-number"/g)||[]).length,32,lesson.id);assert.ok(practice.includes('Start with Easy programs.'));assert.ok(!practice.includes('Thinking'));assert.ok(!practice.includes('Compare your answer'));assert.ok(practice.replace(/<!--.*?-->/g,'').includes('32 programs'));
- const learn=render(ui.LessonPage);assert.ok(learn.includes('What does this mean?'));assert.ok(learn.includes('Three words to know'));assert.ok(learn.includes('See the example'));assert.ok(learn.includes('Read the code'));assert.ok(learn.includes('Check understanding'));assert.ok(learn.includes('Watch a video'));assert.ok(!learn.includes('32 programs'));assert.ok(learn.includes('What to learn in this topic'));assert.ok(learn.includes('Ready to move on when:'));assert.ok(!learn.includes('topic-problem-row'));assert.ok(!learn.includes('practice-timer'));assert.equal(exercises(lesson).length,32);checked++;
- const visual=lessonVisuals[lesson.id],photo=photos[visual.photo];
- for(const stage of ['example','code','try']){const staged=renderToString(React.createElement(AppContext.Provider,{value:{...ctx,lessonStages:{current:{[lesson.id]:stage}}}},React.createElement(ui.LessonPage)));if(stage==='example'){assert.ok(staged.includes(photo.src));assert.ok(staged.includes('Next step'))}if(stage==='code'){assert.ok(staged.includes('Main.java'));assert.ok(staged.includes('What this program prints'))}if(stage==='try'){assert.ok(staged.includes('Mark studied today'));assert.ok(staged.includes('I understand this concept'));assert.ok(staged.includes('Try in Playground'))}}
- assert.ok(photo,lesson.id+' photo');assert.ok(fs.statSync(root+'/public'+photo.src).size>5000);assert.ok(photo.alt.length>20);assert.ok(photo.sourcePage.startsWith('https://www.pexels.com/'));assert.ok(photo.width>=900&&photo.height>=500);
- assert.equal(visual.connections.length,3);assert.ok(visual.frames.length>=3);const visualUI=await import(out+'/components/study/lesson-visual.mjs');const photoHTML=renderToString(React.createElement(visualUI.LessonPhotoStory,{topic:lesson.id,situation:'Example situation'}));assert.ok(photoHTML.includes(photo.src));const walkHTML=renderToString(React.createElement(visualUI.LessonVisualWalkthrough,{topic:lesson.id}));assert.ok(walkHTML.includes('Next step'));assert.ok(walkHTML.includes('aria-current="step"'));assert.ok(walkHTML.includes('aria-live="polite"'));
- assert.equal(new Set(visual.frames.map(f=>f.title)).size,visual.frames.length,lesson.id+' unique step titles');
- for(const frame of visual.frames){
-  assert.ok(frame.text.length>20&&frame.code.length>3&&frame.rows.length>0,lesson.id+' complete step');
-  for(const row of frame.rows){assert.ok(row.label);for(const cell of row.cells){assert.equal(typeof cell.value,'string');assert.equal(typeof cell.label,'string')}}
-  if(frame.network){const nodes=new Set(frame.network.nodes.map(n=>n.id));assert.equal(nodes.size,frame.network.nodes.length);for(const [from,to] of frame.network.edges){assert.ok(nodes.has(from)&&nodes.has(to)&&from!==to)}}
-  const markup=renderToString(React.createElement(LessonFrame,{frame}));assert.ok(markup.includes('Java behind this step'));assert.ok(!markup.includes('NaN'));assert.ok(!markup.includes('undefined'));if(frame.network){assert.ok(markup.includes('role="img"'));assert.ok(markup.includes('<title'));assert.ok(!markup.includes('<title></title>'))}frameCount++;
- }
+ const learn=render(ui.LessonPage);assert.ok(learn.includes('video-classroom'),'Lessons open directly in the video classroom');assert.ok(learn.includes('Mark lesson complete'));assert.ok(learn.includes('What you’ll learn'));assert.ok(!learn.includes('lesson-plain-definition'));assert.ok(!learn.includes('Reveal the explanation'));assert.ok(!learn.includes('topic-problem-row'));assert.ok(!learn.includes('32 programs'));assert.ok(!learn.includes('practice-timer'));assert.equal(exercises(lesson).length,32);checked++;
+
 }
-console.log(JSON.stringify({topicsRendered:checked,problemsPerTopic:32,totalExercises:checked*32,lessonGuidesRendered:checked,status:'passed',scope:'Server-rendered content and grouping checks; not visual browser QA'}));
-console.log(JSON.stringify({visualLessonCoverage:checked,stepFramesRendered:frameCount,photosVerified:Object.keys(photos).length,status:'passed'}));
+console.log(JSON.stringify({topicsRendered:checked,problemsPerTopic:32,totalExercises:checked*32,videoLessonsRendered:checked,status:'passed',scope:'Server-rendered content and grouping checks; not visual browser QA'}));
+
 
 const {learningTopics}=await import(out+'/lib/lesson-roadmap.mjs');
 const {learningStages,learningTopicIds}=await import(out+'/lib/curriculum.mjs');
@@ -49,21 +34,27 @@ assert.equal(learningTopics.length,29);
 assert.equal(new Set(learningTopicIds).size,29);
 assert.ok(lessons.every(l=>learningTopicIds.includes(l.id)),'Every existing practice lesson remains in the learning path');
 for(const topic of learningTopics){
- for(const step of ['idea','example','code','video','check']){
-  const markup=renderToString(React.createElement(AppContext.Provider,{value:{...defaultCtx,lesson:lessons[0],lessonStages:{current:{[topic.id]:step}}}},React.createElement(ui.LessonPage,{topicId:topic.id})));
-  assert.ok(!markup.includes('topic-problem-row'));
-  assert.ok(!markup.includes('undefined'));
-  if(step==='idea')assert.ok(markup.includes('What to learn in this topic'));
-  if(step==='code')assert.ok(markup.includes('Main.java')&&markup.includes('What this program prints'));
-  if(step==='check')assert.ok(markup.includes('Mark studied today')&&markup.includes('Reveal the explanation'));
-  if(step==='video')for(const video of topic.videos){
-   const url=new URL(video.url);assert.ok(['www.geeksforgeeks.org','www.youtube.com'].includes(url.hostname));
-   assert.ok(markup.includes(video.url.replaceAll('&','&amp;'))&&markup.includes('target="_blank"'));
-  }
- }
- if(topic.trace)assert.ok(topic.trace.rows.every(row=>row.length===topic.trace.columns.length));
+ const renderLesson=(mastered=false)=>renderToString(React.createElement(AppContext.Provider,{value:{...defaultCtx,lesson:lessons[0],data:{...defaultCtx.data,topics:{[topic.id]:{mastered}}}}},React.createElement(ui.LessonPage,{topicId:topic.id})));
+ const markup=renderLesson();
+ assert.ok(markup.includes('video-classroom')&&!markup.includes('topic-problem-row'));
+ assert.ok(!markup.includes('undefined')&&!markup.includes('lesson-stage-tabs'));
+ assert.ok(markup.includes('Mark lesson complete')&&markup.includes('What you’ll learn'));
+ assert.ok(renderLesson(true).includes('Lesson completed'),'Saved completion is restored');
+ for(const video of topic.videos){const url=new URL(video.url);assert.ok(['www.geeksforgeeks.org','www.youtube.com'].includes(url.hostname));}
 }
-console.log('All 29 roadmap lessons rendered across 5 steps, with 18 ordered stages and safe video links.');
+console.log('All 29 video-first lessons render with explicit completion controls and saved completion state.');
+
+const {youtubeSource}=await import(out+'/lib/lesson-media.mjs');
+assert.equal(youtubeSource('https://www.youtube.com/watch?v=m3fg2PRY1u4&t=13m25s').start,805);
+assert.equal(youtubeSource('https://youtu.be/m3fg2PRY1u4?t=90').start,90);
+assert.equal(youtubeSource('https://www.youtube.com/watch?v=m3fg2PRY1u4&start=120').start,120);
+assert.equal(youtubeSource('https://www.youtube.com.evil.test/watch?v=m3fg2PRY1u4'),null);
+assert.equal(youtubeSource('javascript:alert(1)'),null);
+assert.equal(youtubeSource('http://www.youtube.com/watch?v=m3fg2PRY1u4'),null);
+assert.equal(youtubeSource('https://www.youtube.com/watch?v=bad'),null);
+assert.equal(youtubeSource('https://www.geeksforgeeks.org/videos/java-collections-framework/'),null);
+assert.ok(youtubeSource('https://www.youtube.com/watch?v=m3fg2PRY1u4').embed.startsWith('https://www.youtube-nocookie.com/embed/'));
+console.log('Video source restrictions and chapter timestamps passed.');
 
 const legacy=findExercise('variables-2');
 assert.ok(legacy,'Earlier exercise remains addressable');

@@ -1,6 +1,11 @@
 {
   "java-environment": [
     {
+      "title": "Java Basics: JDK Setup and First Program",
+      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=1616",
+      "focus": "Start at the verified 26:56 setup chapter. Install the JDK and IntelliJ, then follow the first program at 36:09."
+    },
+    {
       "title": "Difference between JVM, JRE & JDK",
       "url": "https://www.geeksforgeeks.org/videos/difference-bw-jvm-jre-jdk/",
       "focus": "Watch how the JDK, JRE, and JVM fit together before setting up and running your first Java program."
@@ -8,26 +13,31 @@
   ],
   "input-output": [
     {
-      "title": "How to Read and Print an Integer value in Java",
-      "url": "https://www.geeksforgeeks.org/videos/how-to-read-and-print-an-integer-value-in-java/",
-      "focus": "Follow the Scanner input and console output example, then change it to read your own values."
+      "title": "Java Basics: Input from the User",
+      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=8647",
+      "focus": "Start at 2:24:07. Code along with user input, then print the values you read. Revisit 51:00 for line breaks and console output."
     }
   ],
   "variables": [
     {
-      "title": "Variables in Core Java",
-      "url": "https://www.geeksforgeeks.org/videos/variables-in-core-java/",
-      "focus": "Track variable declaration, initialization, data types, and scope in each example."
+      "title": "Java Basics: Variables and Data Types",
+      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=3988",
+      "focus": "Start at 1:06:28. Declare variables and change their values; revisit 2:03:05 for naming rules and 3:12:10 for characters and type casting."
     }
   ],
   "operators": [
     {
-      "title": "DSA In Java | Basics | Java in One Shot | Output, Input, Variables, Operators | Java Course",
-      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4",
-      "focus": "Use the operators section to trace how arithmetic expressions change variable values."
+      "title": "Java Basics: Arithmetic and Other Operators",
+      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=5675",
+      "focus": "Start at 1:34:35. Predict each expression, then run it. Continue with modulus, increment and decrement, and relational operators."
     }
   ],
   "conditions": [
+    {
+      "title": "DSA in Java: If Else — Java in One Shot",
+      "url": "https://www.youtube.com/watch?v=D96vIVeRQhk",
+      "focus": "Code along with the even-or-odd and greatest-of-three examples. Pause before each branch and predict which result will print."
+    },
     {
       "title": "Decision Making in Java (if, if-else, switch, break, continue, jump)",
       "url": "https://www.geeksforgeeks.org/videos/decision-making-in-java-if-if-else-switch-break-continue-jump/",
@@ -36,28 +46,28 @@
   ],
   "loops": [
     {
-      "title": "for loop in Java",
-      "url": "https://www.geeksforgeeks.org/videos/for-loop-in-java/",
-      "focus": "Follow initialization, condition checks, updates, and the loop body one iteration at a time."
+      "title": "DSA in Java: Loops — Java in One Shot",
+      "url": "https://www.youtube.com/watch?v=h0S6HUpyWQE&t=164",
+      "focus": "Start at 02:44 for loop basics. Follow the dry run at 10:14 and code the number-printing examples."
     },
     {
-      "title": "While Loop in Java with Example",
-      "url": "https://www.geeksforgeeks.org/videos/while-loop-in-java/",
-      "focus": "Identify the condition and the update that eventually stops each while loop."
+      "title": "Loops: While and Do-While Chapters",
+      "url": "https://www.youtube.com/watch?v=h0S6HUpyWQE&t=8671",
+      "focus": "Start at the verified 2:24:31 while-loop chapter, then continue to do-while at 2:32:52. Change the condition and trace the iterations."
     }
   ],
   "methods": [
     {
-      "title": "Functions in Java",
-      "url": "https://www.geeksforgeeks.org/videos/functions-in-java/",
-      "focus": "Notice how parameters, return values, and method calls turn repeated logic into reusable code."
+      "title": "DSA in Java: Methods — Java in One Shot",
+      "url": "https://www.youtube.com/watch?v=NDO_hnHrsTk",
+      "focus": "Write and call methods with parameters and return values. Rebuild one repeated piece of code as a reusable method."
     }
   ],
   "arrays": [
     {
-      "title": "What is Array",
-      "url": "https://www.geeksforgeeks.org/videos/what-is-array/",
-      "focus": "Learn the array model, zero-based indexing, and the difference between one-dimensional and multidimensional arrays."
+      "title": "DSA in Java: Arrays — Java in One Shot",
+      "url": "https://www.youtube.com/watch?v=_MwptrixhCs",
+      "focus": "Code along with array declaration, indexing, traversal, and updates. Pause each problem before the solution and try it yourself."
     },
     {
       "title": "Arrays Class in Java",
@@ -67,19 +77,24 @@
   ],
   "strings": [
     {
-      "title": "String Operations.",
-      "url": "https://www.geeksforgeeks.org/videos/string-operations-1/",
-      "focus": "Pause after each string operation and predict the resulting text before continuing."
+      "title": "DSA in Java: Strings — Java in One Shot",
+      "url": "https://www.youtube.com/watch?v=bIyit0VaJp8",
+      "focus": "Practice character access, comparison, substring, and string manipulation. Predict each result before running the example."
     }
   ],
   "stringbuilder": [
     {
-      "title": "Java Program to Remove First and Last Character of a String",
-      "url": "https://www.geeksforgeeks.org/videos/java-program-to-remove-first-and-last-character-of-a-string/",
-      "focus": "Focus on the StringBuilder deleteCharAt approach and how character indexes change after a deletion."
+      "title": "Java Strings: StringBuilder and Mutable Text",
+      "url": "https://www.youtube.com/watch?v=bIyit0VaJp8",
+      "focus": "Use the StringBuilder and StringBuffer discussion in this strings lesson. Build and edit text, then compare the behavior with an immutable String."
     }
   ],
   "oop": [
+    {
+      "title": "DSA in Java: Object Oriented Programming",
+      "url": "https://www.youtube.com/watch?v=BPABIrkX50M",
+      "focus": "Follow the Java examples, then build a small class that demonstrates encapsulation, inheritance, polymorphism, and abstraction."
+    },
     {
       "title": "Four Main Object Oriented Programming Concepts of Java",
       "url": "https://www.geeksforgeeks.org/videos/four-main-object-oriented-programming-concepts-of-java/",
@@ -87,6 +102,11 @@
     }
   ],
   "exception-handling": [
+    {
+      "title": "Java Exceptions and Exception Handling — GeeksforGeeks",
+      "url": "https://www.youtube.com/watch?v=DNGbdR7HwXw",
+      "focus": "Follow the workshop on Java exceptions. Trigger a small runtime error, add a handler, and trace how program execution changes."
+    },
     {
       "title": "Overview of Exception Handling In Java",
       "url": "https://www.geeksforgeeks.org/videos/overview-of-exception-handling-in-java/",
@@ -98,6 +118,11 @@
       "title": "Java Collections Framework",
       "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
       "focus": "Compare List, Set, Map, and Queue so you can choose a collection from its behavior."
+    },
+    {
+      "title": "Java Collection Framework — Part 2: Advanced Concepts and Examples",
+      "url": "https://www.youtube.com/watch?v=yOFrtzd2SyQ",
+      "focus": "After the overview, compare List, Set, and Map implementations and the HashMap versus TreeMap examples."
     }
   ],
   "arraylist": [
@@ -115,6 +140,11 @@
     }
   ],
   "hashmap": [
+    {
+      "title": "DSA in Java: HashMap 01 — Java in One Shot",
+      "url": "https://www.youtube.com/watch?v=0DJifcw2UGI",
+      "focus": "Build a map with put, get, remove, and containsKey, then follow the hashing and collision examples."
+    },
     {
       "title": "HashMap with Java",
       "url": "https://www.geeksforgeeks.org/videos/video-hashmap-in-java/",
@@ -172,9 +202,9 @@
   ],
   "recursion-basics": [
     {
-      "title": "Introduction of Recursion",
-      "url": "https://www.geeksforgeeks.org/videos/introduction-of-recursion/",
-      "focus": "Identify the base case and the smaller subproblem in every recursive call."
+      "title": "DSA in Java: Recursion Part 1 — Java in One Shot",
+      "url": "https://www.youtube.com/watch?v=UTutbbpOLgE",
+      "focus": "Trace the base case and call stack in factorial and Fibonacci. Draw a small call tree before running each example."
     }
   ],
   "file-handling": [],
@@ -206,9 +236,9 @@
   ],
   "final-review": [
     {
-      "title": "Recap: Four Main Object Oriented Programming Concepts of Java",
-      "url": "https://www.geeksforgeeks.org/videos/four-main-object-oriented-programming-concepts-of-java/",
-      "focus": "Recap the four OOP principles by explaining each example before the instructor does."
+      "title": "Review: Object Oriented Programming in Java",
+      "url": "https://www.youtube.com/watch?v=BPABIrkX50M",
+      "focus": "Revisit the OOP examples and explain each principle aloud, then rebuild one example without following the video."
     },
     {
       "title": "Recap: Java Collections Framework",

@@ -2,9 +2,9 @@
 
 A Java learning website for you and your friends, with a separate account and progress for each learner.
 
-- 18 learning stages and 29 lessons following the Java roadmap, with everyday examples, code walkthroughs and GeeksforGeeks video links.
+- 18 learning stages and 29 lessons following the Java roadmap, with video-first lessons, manual completion checkboxes, and GeeksforGeeks resources.
 - A separate Practice section: 20 foundation topics with 32 coding programs per topic — **640 programs**, each with **64 test cases**.
-- A blank Java editor, sample tests, full submission checks and a terminal-style playground.
+- A charcoal-and-gold workspace, a blank dark Java editor, resizable problem/editor/test panels, and a terminal-style playground.
 - Daily/monthly study tracking, easy/medium/hard completion counts and lesson history.
 - GitHub sign-in, private per-user drafts, and optional accepted-solution saves to each learner's own repository.
 

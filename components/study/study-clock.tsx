@@ -3,6 +3,7 @@ import {sessionHeaders} from '@/lib/session-client';
 import React,{useCallback,useEffect,useRef,useState} from 'react';
 import {Pause,Play} from 'lucide-react';
 import {StudyClock,StudyKind,StudySession,studyDay} from '@/lib/tracker';
+import {watchStudyFocus} from '@/lib/study-focus';
 import {useApp} from './shared';
 
 export type StudyControls={running:boolean;kind:StudyKind|null;snapshot:StudySession|null;pending:StudySession[];error:boolean;start:(kind:StudyKind)=>void;pause:()=>void;flush:()=>Promise<boolean>};
@@ -44,9 +45,8 @@ export function useStudyClock(ready:boolean,userId:string|undefined,onSaved:(ses
    if(current&&current.end-current.start>=3600000){remember(clock.current.pause(current.end));clock.current.start(current.kind,current.end)}
    if(current||pending.current.size)void flush();
   },15000);
-  const hidden=()=>{if(document.visibilityState==='hidden')pause()};
-  document.addEventListener('visibilitychange',hidden);window.addEventListener('pagehide',pause);window.addEventListener('blur',pause);
-  return()=>{clearInterval(tickId);clearInterval(saveId);document.removeEventListener('visibilitychange',hidden);window.removeEventListener('pagehide',pause);window.removeEventListener('blur',pause)};
+  const stopFocusWatch=watchStudyFocus(pause,()=>clock.current.running);
+  return()=>{clearInterval(tickId);clearInterval(saveId);stopFocusWatch()};
  },[flush,pause,refresh,remember]);
  void tick;
  return {running:clock.current.running,kind:clock.current.kind,snapshot:clock.current.snapshot(),pending:[...pending.current.values()],error,start,pause,flush};
