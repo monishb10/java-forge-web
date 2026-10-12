@@ -1,9 +1,9 @@
 {
   "java-environment": [
     {
-      "title": "Java Basics: JDK Setup and First Program",
-      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=1616",
-      "focus": "Start at the verified 26:56 setup chapter. Install the JDK and IntelliJ, then follow the first program at 36:09."
+      "title": "Beginning Java programming with Hello World Example | GeeksforGeeks",
+      "url": "https://www.youtube.com/watch?v=lcJzw0JGfeE",
+      "focus": "Follow a complete Hello World program, identify the main method, then compile and run your own first message."
     },
     {
       "title": "Difference between JVM, JRE & JDK",
@@ -13,23 +13,28 @@
   ],
   "input-output": [
     {
-      "title": "Java Basics: Input from the User",
-      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=8647",
-      "focus": "Start at 2:24:07. Code along with user input, then print the values you read. Revisit 51:00 for line breaks and console output."
+      "title": "How to Take Input From User in Java?",
+      "url": "https://www.geeksforgeeks.org/videos/how-to-take-input-from-user-in-java/",
+      "focus": "Compare Scanner and BufferedReader, read text and numeric values, then print only the result your exercise asks for."
     }
   ],
   "variables": [
     {
-      "title": "Java Basics: Variables and Data Types",
-      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=3988",
-      "focus": "Start at 1:06:28. Declare variables and change their values; revisit 2:03:05 for naming rules and 3:12:10 for characters and type casting."
+      "title": "Variables and Primitive DataTypes",
+      "url": "https://www.geeksforgeeks.org/videos/variables-and-primitive-datatypes/",
+      "focus": "Declare and initialize variables, choose an appropriate primitive type, and practice assigning a new value and converting between types."
     }
   ],
   "operators": [
     {
-      "title": "Java Basics: Arithmetic and Other Operators",
-      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4&t=5675",
-      "focus": "Start at 1:34:35. Predict each expression, then run it. Continue with modulus, increment and decrement, and relational operators."
+      "title": "#2.5 Java Tutorial | Arithmetic Operators in Java — Telusko",
+      "url": "https://www.youtube.com/watch?v=Pa0lUMWmmm0",
+      "focus": "Predict arithmetic, integer division, remainder, and increment results before running each expression."
+    },
+    {
+      "title": "#11 Logical Operators in Java — Telusko",
+      "url": "https://www.youtube.com/watch?v=hLimYJZQ2kc",
+      "focus": "Combine comparison results with logical operators. Write a small truth table, then test each expression in Java."
     }
   ],
   "conditions": [
@@ -48,12 +53,7 @@
     {
       "title": "DSA in Java: Loops — Java in One Shot",
       "url": "https://www.youtube.com/watch?v=h0S6HUpyWQE&t=164",
-      "focus": "Start at 02:44 for loop basics. Follow the dry run at 10:14 and code the number-printing examples."
-    },
-    {
-      "title": "Loops: While and Do-While Chapters",
-      "url": "https://www.youtube.com/watch?v=h0S6HUpyWQE&t=8671",
-      "focus": "Start at the verified 2:24:31 while-loop chapter, then continue to do-while at 2:32:52. Change the condition and trace the iterations."
+      "focus": "Start at 02:44 for loop basics and trace the dry run at 10:14. Continue to while at 2:24:31 and do-while at 2:32:52, then compare their stopping rules."
     }
   ],
   "methods": [
@@ -84,9 +84,9 @@
   ],
   "stringbuilder": [
     {
-      "title": "Java Strings: StringBuilder and Mutable Text",
-      "url": "https://www.youtube.com/watch?v=bIyit0VaJp8",
-      "focus": "Use the StringBuilder and StringBuffer discussion in this strings lesson. Build and edit text, then compare the behavior with an immutable String."
+      "title": "String Builder | Java Placement Course Lecture 13 — Apna College",
+      "url": "https://www.youtube.com/watch?v=ZLDwskEhIFg",
+      "focus": "Practice changing mutable text with StringBuilder. Build a short message, edit its characters, and compare it with an immutable String."
     }
   ],
   "oop": [
@@ -160,23 +160,23 @@
   ],
   "deque-api": [
     {
-      "title": "Overview: Java Collections Framework",
-      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
-      "focus": "Overview: locate ArrayDeque among Java's collection choices before practicing the Deque API in this lesson."
+      "title": "ArrayDeque in Java | Internal Working of ArrayDeque in Java — KK JavaTutorials",
+      "url": "https://www.youtube.com/watch?v=MtRFAHTdkwM",
+      "focus": "Follow the ArrayDeque demo, then write a small stack using push, peek, and pop. Trace which item leaves first."
     }
   ],
   "queue-api": [
     {
-      "title": "Overview: Java Collections Framework",
-      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
-      "focus": "Overview: watch how queues fit into the collections framework before practicing the Queue API in this lesson."
+      "title": "Learn Queue data structures in 10 minutes — Bro Code",
+      "url": "https://www.youtube.com/watch?v=nqXaPZi99JI",
+      "focus": "Follow the Java FIFO queue example with offer and poll. Add three arrivals and predict the order in which they are processed."
     }
   ],
   "priorityqueue": [
     {
-      "title": "Overview: Java Collections Framework",
-      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
-      "focus": "Overview: identify PriorityQueue as a queue implementation before practicing priority-based processing in this lesson."
+      "title": "Learn Priority Queue data structures in 5 minutes — Bro Code",
+      "url": "https://www.youtube.com/watch?v=7z_HXFZqXqc",
+      "focus": "Practice Java PriorityQueue ordering. Insert unsorted numbers, then poll repeatedly to observe the smallest waiting value come out first."
     }
   ],
   "comparator": [
@@ -188,9 +188,9 @@
   ],
   "collections": [
     {
-      "title": "Java Collections Framework",
-      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
-      "focus": "Review collection operations and the sorting section, then practice Collections.sort on a list."
+      "title": "Lecture-5 Mastering Sorting Algorithms with Java: From Collections.sort to Custom Comparators",
+      "url": "https://www.youtube.com/watch?v=VSy4TN2jyzE",
+      "focus": "Follow Collections.sort with Java lists. Print a list before and after sorting to understand the order and the data the utility changes."
     }
   ],
   "generics": [
@@ -207,7 +207,13 @@
       "focus": "Trace the base case and call stack in factorial and Fibonacci. Draw a small call tree before running each example."
     }
   ],
-  "file-handling": [],
+  "file-handling": [
+    {
+      "title": "Java File Input/Output - It's Way Easier Than You Think — Coding with John",
+      "url": "https://www.youtube.com/watch?v=ScUJx4aWRi0",
+      "focus": "Practice reading and writing a text file with buffered readers and writers. Then try Java’s try-with-resources syntax to close resources after success or failure."
+    }
+  ],
   "complexity": [
     {
       "title": "Calculating Time Complexity",
@@ -236,14 +242,9 @@
   ],
   "final-review": [
     {
-      "title": "Review: Object Oriented Programming in Java",
-      "url": "https://www.youtube.com/watch?v=BPABIrkX50M",
-      "focus": "Revisit the OOP examples and explain each principle aloud, then rebuild one example without following the video."
-    },
-    {
-      "title": "Recap: Java Collections Framework",
-      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
-      "focus": "Recap which collection fits ordering, uniqueness, key-value lookup, and queue behavior."
+      "title": "Number Guessing Game in Java Tutorial (Beginning to End) — Coding with John",
+      "url": "https://www.youtube.com/watch?v=j_ax_yT7KW0",
+      "focus": "Combine input, variables, comparisons, and loops in a complete small program. Rebuild it yourself, test low, high, and correct guesses, then add invalid-input handling."
     }
   ]
 }

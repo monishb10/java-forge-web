@@ -21,6 +21,10 @@ for(const lesson of lessons){
  const ctx={...defaultCtx,lesson};
  const render=component=>renderToString(React.createElement(AppContext.Provider,{value:ctx},React.createElement(component)));
  const practice=render(ui.ProblemLibrary);assert.equal((practice.match(/class="topic-problem-row"/g)||[]).length,32,lesson.id);assert.equal((practice.match(/class="question-number"/g)||[]).length,32,lesson.id);assert.ok(practice.includes('Start with Easy programs.'));assert.ok(!practice.includes('Thinking'));assert.ok(!practice.includes('Compare your answer'));assert.ok(practice.replace(/<!--.*?-->/g,'').includes('32 programs'));
+ for(const difficulty of ['Easy','Medium','Hard']){
+  const filtered=renderToString(React.createElement(AppContext.Provider,{value:ctx},React.createElement(ui.ExerciseList,{lesson,difficulty})));
+  assert.equal((filtered.match(/class="topic-problem-row"/g)||[]).length,exercises(lesson).filter(e=>e.difficulty===difficulty).length,lesson.id+' '+difficulty+' filter must show only matching programs');
+ }
  const learn=render(ui.LessonPage);assert.ok(learn.includes('video-classroom'),'Lessons open directly in the video classroom');assert.ok(learn.includes('Mark lesson complete'));assert.ok(learn.includes('What you’ll learn'));assert.ok(!learn.includes('lesson-plain-definition'));assert.ok(!learn.includes('Reveal the explanation'));assert.ok(!learn.includes('topic-problem-row'));assert.ok(!learn.includes('32 programs'));assert.ok(!learn.includes('practice-timer'));assert.equal(exercises(lesson).length,32);checked++;
 
 }
@@ -42,7 +46,16 @@ for(const topic of learningTopics){
  assert.ok(renderLesson(true).includes('Lesson completed'),'Saved completion is restored');
  for(const video of topic.videos){const url=new URL(video.url);assert.ok(['www.geeksforgeeks.org','www.youtube.com'].includes(url.hostname));}
 }
-console.log('All 29 video-first lessons render with explicit completion controls and saved completion state.');
+const usedVideos=new Map();
+for(const topic of learningTopics){
+ assert.ok(topic.videos.length>0,topic.id+' needs a topic-specific video');
+ for(const video of topic.videos){
+  const url=new URL(video.url);const key=url.hostname.includes('youtube.com')?'youtube:'+url.searchParams.get('v'):url.hostname==='youtu.be'?'youtube:'+url.pathname.slice(1):url.origin+url.pathname.replace(/\/$/,'');
+  assert.ok(!usedVideos.has(key),'Repeated video shared by '+usedVideos.get(key)+' and '+topic.id);
+  usedVideos.set(key,topic.id);
+ }
+}
+console.log('All 29 video-first lessons have distinct videos and explicit saved completion controls.');
 
 const {youtubeSource}=await import(out+'/lib/lesson-media.mjs');
 assert.equal(youtubeSource('https://www.youtube.com/watch?v=m3fg2PRY1u4&t=13m25s').start,805);

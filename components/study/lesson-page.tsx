@@ -1,6 +1,6 @@
 'use client';
 import React,{useState} from 'react';
-import {ArrowLeft,ArrowRight,Check,CheckCircle2,ChevronDown,ExternalLink,GraduationCap,LoaderCircle,Play,Search,Video} from 'lucide-react';
+import {ArrowLeft,ArrowRight,Check,ChevronDown,ExternalLink,GraduationCap,LoaderCircle,Play,Search,Video} from 'lucide-react';
 import {toast} from 'sonner';
 import {learningStages} from '@/lib/curriculum';
 import {learningTopic,learningTopics} from '@/lib/lesson-roadmap';
@@ -16,7 +16,7 @@ export function CourseOutline({topicId}:{topicId:string}){
  const query=search.trim().toLowerCase();
  const visible=learningStages.map((stage,index)=>({...stage,index,visible:stage.topics.filter(id=>!query||stage.title.toLowerCase().includes(query)||learningTopic(id).title.toLowerCase().includes(query))})).filter(stage=>stage.visible.length);
  return <>
-  <div className="classroom-outline-heading"><div><GraduationCap size={19}/><h2>Course contents</h2></div><span>{completed}/{learningTopics.length}</span></div>
+  <div className="classroom-outline-heading"><div><GraduationCap size={19}/><h2>Your learning path</h2></div><span>{completed}/{learningTopics.length}</span></div>
   <div className="classroom-course-progress"><progress max={learningTopics.length} value={completed} aria-label="Lessons completed"/><span>{Math.round(completed/learningTopics.length*100)}% complete</span></div>
   <label className="classroom-search"><Search size={16}/><input value={search} onChange={event=>setSearch(event.target.value)} placeholder="Find a lesson" aria-label="Find a lesson"/></label>
   <div className="classroom-module-list">
@@ -34,6 +34,7 @@ export function LessonPage({topicId}:{topicId?:string}){
  const topic=learningTopic(topicId||lesson.id),index=learningTopics.indexOf(topic),completed=!!data.topics[topic.id]?.mastered;
  const [selected,setSelected]=useState(0),[playing,setPlaying]=useState(false),[saving,setSaving]=useState(false);
  const video=topic.videos[selected],source=video?youtubeSource(video.url):null;
+ const provider=video?(source?'YouTube':'GeeksforGeeks'):'Learning guide';
  const stage=learningStages[topic.stage],next=learningTopics[index+1],previous=learningTopics[index-1];
  const toggleComplete=async()=>{
   if(!ready||saving)return;
@@ -49,15 +50,15 @@ export function LessonPage({topicId}:{topicId?:string}){
  const selectVideo=(i:number)=>{setSelected(i);setPlaying(false);};
  return <div className="video-classroom">
   <div className="classroom-main">
-   <div className="classroom-breadcrumb"><span>Lessons</span><span>/</span><span>Stage {String(topic.stage+1).padStart(2,'0')}</span><span>/</span><span>{stage.title}</span></div>
-   <header className="classroom-title"><div><span className="studio-kicker">JAVA FOUNDATIONS · LESSON {String(index+1).padStart(2,'0')}</span><h1>{topic.title}</h1></div><span className={'classroom-status '+(completed?'complete':'')}><span/>{completed?'Completed':'In progress'}</span></header>
+   <div className="classroom-breadcrumb"><span>THE CLASSROOM</span><span>/</span><span>Stage {String(topic.stage+1).padStart(2,'0')}</span><span>/</span><span>{stage.title}</span></div>
+   <header className="classroom-title"><div><span className="studio-kicker">THE CLASSROOM / LESSON {String(index+1).padStart(2,'0')}</span><h1>{topic.title}</h1></div><span className={'classroom-status '+(completed?'complete':'')}><span/>{completed?'Completed':'In progress'}</span></header>
    <div className="classroom-player-shell">
-    <div className="classroom-player-bar"><span><Video size={15}/>Video lesson</span><span>{video?'GeeksforGeeks':'Learning resource'}</span></div>
-    <div className={'classroom-player '+(playing&&source?'is-playing':'')}>
+    <div className="classroom-player-bar"><span><Video size={15}/>Video lesson</span><span>{provider}</span></div>
+    <div className={'classroom-player '+(source?'has-poster ':'')+(playing&&source?'is-playing':'')}>
      {playing&&source?<iframe key={video.url} src={source.embed+'&autoplay=1'} title={video.title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen referrerPolicy="strict-origin-when-cross-origin"/>:<>
       {source&&<img className="classroom-video-poster" src={source.thumbnail} alt=""/>}
       <div className="classroom-player-shade"/>
-      <div className="classroom-player-content"><span className="player-provider">{video?'GEEKSFORGEEKS · JAVA':'JAVA FOUNDATIONS'}</span>
+      <div className="classroom-player-content"><span className="player-provider">{video?provider.toUpperCase()+' · VIDEO LESSON':'JAVA FOUNDATIONS'}</span>
        {video?source?<button className="classroom-play-button" aria-label="Play lesson video" onClick={()=>{setPlaying(true);study.start('lesson');}}><Play size={28} fill="currentColor"/></button>:<a className="classroom-play-button" aria-label="Watch lesson on GeeksforGeeks" href={video.url} target="_blank" rel="noopener noreferrer" onClick={()=>study.start('lesson')}><Play size={28} fill="currentColor"/></a>:<Video size={42}/>}
        <h2>{topic.title}</h2><p>{source?'Press play. Learn at your pace.':video?'Watch this lesson on GeeksforGeeks.':'A video is not available for this topic yet.'}</p>
        {!video&&<a className="secondary" href="https://www.geeksforgeeks.org/java/file-handling-in-java/" target="_blank" rel="noopener noreferrer">Open the learning guide <ExternalLink size={14}/></a>}
