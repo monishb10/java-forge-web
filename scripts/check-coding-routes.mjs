@@ -31,6 +31,13 @@ check('Unauthorized state rejected',(await call(state,null,null)).status===401);
 check('Progress loads',(await call(state)).status===200);
 const topic=await call(state,{action:'topic',id:'variables',mastered:true,read:true,note:'boundary notes'});check('Topic persists',topic.topic.mastered&&topic.topic.read);
 check('Account isolation',!(await call(state,null,'other')).topics.variables);
+for(const id of ['java-environment','exception-handling','collections-framework','generics','file-handling','complexity','multithreading','java8-features','final-review']){
+ const saved=await call(state,{action:'topic',id,mastered:true,read:true,studiedToday:true,note:'My roadmap note'});
+ check('Roadmap lesson saves: '+id,saved.status===200&&saved.topic?.mastered&&saved.event?.id===id);
+ const own=await call(state),other=await call(state,null,'other');
+ check('Roadmap note persists privately: '+id,own.topics[id]?.note==='My roadmap note'&&!other.topics[id]);
+}
+check('Unknown lesson still rejected',(await call(state,{action:'topic',id:'fake-lesson',read:true})).status===400);
 const code='CORRECT_RECTANGLE_JAVA';
 check('Compiler consent enforced',(await call(run,{mode:'tests',exerciseId:'variables-2',code,consent:false})).status===400);
 const result=await call(run,{mode:'tests',exerciseId:'variables-2',code,consent:true});check('All expected cases verified',result.passed&&result.cases.length===12);

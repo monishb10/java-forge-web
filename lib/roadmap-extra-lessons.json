@@ -1,0 +1,907 @@
+{
+  "java-environment": {
+    "title": "Java Basics & Environment",
+    "goal": "Understand how a Java program runs and print your first message.",
+    "idea": "A Java program is a set of instructions. You write a source file, a compiler checks and translates it into bytecode, and a Java Virtual Machine runs that bytecode.",
+    "words": [
+      [
+        "JDK",
+        "The development kit containing tools such as the Java compiler and launcher."
+      ],
+      [
+        "JVM",
+        "The virtual machine that executes Java bytecode."
+      ],
+      [
+        "Source file",
+        "The text you write, normally saved with a .java extension."
+      ]
+    ],
+    "focus": [
+      "Follow source → bytecode → execution",
+      "Set up a local JDK and editor",
+      "Understand JDK, JRE, and JVM",
+      "Read the program frame"
+    ],
+    "concepts": [
+      {
+        "title": "Follow source → bytecode → execution",
+        "text": "Think of a recipe, its translated instructions, and a cook. Main.java is your recipe; javac produces Main.class; java launches the program on a JVM. The JVM implementation handles differences between operating systems."
+      },
+      {
+        "title": "Set up a local JDK and editor",
+        "text": "For local practice, install a JDK and use an editor such as IntelliJ or VS Code with Java support. Check java -version and javac -version in a new terminal. If the commands are not found, check the JDK installation and PATH. This website’s Playground can run an example without a local setup.",
+        "code": "javac Main.java\njava Main"
+      },
+      {
+        "title": "Understand JDK, JRE, and JVM",
+        "text": "JRE is the runtime environment concept: the JVM and supporting libraries. The JDK supplies development tools and runtime components. You do not need to hunt for a separate JRE to write programs with a modern JDK."
+      },
+      {
+        "title": "Read the program frame",
+        "text": "In our exercises, save a public class named Main in Main.java. The main method is the entry point used here. Braces group code, a semicolon ends a print statement, and // starts a line comment. Java names are case-sensitive.",
+        "code": "public class Main {\n    public static void main(String[] args) {\n        System.out.println(\"Hello, Java!\");\n    }\n}"
+      }
+    ],
+    "example": {
+      "title": "A welcome sign at a college event",
+      "situation": "An event desk wants to print a welcome message followed by the room name.",
+      "body": "System.out.println(\"Welcome to Java Forge\");\nSystem.out.println(\"Room 101\");",
+      "output": "Welcome to Java Forge\nRoom 101",
+      "steps": [
+        {
+          "title": "Start at main",
+          "text": "The JVM starts the entry method. In this example, the first instruction is the welcome print."
+        },
+        {
+          "title": "Print the first line",
+          "text": "println displays the message and moves to a new line."
+        },
+        {
+          "title": "Print the room",
+          "text": "The second instruction runs next, in source order."
+        }
+      ],
+      "change": "Change the room to Room 202. Predict how many output lines there will be before running the program."
+    },
+    "trace": {
+      "columns": [
+        "Instruction",
+        "Output added"
+      ],
+      "rows": [
+        [
+          "First println",
+          "Welcome to Java Forge"
+        ],
+        [
+          "Second println",
+          "Room 101"
+        ]
+      ]
+    },
+    "check": {
+      "question": "What is the difference between javac Main.java and java Main?",
+      "answer": "javac compiles the source file into bytecode. java launches the compiled Main class on a JVM."
+    },
+    "before": [],
+    "remember": "Write a small program, run it, read its output, and change one thing at a time.",
+    "mistake": "Use matching capitalization: Main, main, System, and println are different names.",
+    "ready": "You can explain the program frame and print two lines in order."
+  },
+  "exception-handling": {
+    "title": "Exception Handling",
+    "goal": "Understand a failure, catch a specific exception, and choose a useful recovery.",
+    "idea": "An exception reports that a normal operation could not finish. Handling it means choosing what your program should do after that failure, such as rejecting an invalid number.",
+    "words": [
+      [
+        "try",
+        "The block containing an operation that may fail."
+      ],
+      [
+        "catch",
+        "The block that handles a matching exception."
+      ],
+      [
+        "throw / throws",
+        "throw raises an exception; throws declares that a method may let one reach its caller."
+      ]
+    ],
+    "focus": [
+      "Trace try and catch",
+      "Distinguish checked and unchecked exceptions",
+      "Use finally and automatic closing",
+      "Raise a meaningful error"
+    ],
+    "concepts": [
+      {
+        "title": "Trace try and catch",
+        "text": "If a statement throws an exception, the remaining statements in that try block are skipped. Java looks for a compatible catch. Catch the exception you can handle rather than hiding every failure."
+      },
+      {
+        "title": "Distinguish checked and unchecked exceptions",
+        "text": "Checked exceptions, such as IOException, must be caught or declared with throws. RuntimeException subclasses, such as NumberFormatException, do not have that compiler requirement. A checked exception is still thrown at runtime; it is not a syntax error."
+      },
+      {
+        "title": "Use finally and automatic closing",
+        "text": "finally normally runs when control leaves try/catch, even after an exception or return; it is not guaranteed if the process terminates. For closable resources, prefer try-with-resources so they are closed automatically."
+      },
+      {
+        "title": "Raise a meaningful error",
+        "text": "throw can reject invalid input. A custom exception extends an exception class and should explain the failure. Catch more specific exception types before broader ones.",
+        "code": "if (age < 0) {\n    throw new IllegalArgumentException(\"Age cannot be negative\");\n}"
+      }
+    ],
+    "example": {
+      "title": "Read an age typed at a registration desk",
+      "situation": "The text \"twenty\" cannot be converted to an integer. Show a helpful message and keep the next instruction reachable.",
+      "body": "String typedAge = \"twenty\";\ntry {\n    int age = Integer.parseInt(typedAge);\n    System.out.println(\"Age: \" + age);\n} catch (NumberFormatException error) {\n    System.out.println(\"Enter a whole number\");\n}\nSystem.out.println(\"Registration is still open\");",
+      "output": "Enter a whole number\nRegistration is still open",
+      "steps": [
+        {
+          "title": "Try the conversion",
+          "text": "parseInt expects numeric text. The word twenty makes it throw NumberFormatException."
+        },
+        {
+          "title": "Handle that failure",
+          "text": "The matching catch prints the helpful message; the Age line is skipped."
+        },
+        {
+          "title": "Continue afterward",
+          "text": "The statement after try/catch can still run."
+        }
+      ],
+      "change": "Change typedAge to \"20\". Predict which message disappears and which new line appears."
+    },
+    "trace": {
+      "columns": [
+        "Step",
+        "What happens"
+      ],
+      "rows": [
+        [
+          "parseInt(\"twenty\")",
+          "Throws NumberFormatException"
+        ],
+        [
+          "Age print inside try",
+          "Skipped"
+        ],
+        [
+          "Matching catch",
+          "Prints helpful message"
+        ],
+        [
+          "After try/catch",
+          "Program continues"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Does catch run when typedAge is \"20\"?",
+      "answer": "No. The conversion succeeds, so the try block prints Age: 20. Control then continues after the try/catch."
+    },
+    "before": [
+      "methods",
+      "oop"
+    ],
+    "remember": "Handle the failure where you can make a sensible recovery; otherwise let the caller decide.",
+    "mistake": "Do not use an empty catch block. It makes a failed operation look as if it succeeded.",
+    "ready": "You can trace both the successful path and the exception path."
+  },
+  "collections-framework": {
+    "title": "Collections Framework Overview",
+    "goal": "Choose a collection from the behavior you need.",
+    "idea": "Collections are reusable containers. Choose one by asking whether order, duplicates, uniqueness, lookup by key, or the next item to process matters.",
+    "words": [
+      [
+        "List",
+        "An ordered sequence that can contain duplicates."
+      ],
+      [
+        "Set",
+        "A group of distinct elements."
+      ],
+      [
+        "Map",
+        "A lookup from each key to its associated value."
+      ]
+    ],
+    "focus": [
+      "Choose List, Set, Map, or Queue",
+      "Separate interface from implementation",
+      "Use a type parameter and wrapper types",
+      "Choose ordering and iterate safely"
+    ],
+    "concepts": [
+      {
+        "title": "Choose List, Set, Map, or Queue",
+        "text": "A shopping list needs sequence and duplicates; a visitor register needs unique IDs; a menu needs dish-to-price lookup; a waiting line needs a next item. Map belongs to the framework but does not extend the Collection interface."
+      },
+      {
+        "title": "Separate interface from implementation",
+        "text": "List describes list behavior. ArrayList and LinkedList implement it with different storage and costs. Queue describes processing operations; ArrayDeque gives FIFO behavior when used through Queue, while PriorityQueue chooses by priority.",
+        "code": "List<String> items = new ArrayList<>();\nSet<String> unique = new HashSet<>();\nMap<String, Integer> counts = new HashMap<>();\nQueue<String> waiting = new ArrayDeque<>();"
+      },
+      {
+        "title": "Use a type parameter and wrapper types",
+        "text": "The angle brackets say which element type is allowed. Use Integer instead of int inside a collection type. Generics give compile-time type checks; the dedicated Generics stage explains how to write your own."
+      },
+      {
+        "title": "Choose ordering and iterate safely",
+        "text": "HashMap/HashSet do not promise iteration order. TreeMap/TreeSet keep sorted order; LinkedHashMap/LinkedHashSet preserve insertion order. Use enhanced for to read items and an Iterator when its remove operation is needed."
+      }
+    ],
+    "example": {
+      "title": "Count orders at a tea stall",
+      "situation": "Three orders arrive: Tea, Coffee, Tea. Keep their arrival order, identify unique drinks, and count orders for each drink.",
+      "body": "List<String> orders = Arrays.asList(\"Tea\", \"Coffee\", \"Tea\");\nSet<String> drinks = new LinkedHashSet<>(orders);\nMap<String, Integer> counts = new LinkedHashMap<>();\nfor (String drink : orders) {\n    counts.put(drink, counts.getOrDefault(drink, 0) + 1);\n}\nSystem.out.println(orders);\nSystem.out.println(drinks);\nSystem.out.println(counts);",
+      "output": "[Tea, Coffee, Tea]\n[Tea, Coffee]\n{Tea=2, Coffee=1}",
+      "steps": [
+        {
+          "title": "Keep the arrivals",
+          "text": "The list keeps all three orders, including the repeated Tea."
+        },
+        {
+          "title": "Keep distinct drinks",
+          "text": "The linked set keeps the first occurrence of each drink in arrival order."
+        },
+        {
+          "title": "Count each key",
+          "text": "The linked map stores one current count per drink. Each new order increases that count."
+        }
+      ],
+      "change": "Add another Coffee to the order list. Predict the list, set, and map results separately."
+    },
+    "trace": {
+      "columns": [
+        "After order",
+        "Tea count",
+        "Coffee count"
+      ],
+      "rows": [
+        [
+          "Tea",
+          "1",
+          "0"
+        ],
+        [
+          "Coffee",
+          "1",
+          "1"
+        ],
+        [
+          "Tea",
+          "2",
+          "1"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Which collection answers “How many Tea orders?” directly?",
+      "answer": "A Map<String, Integer> holding drink counts. A Set only tells you whether Tea is present."
+    },
+    "before": [
+      "arrays",
+      "strings",
+      "oop"
+    ],
+    "remember": "Choose the container from the question you must answer, then learn its operations.",
+    "mistake": "Do not assume every collection is sorted or permits duplicates.",
+    "ready": "You can explain why a list, set, map, and queue solve different jobs."
+  },
+  "generics": {
+    "title": "Generics",
+    "goal": "Use type parameters to make reusable code with checked types.",
+    "idea": "Generics let a class or method work with a chosen type. A Box<String> promises to hold text, while a Box<Integer> promises to hold integer objects.",
+    "words": [
+      [
+        "Type parameter",
+        "A placeholder such as T for a type."
+      ],
+      [
+        "Type argument",
+        "The chosen type, such as String."
+      ],
+      [
+        "Bound",
+        "A restriction on which types a parameter accepts."
+      ]
+    ],
+    "focus": [
+      "Write a class with a type parameter",
+      "Write a generic method",
+      "Use a bound when a capability is required",
+      "Recognize the limits"
+    ],
+    "concepts": [
+      {
+        "title": "Write a class with a type parameter",
+        "text": "Put <T> after the class name. Use T for fields, parameters, and return values. The same code can then store different types without casting every returned value.",
+        "code": "static class Box<T> {\n    private T value;\n    Box(T value) { this.value = value; }\n    T get() { return value; }\n}"
+      },
+      {
+        "title": "Write a generic method",
+        "text": "A method can declare its own type parameter before its return type. Java often infers the type from the call. Generic interfaces use the same idea to describe capabilities for a chosen type.",
+        "code": "static <T> T first(List<T> values) {\n    return values.get(0); // requires a nonempty list\n}"
+      },
+      {
+        "title": "Use a bound when a capability is required",
+        "text": "<T extends Number> permits numeric reference types and lets the method call Number methods. A wildcard ? means an unknown type. ? extends Number is useful for reading numbers; ? super Integer can accept Integer values.",
+        "code": "static double total(List<? extends Number> numbers) {\n    double sum = 0;\n    for (Number number : numbers) sum += number.doubleValue();\n    return sum;\n}"
+      },
+      {
+        "title": "Recognize the limits",
+        "text": "Use wrapper types, not primitives: List<Integer>, not List<int>. Avoid raw types such as List without angle brackets. List<Integer> is not a subtype of List<Number>. Java erases most generic type information after compilation."
+      }
+    ],
+    "example": {
+      "title": "Label two storage boxes",
+      "situation": "One box holds a student name and another holds a locker number. The compiler keeps their types separate.",
+      "body": "static class Box<T> {\n    private final T value;\n    Box(T value) { this.value = value; }\n    T get() { return value; }\n}\npublic static void main(String[] args) {\n    Box<String> name = new Box<>(\"Mira\");\n    Box<Integer> locker = new Box<>(42);\n    String student = name.get();\n    int number = locker.get();\n    System.out.println(student);\n    System.out.println(number);\n}",
+      "output": "Mira\n42",
+      "steps": [
+        {
+          "title": "Choose each type",
+          "text": "String replaces T for the name box; Integer replaces it for the locker box."
+        },
+        {
+          "title": "Store the value",
+          "text": "The constructor accepts a value of the selected type."
+        },
+        {
+          "title": "Retrieve without a cast",
+          "text": "get returns the selected type. The Integer value is unboxed into int."
+        }
+      ],
+      "change": "Change the locker box to Box<String> and store \"A42\". Also change the receiving variable to String."
+    },
+    "trace": {
+      "columns": [
+        "Box",
+        "Type argument",
+        "Value returned"
+      ],
+      "rows": [
+        [
+          "name",
+          "String",
+          "Mira"
+        ],
+        [
+          "locker",
+          "Integer",
+          "42"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Can you construct new Box<String>(42)?",
+      "answer": "No. This box expects a String, so an integer argument produces a compile-time type error."
+    },
+    "before": [
+      "oop",
+      "collections-framework"
+    ],
+    "remember": "Generics reuse an implementation while keeping the chosen types consistent.",
+    "mistake": "Do not remove the type argument just to silence a type error; fix the mismatch.",
+    "ready": "You can read a generic declaration and create a correctly typed instance."
+  },
+  "file-handling": {
+    "title": "File Handling",
+    "goal": "Write and read a text file, then close the resources correctly.",
+    "idea": "File handling moves information between your program and storage. A path identifies a location; readers bring text in and writers send text out.",
+    "words": [
+      [
+        "Path / File",
+        "A representation of a file location, not its contents."
+      ],
+      [
+        "Reader / Writer",
+        "Tools for reading and writing characters."
+      ],
+      [
+        "Buffer",
+        "A temporary area that groups I/O work efficiently."
+      ]
+    ],
+    "focus": [
+      "Distinguish a file name from an open file",
+      "Read and write text with buffers",
+      "Close resources even after a failure",
+      "Treat files and errors carefully"
+    ],
+    "concepts": [
+      {
+        "title": "Distinguish a file name from an open file",
+        "text": "Creating new File(\"notes.txt\") represents a location; it does not create or read that file by itself. java.nio.file.Path and Files provide modern operations for creating, copying, moving, and deleting files."
+      },
+      {
+        "title": "Read and write text with buffers",
+        "text": "FileReader/FileWriter are character streams. BufferedReader adds operations such as readLine; BufferedWriter supports newLine. For a known text encoding, use an API where you specify it, such as Files.newBufferedReader(path, UTF_8)."
+      },
+      {
+        "title": "Close resources even after a failure",
+        "text": "Put readers and writers in try-with-resources. Closing the writer flushes pending data. IOException is checked: catch it meaningfully or declare throws IOException so the caller must handle it."
+      },
+      {
+        "title": "Treat files and errors carefully",
+        "text": "A file can be missing, unreadable, or unwritable. Reading until readLine returns null handles an unknown number of lines. Opening a writer may replace existing contents unless append mode is explicitly selected. Practice with a temporary file you created."
+      }
+    ],
+    "example": {
+      "title": "Save and reload a two-item shopping note",
+      "situation": "Write Tea and Milk to a temporary text file, close it, read both lines, and delete only that temporary file.",
+      "body": "public static void main(String[] args) throws java.io.IOException {\n    java.nio.file.Path path = java.nio.file.Files.createTempFile(\"java-forge-\", \".txt\");\n    try {\n        try (java.io.BufferedWriter writer = java.nio.file.Files.newBufferedWriter(path, java.nio.charset.StandardCharsets.UTF_8)) {\n            writer.write(\"Tea\");\n            writer.newLine();\n            writer.write(\"Milk\");\n            writer.newLine();\n        }\n        try (java.io.BufferedReader reader = java.nio.file.Files.newBufferedReader(path, java.nio.charset.StandardCharsets.UTF_8)) {\n            String line;\n            while ((line = reader.readLine()) != null) {\n                System.out.println(line);\n            }\n        }\n    } finally {\n        java.nio.file.Files.deleteIfExists(path);\n    }\n}",
+      "output": "Tea\nMilk",
+      "steps": [
+        {
+          "title": "Create a temporary location",
+          "text": "createTempFile returns the path of a new temporary file."
+        },
+        {
+          "title": "Write and close",
+          "text": "The writer stores both items as UTF-8 text and closes before reading starts."
+        },
+        {
+          "title": "Read until the end",
+          "text": "readLine returns each line without its newline, then null at end-of-file."
+        },
+        {
+          "title": "Clean up the example",
+          "text": "The final block deletes only the temporary file this program created."
+        }
+      ],
+      "change": "Add Bread as a third line before the writer closes. The read loop should print all three items."
+    },
+    "trace": {
+      "columns": [
+        "Operation",
+        "Result"
+      ],
+      "rows": [
+        [
+          "Write Tea and Milk",
+          "Two lines stored"
+        ],
+        [
+          "First readLine",
+          "Tea"
+        ],
+        [
+          "Second readLine",
+          "Milk"
+        ],
+        [
+          "Third readLine",
+          "null: stop"
+        ],
+        [
+          "Delete temporary file",
+          "Demo file removed"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Does new File(\"notes.txt\") read the contents of notes.txt?",
+      "answer": "No. It represents a file location. You need a reader or a Files read operation to access the contents."
+    },
+    "before": [
+      "exception-handling",
+      "loops"
+    ],
+    "remember": "Choose the correct encoding, close what you open, and handle I/O failures.",
+    "mistake": "A remote compiler cannot read a path on your own laptop. Do not put a personal local path in the example.",
+    "ready": "You can explain when a writer closes and why the reader loop stops.",
+    "runtimeNote": "This example creates a temporary file in the compiler environment and deletes it afterward. It does not read your laptop’s files or save a downloadable file. If the compiler restricts file I/O, run this example locally with your JDK."
+  },
+  "complexity": {
+    "title": "Time & Space Complexity",
+    "goal": "Compare how work and extra memory grow when the input gets larger.",
+    "idea": "Complexity describes growth, rather than a stopwatch result. Ask how many operations and how much extra memory a solution needs when the number of inputs doubles.",
+    "words": [
+      [
+        "n",
+        "The input size, such as the number of marks."
+      ],
+      [
+        "Big O",
+        "An asymptotic upper-bound description of growth."
+      ],
+      [
+        "Auxiliary space",
+        "Extra working memory used beyond the input."
+      ]
+    ],
+    "focus": [
+      "Count repeated work",
+      "Understand halving and sorted input",
+      "Count extra memory separately",
+      "Name your assumptions"
+    ],
+    "concepts": [
+      {
+        "title": "Count repeated work",
+        "text": "Looking at one fixed array position is O(1). Visiting every element is O(n). Checking every pair is O(n²). Two consecutive full scans are O(n + n), which simplifies to O(n)."
+      },
+      {
+        "title": "Understand halving and sorted input",
+        "text": "Binary search discards about half of a sorted search range each step, giving O(log n) search time. Sorting first also has a cost; do not hide that cost when comparing whole solutions."
+      },
+      {
+        "title": "Count extra memory separately",
+        "text": "A loop with only a sum variable uses O(1) auxiliary space. Copying n values uses O(n). A recursive call stack of depth n also uses O(n) space, even without a new array."
+      },
+      {
+        "title": "Name your assumptions",
+        "text": "State whether you mean worst-case, average, or amortized cost. HashMap lookup is expected O(1) with good hash distribution. For a nested loop whose bounds differ, use both sizes, such as O(rows × columns)."
+      }
+    ],
+    "example": {
+      "title": "Find the largest daily sale",
+      "situation": "Visit each sale once and keep only the largest seen so far. Count the visits to make the work visible.",
+      "body": "int[] sales = {40, 10, 70, 20};\nint largest = sales[0];\nint visits = 0;\nfor (int sale : sales) {\n    visits++;\n    if (sale > largest) largest = sale;\n}\nSystem.out.println(\"Largest: \" + largest);\nSystem.out.println(\"Visits: \" + visits);",
+      "output": "Largest: 70\nVisits: 4",
+      "steps": [
+        {
+          "title": "Remember one candidate",
+          "text": "Use the first actual value as the initial maximum. This example assumes a nonempty array."
+        },
+        {
+          "title": "Visit each sale",
+          "text": "The loop makes one pass, updating largest when it finds a bigger value."
+        },
+        {
+          "title": "Compare growth",
+          "text": "For n sales there are n visits. The counters use constant extra space."
+        }
+      ],
+      "change": "Add four more sales. Predict the visit count and explain why the algorithm is still O(n)."
+    },
+    "trace": {
+      "columns": [
+        "Sale visited",
+        "Largest so far",
+        "Visits"
+      ],
+      "rows": [
+        [
+          "40",
+          "40",
+          "1"
+        ],
+        [
+          "10",
+          "40",
+          "2"
+        ],
+        [
+          "70",
+          "70",
+          "3"
+        ],
+        [
+          "20",
+          "70",
+          "4"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Two separate loops each visit n values. Is the total O(n²)?",
+      "answer": "No. They do n + n operations, so the total is O(n). A loop that performs n inner iterations for each of n outer iterations gives O(n²)."
+    },
+    "before": [
+      "arrays",
+      "loops",
+      "recursion-basics"
+    ],
+    "remember": "Write time growth and extra-space growth separately, with clear assumptions.",
+    "mistake": "Do not label every nested loop O(n²); inspect how many times its bodies actually run.",
+    "ready": "You can explain O(1), O(n), O(log n), and O(n²) with a small example."
+  },
+  "multithreading": {
+    "title": "Multithreading & Concurrency",
+    "goal": "Understand a thread, wait for its result, and protect shared state.",
+    "idea": "A thread is an independent path of execution. Concurrency lets tasks make progress during the same period; true parallel execution depends on available processors and scheduling.",
+    "words": [
+      [
+        "Thread",
+        "A path of execution inside a process."
+      ],
+      [
+        "Runnable",
+        "A task whose run method has no return value."
+      ],
+      [
+        "Synchronization",
+        "Coordination that protects shared state and visibility."
+      ]
+    ],
+    "focus": [
+      "Describe the task and start a thread",
+      "Wait using join",
+      "Protect a compound update",
+      "Learn coordination before advanced tools"
+    ],
+    "concepts": [
+      {
+        "title": "Describe the task and start a thread",
+        "text": "Implement Runnable for the work. Thread.start schedules a new thread to execute it. Calling run directly is an ordinary method call on the current thread. Extending Thread is another approach, but separating the task from the thread is usually clearer."
+      },
+      {
+        "title": "Wait using join",
+        "text": "join waits for a thread to finish. It can throw InterruptedException. Do not use an arbitrary sleep to assume another thread has finished; scheduling and completion times can change."
+      },
+      {
+        "title": "Protect a compound update",
+        "text": "count++ reads, adds, and writes; it is not one indivisible operation. Two threads can overwrite each other’s updates. A synchronized method uses an object’s monitor so only one thread holds that monitor at a time."
+      },
+      {
+        "title": "Learn coordination before advanced tools",
+        "text": "Shared-state bugs depend on timing. Avoid holding one lock while waiting for work that requires another conflicting lock. Producer/consumer queues, executors, and lock classes are useful next steps. Basic DSA does not require mastery of these tools."
+      }
+    ],
+    "example": {
+      "title": "Two counters record event arrivals",
+      "situation": "Two workers each record 100 arrivals. Both update one synchronized counter. Wait for both workers before printing.",
+      "body": "static class Counter {\n    private int count;\n    synchronized void add() { count++; }\n    synchronized int value() { return count; }\n}\npublic static void main(String[] args) throws InterruptedException {\n    Counter counter = new Counter();\n    Runnable task = () -> {\n        for (int i = 0; i < 100; i++) counter.add();\n    };\n    Thread first = new Thread(task);\n    Thread second = new Thread(task);\n    first.start();\n    second.start();\n    first.join();\n    second.join();\n    System.out.println(counter.value());\n}",
+      "output": "200",
+      "steps": [
+        {
+          "title": "Share one counter",
+          "text": "Both worker tasks refer to the same Counter object."
+        },
+        {
+          "title": "Protect each update",
+          "text": "synchronized ensures updates on that object cannot overwrite one another."
+        },
+        {
+          "title": "Wait before printing",
+          "text": "join waits for both sets of 100 updates. Their interleaving can vary, but the final count is 200."
+        }
+      ],
+      "change": "Change each worker to 150 arrivals. Predict the final count. Keep synchronization and both joins."
+    },
+    "trace": {
+      "columns": [
+        "Milestone",
+        "What you know"
+      ],
+      "rows": [
+        [
+          "Before start",
+          "Count is 0"
+        ],
+        [
+          "Workers running",
+          "Execution order can vary"
+        ],
+        [
+          "After both joins",
+          "All 200 protected updates completed"
+        ],
+        [
+          "Print",
+          "200"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Why is printing immediately after start unreliable?",
+      "answer": "The workers may still be running. join waits for completion so the final result can be read after all updates."
+    },
+    "before": [
+      "oop",
+      "exception-handling",
+      "loops"
+    ],
+    "remember": "Protect shared updates and wait for a result before using it.",
+    "mistake": "Removing synchronized may produce the right answer sometimes; that does not prove the update is safe.",
+    "ready": "You can distinguish start from run and explain why join is needed.",
+    "runtimeNote": "The example uses a short lambda for Runnable; the next stage explains that syntax. Thread scheduling varies, so only the final joined result is displayed."
+  },
+  "java8-features": {
+    "title": "Java 8+ Features",
+    "goal": "Read lambdas and a simple stream pipeline without losing the underlying logic.",
+    "idea": "A lambda supplies a small behavior. A stream describes operations over values, such as selecting and transforming them. These features complement the loops and methods you already know.",
+    "words": [
+      [
+        "Lambda",
+        "An expression supplying a function-like behavior."
+      ],
+      [
+        "Functional interface",
+        "An interface with one abstract method."
+      ],
+      [
+        "Stream pipeline",
+        "A source, intermediate operations, and a terminal operation."
+      ]
+    ],
+    "focus": [
+      "Give an interface a short implementation",
+      "Read filter → map → terminal operation",
+      "Recognize method references and collectors",
+      "Use reduce and Optional deliberately"
+    ],
+    "concepts": [
+      {
+        "title": "Give an interface a short implementation",
+        "text": "A lambda matches a functional interface. Predicate<T> tests a value, Function<T,R> transforms it, and Consumer<T> uses it without returning a result. You can first write the equivalent ordinary method to understand the job.",
+        "code": "java.util.function.Predicate<Integer> passing = mark -> mark >= 50;"
+      },
+      {
+        "title": "Read filter → map → terminal operation",
+        "text": "filter keeps matching values. map transforms each remaining value. Intermediate operations are lazy: a terminal operation such as collect or count triggers processing. A stream is not itself a stored collection."
+      },
+      {
+        "title": "Recognize method references and collectors",
+        "text": "System.out::println passes an existing method as a behavior. Collectors.toList gathers results into a list. Stream operations normally leave the source collection unchanged; avoid shared side effects inside the pipeline."
+      },
+      {
+        "title": "Use reduce and Optional deliberately",
+        "text": "reduce combines values into one result, such as a sum. Some operations return Optional to represent an absent answer. Use an appropriate fallback or explicit handling instead of calling get blindly. A consumed stream cannot be reused.",
+        "code": "int sum = Arrays.asList(10, 20).stream().reduce(0, Integer::sum);"
+      }
+    ],
+    "example": {
+      "title": "Select passing exam scores and add a bonus",
+      "situation": "From 40, 70, and 90, keep scores at least 50, add 5 to each selected score, and collect the result.",
+      "body": "List<Integer> marks = Arrays.asList(40, 70, 90);\nList<Integer> adjusted = marks.stream()\n    .filter(mark -> mark >= 50)\n    .map(mark -> mark + 5)\n    .collect(java.util.stream.Collectors.toList());\nSystem.out.println(adjusted);\nSystem.out.println(marks);",
+      "output": "[75, 95]\n[40, 70, 90]",
+      "steps": [
+        {
+          "title": "Choose passing values",
+          "text": "filter keeps 70 and 90; 40 does not pass the condition."
+        },
+        {
+          "title": "Transform the selected values",
+          "text": "map produces 75 and 95."
+        },
+        {
+          "title": "Collect a result",
+          "text": "collect evaluates the pipeline and gathers a list. The original marks remain unchanged."
+        }
+      ],
+      "change": "Change the passing threshold to 80. Predict both printed lists, then write the same transformation using a loop."
+    },
+    "trace": {
+      "columns": [
+        "Value",
+        "Passes filter?",
+        "Mapped result"
+      ],
+      "rows": [
+        [
+          "40",
+          "No",
+          "Not included"
+        ],
+        [
+          "70",
+          "Yes",
+          "75"
+        ],
+        [
+          "90",
+          "Yes",
+          "95"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Does calling marks.stream().filter(...) by itself create a result list?",
+      "answer": "No. filter is lazy and returns a stream. A terminal operation such as collect is needed to process and gather the selected values."
+    },
+    "before": [
+      "methods",
+      "collections-framework",
+      "generics"
+    ],
+    "remember": "Read a pipeline one operation at a time and be able to express the same logic with a loop.",
+    "mistake": "Do not assume parallelStream always makes a program faster or makes shared writes safe.",
+    "ready": "You can explain the input and result of each operation in a small stream pipeline."
+  },
+  "final-review": {
+    "title": "Final Practice & Review",
+    "goal": "Combine Java fundamentals, test your assumptions, and choose a starting point for DSA.",
+    "idea": "A complete small program combines familiar parts. Describe the input, choose a representation, divide the work into methods, trace one example, and check boundary cases before optimizing.",
+    "words": [
+      [
+        "Dry run",
+        "Follow statements by hand with small input."
+      ],
+      [
+        "Edge case",
+        "A valid input near a limit, such as an empty list."
+      ],
+      [
+        "Invariant",
+        "A fact your algorithm keeps true as it progresses."
+      ]
+    ],
+    "focus": [
+      "Plan before typing",
+      "Build and trace a small version",
+      "Test boundaries and explain cost",
+      "Move into DSA when the core is comfortable"
+    ],
+    "concepts": [
+      {
+        "title": "Plan before typing",
+        "text": "For a spending report, decide whether you need individual entries, a total, or totals per category. State the input rules and required output. Start with a straightforward solution you can explain."
+      },
+      {
+        "title": "Build and trace a small version",
+        "text": "Write one helper for one job. With amounts 20, 30, and 20, trace the running total as 20, 50, and 70. For a frequency map, track the count for each amount separately."
+      },
+      {
+        "title": "Test boundaries and explain cost",
+        "text": "Try no entries, one entry, repeated amounts, and large totals. Decide whether negative amounts are valid. A single scan uses O(n) time; a map holding k distinct amounts uses O(k) extra space."
+      },
+      {
+        "title": "Move into DSA when the core is comfortable",
+        "text": "Begin with complexity, array scans, basic searching and sorting, then binary search and hashing patterns. Continue into two pointers, sliding windows, linked lists, stacks, queues, trees, graphs, and dynamic programming in a deliberate sequence. File and concurrency details can be revisited alongside that path."
+      }
+    ],
+    "example": {
+      "title": "Create a daily spending summary",
+      "situation": "A student spent 20, 30, and 20. Use a helper for the total and a sorted map for how often each amount occurred.",
+      "body": "static long total(int[] amounts) {\n    long sum = 0;\n    for (int amount : amounts) sum += amount;\n    return sum;\n}\npublic static void main(String[] args) {\n    int[] amounts = {20, 30, 20};\n    Map<Integer, Integer> counts = new TreeMap<>();\n    for (int amount : amounts) {\n        counts.put(amount, counts.getOrDefault(amount, 0) + 1);\n    }\n    System.out.println(\"Total: \" + total(amounts));\n    System.out.println(counts);\n}",
+      "output": "Total: 70\n{20=2, 30=1}",
+      "steps": [
+        {
+          "title": "Represent the entries",
+          "text": "An int array keeps the individual payments."
+        },
+        {
+          "title": "Summarize the values",
+          "text": "The method returns a long total. The map counts repeated amounts."
+        },
+        {
+          "title": "Choose deterministic order",
+          "text": "TreeMap prints keys in sorted order. Each map update costs O(log k), so this complete example is O(n log k), plus the O(n) total scan."
+        }
+      ],
+      "change": "Use an empty array. Predict the total and map output, then run it. Next add a fourth payment and recalculate by hand."
+    },
+    "trace": {
+      "columns": [
+        "Entry",
+        "Running total",
+        "Counts"
+      ],
+      "rows": [
+        [
+          "20",
+          "20",
+          "20 → 1"
+        ],
+        [
+          "30",
+          "50",
+          "20 → 1, 30 → 1"
+        ],
+        [
+          "20",
+          "70",
+          "20 → 2, 30 → 1"
+        ]
+      ]
+    },
+    "check": {
+      "question": "Why does the total method work for an empty array?",
+      "answer": "sum starts at zero, the loop runs zero times, and the method returns zero. It never tries to access amounts[0]."
+    },
+    "before": [
+      "arrays",
+      "methods",
+      "hashmap",
+      "complexity"
+    ],
+    "remember": "Be able to read input, trace loops, write methods, manipulate arrays and strings, choose collections, and explain growth before tackling harder DSA.",
+    "mistake": "Do not move on only because a sample passed. Check edge cases and explain why the algorithm works.",
+    "ready": "You can build and debug a small program from a blank editor and explain its time and space usage."
+  }
+}

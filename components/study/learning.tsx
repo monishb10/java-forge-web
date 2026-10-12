@@ -1,57 +1,14 @@
 'use client';
 import React,{useEffect,useState} from 'react';
-import {BookOpen,Code2,Play,Check,CheckCircle2,Lightbulb,Search,Bookmark,FileCode2,Brain,Layers} from 'lucide-react';
+import {BookOpen,CheckCircle2,Search,Layers} from 'lucide-react';
 import {Accordion,AccordionContent,AccordionItem,AccordionTrigger} from '@/components/ui/accordion';
-import {Select,SelectContent,SelectItem,SelectTrigger,SelectValue} from '@/components/ui/select';
-import {Checkbox} from '@/components/ui/checkbox';
-import {Progress} from '@/components/ui/progress';
-import {Table,TableBody,TableCell,TableHead,TableHeader,TableRow} from '@/components/ui/table';
-import {toast} from 'sonner';
-import {lessons,phases,exercises,exampleCode,Lesson,Exercise,programCount,foundationProgramsPerTopic,findExercise,isFoundationExercise} from '@/lib/curriculum';
-import {lessonGuides} from '@/lib/lesson-guides';
+import {Tabs,TabsList,TabsTrigger} from '@/components/ui/tabs';
+import {lessons,phases,exercises,Lesson,Exercise,programCount,foundationProgramsPerTopic,findExercise,isFoundationExercise} from '@/lib/curriculum';
 import {foundationGuides} from '@/lib/foundation-guides';
-import {simpleLessons} from '@/lib/simple-lessons';
-import {studyDay} from '@/lib/tracker';
-import {Tabs,TabsList,TabsTrigger,TabsContent} from '@/components/ui/tabs';
-import {realWorldExamples,realWorldCode} from '@/lib/real-world-examples';
-import {JavaSnippet} from './java-snippet';
-import {LessonPhotoStory,LessonVisualWalkthrough} from './lesson-visual';
 import {useApp,solved,Data} from './shared';
+export {LessonPage,CourseOutline} from './lesson-page';
 export function Difficulty({value}:{value:string}){return <span className={'difficulty '+value.toLowerCase()}>{value}</span>}
 function complete(data:Data,e:Exercise){return solved(data.records[e.id],e)}
-export function CourseOutline({compact=false}:{compact?:boolean}){
- const {data,lesson,navigate}=useApp();
- return <Accordion type="single" collapsible defaultValue={String(lesson.phase)} className={'course-outline '+(compact?'compact':'')}>
-  {phases.map((p,i)=>{const group=lessons.filter(l=>l.phase===i),understood=group.filter(l=>data.topics[l.id]?.mastered).length;return <AccordionItem value={String(i)} key={p.name}>
-   <AccordionTrigger className={'course-phase '+(lesson.phase===i?'current-course-phase':'')}><span className="phase-number">{i+1}</span><span><b>{p.name}</b><small>{understood} / {group.length} topics understood</small></span></AccordionTrigger>
-   <AccordionContent><div className="course-topics">{group.map(l=><button key={l.id} className={lesson.id===l.id?'current':''} aria-current={lesson.id===l.id?'page':undefined} onClick={()=>navigate('learn',l.id)}><span className={'course-index '+(data.topics[l.id]?.mastered?'complete':'')}>{data.topics[l.id]?.mastered?<Check size={14}/>:String(lessons.indexOf(l)+1).padStart(2,'0')}</span><span>{l.title}</span></button>)}</div></AccordionContent>
-  </AccordionItem>})}
- </Accordion>;
-}
-export function LessonPage(){
- const {data,lesson:l,navigate,saveTopic,exampleDraft,study,ready,lessonStages}=useApp(),topic=data.topics[l.id]||{},guide=lessonGuides[l.id],simple=simpleLessons[l.id],real=realWorldExamples[l.id];
- const [stage,setStage]=useState(lessonStages.current[l.id]||'idea'),[note,setNote]=useState(topic.note||''),[saving,setSaving]=useState(false);useEffect(()=>setNote(topic.note||''),[topic.note]);
- const index=lessons.indexOf(l),steps=[['idea','Understand'],['example','See the example'],['code','Read the code'],['try','Try it yourself']],position=steps.findIndex(s=>s[0]===stage);
- const studied=data.activity.events.some(e=>e.kind==='lesson'&&e.id===l.id&&studyDay(e.at)===studyDay());
- const choose=(next:string,focusHeading=false)=>{setStage(next);lessonStages.current[l.id]=next;study.start('lesson');if(focusHeading)requestAnimationFrame(()=>document.getElementById('lesson-stage-heading')?.focus())};
- const runExample=async()=>{exampleDraft.current=realWorldCode(real);await navigate('playground',l.id)};
- const complete=async()=>{setSaving(true);try{if(await saveTopic(l.id,{read:true,studiedToday:true})){study.pause();toast.success('Lesson added to today’s tracker')}}finally{setSaving(false)}};
- return <div className="learn-layout guided-reading"><aside className="course-sidebar"><div className="course-sidebar-heading"><BookOpen size={18}/><b>Lesson topics</b></div><CourseOutline compact/></aside><div className="lesson-page simple-lesson-page">
-  <div className="lesson-breadcrumb"><span>Lessons</span><span>/</span><span>{phases[l.phase].name}</span></div>
-  <header className="simple-lesson-header"><div className="lesson-header-meta"><p className="eyebrow">STAGE {l.phase+1} · TOPIC {String(index+1).padStart(2,'0')} OF {lessons.length}</p>{(studied||topic.mastered)&&<span className="lesson-study-status"><CheckCircle2 size={14}/>{topic.mastered?'Understood':'Studied today'}</span>}</div><h1>{l.title}</h1><p>{guide.goal}</p></header>
-  <div className="mobile-topic"><Select value={l.id} onValueChange={x=>navigate('learn',x)}><SelectTrigger aria-label="Choose lesson"><SelectValue/></SelectTrigger><SelectContent>{lessons.map((x,i)=><SelectItem key={x.id} value={x.id}>{i+1}. {x.title}</SelectItem>)}</SelectContent></Select></div>
-  <Tabs value={stage} onValueChange={choose} className="guided-reading-tabs"><TabsList aria-label="Lesson stages" className="lesson-stage-tabs">{steps.map(([id,label],i)=><TabsTrigger key={id} value={id}><span>{String(i+1).padStart(2,'0')}</span>{label}</TabsTrigger>)}</TabsList>
-   <div className="lesson-reader-card"><div className="lesson-stage-caption">STEP {position+1} OF 4 <span>{steps[position][1]}</span></div><h2 id="lesson-stage-heading" tabIndex={-1}>{stage==='idea'?'What does this mean?':stage==='example'?real.title:stage==='code'?'Connect the example to the code':'Make one small change'}</h2>
-    <TabsContent value="idea" className="lesson-stage-content"><p className="lesson-plain-definition">{simple.idea}</p><section className="foundation-lesson-plan"><h3>What to learn in this topic</h3><ul>{foundationGuides[l.id]?.focus.map(point=><li key={point}>{point}</li>)}</ul><p><b>Ready to move on when:</b> {foundationGuides[l.id]?.ready}</p></section><h3 className="lesson-subheading">Three words to know</h3><dl className="lesson-vocabulary">{simple.words.map(([word,meaning])=><div key={word}><dt>{word}</dt><dd>{meaning}</dd></div>)}</dl><div className="lesson-mini-example"><span>We’ll use this example</span><h3>{real.title}</h3><p>{real.situation}</p></div>{guide.before.length>0&&<div className="prerequisite-links"><span>Need a refresher?</span>{guide.before.filter(id=>lessons.some(x=>x.id===id)).map(id=><button key={id} onClick={()=>navigate('learn',id)}>{lessons.find(x=>x.id===id)!.title}</button>)}</div>}</TabsContent>
-    <TabsContent value="example" className="lesson-stage-content"><LessonPhotoStory topic={l.id} situation={real.situation}/><LessonVisualWalkthrough topic={l.id}/></TabsContent>
-    <TabsContent value="code" className="lesson-stage-content"><p className="lesson-stage-intro">This is the same example you just followed. Read the full program, then compare its output.</p><div className="example-code"><div><FileCode2 size={16}/>Main.java</div><JavaSnippet code={realWorldCode(real)}/></div><div className="expected-output"><span>What this program prints</span><pre>{real.output}</pre></div><h3 className="lesson-subheading">How the code does the job</h3><ol className="lesson-code-explanation">{real.steps.map((step,i)=><li key={step.title}><span>{i+1}</span><div><h3>{step.title}</h3><p>{step.text}</p></div></li>)}</ol>{index<5&&<details className="program-frame"><summary>What are Main, main, braces, and println?</summary><ul><li><code>class Main</code> is the container for this program.</li><li><code>public static void main(String[] args)</code> is where Java starts executing it.</li><li>Braces <code>{'{ }'}</code> group statements; a semicolon <code>;</code> ends most statements.</li><li><code>System.out.println(...)</code> prints a value on its own line.</li></ul></details>}{l.id==='input-output'&&<section className="foundation-lesson-plan"><h3>Read the input you type</h3><p>The example above reads a prepared booking. In Practice, <code>System.in</code> reads the values from the input box. You write the program; the test case supplies its input.</p><JavaSnippet code={'import java.util.Scanner;\n\npublic class Main {\n    public static void main(String[] args) {\n        Scanner input = new Scanner(System.in);\n        int age = input.nextInt();\n        String name = input.next();\n        System.out.println(name + " is " + age);\n    }\n}'}/><p>For input <code>21 Mira</code>, the first read stores <code>21</code> in age and the second stores <code>Mira</code> in name. The output is <code>Mira is 21</code>. No condition or loop is needed.</p></section>}<button className="primary lesson-run-example" onClick={runExample}><Play size={16}/>Run this example in Playground</button></TabsContent>
-    <TabsContent value="try" className="lesson-stage-content"><div className="lesson-change-card"><span>Your small experiment</span><p>{real.change}</p><button className="primary" onClick={runExample}><Play size={16}/>Try in playground</button></div><div className="lesson-remember-card"><h3>Remember this</h3><p>{simple.remember}</p></div><div className="lesson-mistake-card"><h3>Avoid this mistake</h3><p>{simple.mistake}</p></div><div className="lesson-finish"><div><h3>{studied?'Recorded for today':'Finished studying this lesson?'}</h3><p>{studied?'This topic appears in today’s Tracker. You can revisit it any time.':'Mark it after you have followed the example and understood the result.'}</p></div><button className="primary" disabled={!ready||saving||studied} onClick={complete}><CheckCircle2 size={17}/>{saving?'Saving…':studied?'Studied today':'Mark studied today'}</button></div><label className="check-row"><Checkbox checked={!!topic.mastered} onCheckedChange={v=>saveTopic(l.id,{mastered:!!v,read:!!v||!!topic.read})}/>I understand this concept</label><label className="check-row"><Checkbox checked={!!topic.revise} onCheckedChange={v=>saveTopic(l.id,{revise:!!v})}/>Revisit this topic later</label></TabsContent>
-    <div className="lesson-stage-navigation"><button className="secondary" disabled={position===0} onClick={()=>choose(steps[position-1][0],true)}>Previous step</button><span>{position+1} / 4</span>{position<3?<button className="primary" onClick={()=>choose(steps[position+1][0],true)}>{steps[position+1][1]}</button>:index<lessons.length-1?<button className="secondary" onClick={()=>navigate('learn',lessons[index+1].id)}>Next lesson</button>:<button className="secondary" onClick={()=>navigate('tracker')}>Open Tracker</button>}</div>
-   </div>
-  </Tabs>
-  <Accordion type="single" collapsible className="lesson-extra-notes"><AccordionItem value="details"><AccordionTrigger>More theory and Java rules</AccordionTrigger><AccordionContent><p>Open these notes when the main example feels clear.</p>{guide.steps.map(step=><section key={step.title}><h3>{step.title}</h3><p>{step.text}</p>{step.code&&<JavaSnippet code={step.code}/>}</section>)}{l.sections.map(section=><section key={section.title}><h3>{section.title}</h3><p>{section.text}</p></section>)}<section><h3>Time and memory</h3><p>{l.complexity}</p></section></AccordionContent></AccordionItem><AccordionItem value="notes"><AccordionTrigger>My notes for this topic</AccordionTrigger><AccordionContent><label className="field-label" htmlFor="lesson-note">Write the idea in your own words</label><textarea id="lesson-note" rows={4} value={note} onChange={e=>setNote(e.target.value)} placeholder="The part that made sense, or a question to revisit…"/><div className="note-actions"><button className="secondary" onClick={async()=>{if(await saveTopic(l.id,{note}))toast.success('Note saved')}}>Save note</button></div></AccordionContent></AccordionItem></Accordion>
- </div></div>;
-}
 export function ExerciseList({lesson:l}:{lesson:Lesson}){
  const{data,navigate}=useApp(),programs=exercises(l);return <div className="topic-problems">{programs.map((e,i)=>{
   const done=complete(data,e),started=!!data.records[e.id]?.updatedAt;

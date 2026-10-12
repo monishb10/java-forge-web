@@ -26,9 +26,9 @@ for(const lesson of lessons){
  const ctx={...defaultCtx,lesson};
  const render=component=>renderToString(React.createElement(AppContext.Provider,{value:ctx},React.createElement(component)));
  const practice=render(ui.ProblemLibrary);assert.equal((practice.match(/class="topic-problem-row"/g)||[]).length,32,lesson.id);assert.equal((practice.match(/class="question-number"/g)||[]).length,32,lesson.id);assert.ok(practice.includes('Start with Easy programs.'));assert.ok(!practice.includes('Thinking'));assert.ok(!practice.includes('Compare your answer'));assert.ok(practice.replace(/<!--.*?-->/g,'').includes('32 programs'));
- const learn=render(ui.LessonPage);assert.ok(learn.includes('What does this mean?'));assert.ok(learn.includes('Three words to know'));assert.ok(learn.includes('See the example'));assert.ok(learn.includes('Read the code'));assert.ok(learn.includes('Try it yourself'));assert.ok(!learn.includes('32 programs'));assert.ok(learn.includes('What to learn in this topic'));assert.ok(learn.includes('Ready to move on when:'));assert.ok(!learn.includes('topic-problem-row'));assert.ok(!learn.includes('practice-timer'));assert.equal(exercises(lesson).length,32);checked++;
+ const learn=render(ui.LessonPage);assert.ok(learn.includes('What does this mean?'));assert.ok(learn.includes('Three words to know'));assert.ok(learn.includes('See the example'));assert.ok(learn.includes('Read the code'));assert.ok(learn.includes('Check understanding'));assert.ok(learn.includes('Watch a video'));assert.ok(!learn.includes('32 programs'));assert.ok(learn.includes('What to learn in this topic'));assert.ok(learn.includes('Ready to move on when:'));assert.ok(!learn.includes('topic-problem-row'));assert.ok(!learn.includes('practice-timer'));assert.equal(exercises(lesson).length,32);checked++;
  const visual=lessonVisuals[lesson.id],photo=photos[visual.photo];
- for(const stage of ['example','code','try']){const staged=renderToString(React.createElement(AppContext.Provider,{value:{...ctx,lessonStages:{current:{[lesson.id]:stage}}}},React.createElement(ui.LessonPage)));if(stage==='example'){assert.ok(staged.includes(photo.src));assert.ok(staged.includes('Next step'))}if(stage==='code'){assert.ok(staged.includes('Main.java'));assert.ok(staged.includes('What this program prints'))}if(stage==='try'){assert.ok(staged.includes('Mark studied today'));assert.ok(staged.includes('I understand this concept'));assert.ok(staged.includes('Try in playground'))}}
+ for(const stage of ['example','code','try']){const staged=renderToString(React.createElement(AppContext.Provider,{value:{...ctx,lessonStages:{current:{[lesson.id]:stage}}}},React.createElement(ui.LessonPage)));if(stage==='example'){assert.ok(staged.includes(photo.src));assert.ok(staged.includes('Next step'))}if(stage==='code'){assert.ok(staged.includes('Main.java'));assert.ok(staged.includes('What this program prints'))}if(stage==='try'){assert.ok(staged.includes('Mark studied today'));assert.ok(staged.includes('I understand this concept'));assert.ok(staged.includes('Try in Playground'))}}
  assert.ok(photo,lesson.id+' photo');assert.ok(fs.statSync(root+'/public'+photo.src).size>5000);assert.ok(photo.alt.length>20);assert.ok(photo.sourcePage.startsWith('https://www.pexels.com/'));assert.ok(photo.width>=900&&photo.height>=500);
  assert.equal(visual.connections.length,3);assert.ok(visual.frames.length>=3);const visualUI=await import(out+'/components/study/lesson-visual.mjs');const photoHTML=renderToString(React.createElement(visualUI.LessonPhotoStory,{topic:lesson.id,situation:'Example situation'}));assert.ok(photoHTML.includes(photo.src));const walkHTML=renderToString(React.createElement(visualUI.LessonVisualWalkthrough,{topic:lesson.id}));assert.ok(walkHTML.includes('Next step'));assert.ok(walkHTML.includes('aria-current="step"'));assert.ok(walkHTML.includes('aria-live="polite"'));
  assert.equal(new Set(visual.frames.map(f=>f.title)).size,visual.frames.length,lesson.id+' unique step titles');
@@ -42,6 +42,29 @@ for(const lesson of lessons){
 console.log(JSON.stringify({topicsRendered:checked,problemsPerTopic:32,totalExercises:checked*32,lessonGuidesRendered:checked,status:'passed',scope:'Server-rendered content and grouping checks; not visual browser QA'}));
 console.log(JSON.stringify({visualLessonCoverage:checked,stepFramesRendered:frameCount,photosVerified:Object.keys(photos).length,status:'passed'}));
 
+const {learningTopics}=await import(out+'/lib/lesson-roadmap.mjs');
+const {learningStages,learningTopicIds}=await import(out+'/lib/curriculum.mjs');
+assert.equal(learningStages.length,18);
+assert.equal(learningTopics.length,29);
+assert.equal(new Set(learningTopicIds).size,29);
+assert.ok(lessons.every(l=>learningTopicIds.includes(l.id)),'Every existing practice lesson remains in the learning path');
+for(const topic of learningTopics){
+ for(const step of ['idea','example','code','video','check']){
+  const markup=renderToString(React.createElement(AppContext.Provider,{value:{...defaultCtx,lesson:lessons[0],lessonStages:{current:{[topic.id]:step}}}},React.createElement(ui.LessonPage,{topicId:topic.id})));
+  assert.ok(!markup.includes('topic-problem-row'));
+  assert.ok(!markup.includes('undefined'));
+  if(step==='idea')assert.ok(markup.includes('What to learn in this topic'));
+  if(step==='code')assert.ok(markup.includes('Main.java')&&markup.includes('What this program prints'));
+  if(step==='check')assert.ok(markup.includes('Mark studied today')&&markup.includes('Reveal the explanation'));
+  if(step==='video')for(const video of topic.videos){
+   const url=new URL(video.url);assert.ok(['www.geeksforgeeks.org','www.youtube.com'].includes(url.hostname));
+   assert.ok(markup.includes(video.url.replaceAll('&','&amp;'))&&markup.includes('target="_blank"'));
+  }
+ }
+ if(topic.trace)assert.ok(topic.trace.rows.every(row=>row.length===topic.trace.columns.length));
+}
+console.log('All 29 roadmap lessons rendered across 5 steps, with 18 ordered stages and safe video links.');
+
 const legacy=findExercise('variables-2');
 assert.ok(legacy,'Earlier exercise remains addressable');
 const archived=renderToString(React.createElement(AppContext.Provider,{value:{...defaultCtx,lesson:lessons[0],data:{...defaultCtx.data,records:{'variables-2':{code:'my saved code',status:'accepted',suiteVersion:legacy.exercise.suiteVersion}}}}},React.createElement(ui.ProblemLibrary)));
@@ -49,7 +72,7 @@ assert.ok(archived.includes('Earlier saved practice'));assert.ok(archived.includ
 const Dashboard=(await import(out+'/components/study/progress.mjs')).default;
 const html=renderToString(React.createElement(AppContext.Provider,{value:{...defaultCtx,lesson:lessons[0]}},React.createElement(Dashboard)));
 assert.ok(html.includes('Java foundations'));assert.ok(html.includes('Open daily tracker'));assert.ok(!html.includes('Time spent'));assert.ok(html.includes('Connect GitHub'));
-assert.equal((html.match(/class="learning-stage-card\b[^"]*"/g)||[]).length,4,'Dashboard exposes all four foundation stages');
+assert.equal((html.match(/class="roadmap-dashboard-stage\b[^"]*"/g)||[]).length,18,'Dashboard exposes all 18 learning stages');
 const {PracticeClock,formatTimer}=await import(out+'/lib/practice-clock.mjs');
 const clock=new PracticeClock(2000);clock.resume(1000);assert.equal(clock.total(6000),7000);clock.pause(6000);assert.equal(clock.total(999000),7000);clock.resume(1000000);clock.resume(1005000);assert.equal(clock.pause(1008000),15000);assert.equal(clock.total(2000000),15000);assert.equal(formatTimer(3661000),'01:01:01');console.log('Dashboard render and timer pause/resume checks passed.');
 

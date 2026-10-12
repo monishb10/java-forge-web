@@ -6,6 +6,8 @@ from pathlib import Path
 
 root = Path(__file__).resolve().parents[1]
 examples = json.loads((root / 'lib/real-world-examples.json').read_text())
+extra = json.loads((root / 'lib/roadmap-extra-lessons.json').read_text())
+examples.update({topic: lesson['example'] for topic, lesson in extra.items()})
 with tempfile.TemporaryDirectory(prefix='java-forge-lessons-') as directory:
     work = Path(directory)
     sources = []

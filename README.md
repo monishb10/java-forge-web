@@ -2,8 +2,8 @@
 
 A Java learning website for you and your friends, with a separate account and progress for each learner.
 
-- 20 foundation topics, with step-by-step lessons, illustrations and examples.
-- 32 coding programs per topic: **640 programs**, each with **64 test cases**.
+- 18 learning stages and 29 lessons following the Java roadmap, with everyday examples, code walkthroughs and GeeksforGeeks video links.
+- A separate Practice section: 20 foundation topics with 32 coding programs per topic — **640 programs**, each with **64 test cases**.
 - A blank Java editor, sample tests, full submission checks and a terminal-style playground.
 - Daily/monthly study tracking, easy/medium/hard completion counts and lesson history.
 - GitHub sign-in, private per-user drafts, and optional accepted-solution saves to each learner's own repository.
@@ -47,6 +47,7 @@ Java execution uses Paiza.IO after the learner grants consent. Third-party avail
 | Sign-in/session boundary | `lib/auth.ts`, `build/worker.ts` |
 | Dashboard, lessons, editor and tracker | `components/study/` |
 | Curriculum and problem bank | `lib/curriculum.json`, `lib/practice-bank.json` |
+| Learning path and video resources | `lib/lesson-roadmap.ts`, `lib/lesson-videos.json`, `docs/LESSON-ROADMAP.md` |
 | Protected API routes | `app/api/` |
 | Database migrations | `drizzle/` |
 | Deployment workflow | `.github/workflows/deploy.yml` |

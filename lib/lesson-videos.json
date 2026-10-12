@@ -1,0 +1,219 @@
+{
+  "java-environment": [
+    {
+      "title": "Difference between JVM, JRE & JDK",
+      "url": "https://www.geeksforgeeks.org/videos/difference-bw-jvm-jre-jdk/",
+      "focus": "Watch how the JDK, JRE, and JVM fit together before setting up and running your first Java program."
+    }
+  ],
+  "input-output": [
+    {
+      "title": "How to Read and Print an Integer value in Java",
+      "url": "https://www.geeksforgeeks.org/videos/how-to-read-and-print-an-integer-value-in-java/",
+      "focus": "Follow the Scanner input and console output example, then change it to read your own values."
+    }
+  ],
+  "variables": [
+    {
+      "title": "Variables in Core Java",
+      "url": "https://www.geeksforgeeks.org/videos/variables-in-core-java/",
+      "focus": "Track variable declaration, initialization, data types, and scope in each example."
+    }
+  ],
+  "operators": [
+    {
+      "title": "DSA In Java | Basics | Java in One Shot | Output, Input, Variables, Operators | Java Course",
+      "url": "https://www.youtube.com/watch?v=m3fg2PRY1u4",
+      "focus": "Use the operators section to trace how arithmetic expressions change variable values."
+    }
+  ],
+  "conditions": [
+    {
+      "title": "Decision Making in Java (if, if-else, switch, break, continue, jump)",
+      "url": "https://www.geeksforgeeks.org/videos/decision-making-in-java-if-if-else-switch-break-continue-jump/",
+      "focus": "Trace which branch executes for each condition and how switch, break, and continue change control flow."
+    }
+  ],
+  "loops": [
+    {
+      "title": "for loop in Java",
+      "url": "https://www.geeksforgeeks.org/videos/for-loop-in-java/",
+      "focus": "Follow initialization, condition checks, updates, and the loop body one iteration at a time."
+    },
+    {
+      "title": "While Loop in Java with Example",
+      "url": "https://www.geeksforgeeks.org/videos/while-loop-in-java/",
+      "focus": "Identify the condition and the update that eventually stops each while loop."
+    }
+  ],
+  "methods": [
+    {
+      "title": "Functions in Java",
+      "url": "https://www.geeksforgeeks.org/videos/functions-in-java/",
+      "focus": "Notice how parameters, return values, and method calls turn repeated logic into reusable code."
+    }
+  ],
+  "arrays": [
+    {
+      "title": "What is Array",
+      "url": "https://www.geeksforgeeks.org/videos/what-is-array/",
+      "focus": "Learn the array model, zero-based indexing, and the difference between one-dimensional and multidimensional arrays."
+    },
+    {
+      "title": "Arrays Class in Java",
+      "url": "https://www.geeksforgeeks.org/videos/arrays-class-in-java/",
+      "focus": "Watch how Java's Arrays utility methods simplify common array operations."
+    }
+  ],
+  "strings": [
+    {
+      "title": "String Operations.",
+      "url": "https://www.geeksforgeeks.org/videos/string-operations-1/",
+      "focus": "Pause after each string operation and predict the resulting text before continuing."
+    }
+  ],
+  "stringbuilder": [
+    {
+      "title": "Java Program to Remove First and Last Character of a String",
+      "url": "https://www.geeksforgeeks.org/videos/java-program-to-remove-first-and-last-character-of-a-string/",
+      "focus": "Focus on the StringBuilder deleteCharAt approach and how character indexes change after a deletion."
+    }
+  ],
+  "oop": [
+    {
+      "title": "Four Main Object Oriented Programming Concepts of Java",
+      "url": "https://www.geeksforgeeks.org/videos/four-main-object-oriented-programming-concepts-of-java/",
+      "focus": "Connect encapsulation, inheritance, polymorphism, and abstraction to a small Java class of your own."
+    }
+  ],
+  "exception-handling": [
+    {
+      "title": "Overview of Exception Handling In Java",
+      "url": "https://www.geeksforgeeks.org/videos/overview-of-exception-handling-in-java/",
+      "focus": "Trace the execution path through try, catch, finally, and thrown exceptions."
+    }
+  ],
+  "collections-framework": [
+    {
+      "title": "Java Collections Framework",
+      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
+      "focus": "Compare List, Set, Map, and Queue so you can choose a collection from its behavior."
+    }
+  ],
+  "arraylist": [
+    {
+      "title": "ArrayList in Java",
+      "url": "https://www.geeksforgeeks.org/videos/arraylist-in-java-qtzmxa/",
+      "focus": "Follow how a resizable list is created, updated, accessed, and traversed."
+    }
+  ],
+  "linkedlist-api": [
+    {
+      "title": "LinkedList in Java",
+      "url": "https://www.geeksforgeeks.org/videos/linkedlist-in-java/",
+      "focus": "Watch how Java's LinkedList class is created and manipulated through its collection methods."
+    }
+  ],
+  "hashmap": [
+    {
+      "title": "HashMap with Java",
+      "url": "https://www.geeksforgeeks.org/videos/video-hashmap-in-java/",
+      "focus": "Track each key-value pair as entries are inserted, retrieved, updated, and removed."
+    }
+  ],
+  "hashset": [
+    {
+      "title": "Video - HashSet in Java",
+      "url": "https://www.geeksforgeeks.org/videos/video-hashset-in-java/",
+      "focus": "Observe how set operations handle duplicate values and membership checks."
+    }
+  ],
+  "deque-api": [
+    {
+      "title": "Overview: Java Collections Framework",
+      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
+      "focus": "Overview: locate ArrayDeque among Java's collection choices before practicing the Deque API in this lesson."
+    }
+  ],
+  "queue-api": [
+    {
+      "title": "Overview: Java Collections Framework",
+      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
+      "focus": "Overview: watch how queues fit into the collections framework before practicing the Queue API in this lesson."
+    }
+  ],
+  "priorityqueue": [
+    {
+      "title": "Overview: Java Collections Framework",
+      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
+      "focus": "Overview: identify PriorityQueue as a queue implementation before practicing priority-based processing in this lesson."
+    }
+  ],
+  "comparator": [
+    {
+      "title": "Arrays.sort() in Java with examples | Data Structures and Algorithms (DSA)",
+      "url": "https://www.geeksforgeeks.org/videos/arrayssort-in-java-with-examples-data-structures-and-algorithms-dsa/",
+      "focus": "Focus on the custom Comparator example and how its comparison determines the sort order."
+    }
+  ],
+  "collections": [
+    {
+      "title": "Java Collections Framework",
+      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
+      "focus": "Review collection operations and the sorting section, then practice Collections.sort on a list."
+    }
+  ],
+  "generics": [
+    {
+      "title": "Generics in Java",
+      "url": "https://www.geeksforgeeks.org/videos/generics-in-java/",
+      "focus": "Watch how type parameters let reusable Java code work with specific types safely."
+    }
+  ],
+  "recursion-basics": [
+    {
+      "title": "Introduction of Recursion",
+      "url": "https://www.geeksforgeeks.org/videos/introduction-of-recursion/",
+      "focus": "Identify the base case and the smaller subproblem in every recursive call."
+    }
+  ],
+  "file-handling": [],
+  "complexity": [
+    {
+      "title": "Calculating Time Complexity",
+      "url": "https://www.geeksforgeeks.org/videos/calculating-time-complexity/",
+      "focus": "Count how loop iterations grow with input size and connect that growth to Big O notation."
+    }
+  ],
+  "multithreading": [
+    {
+      "title": "Introduction to Multithreading (JAVA)",
+      "url": "https://www.geeksforgeeks.org/videos/introduction-to-multithreading-java/",
+      "focus": "Watch how concurrent threads are introduced and distinguish a thread's work from the main program flow."
+    }
+  ],
+  "java8-features": [
+    {
+      "title": "Java 8 Predicate with Examples",
+      "url": "https://www.geeksforgeeks.org/videos/java-8-predicate-with-examples/",
+      "focus": "Focus on functional interfaces, lambda expressions, and predicates that return a boolean."
+    },
+    {
+      "title": "Stream in Java",
+      "url": "https://www.geeksforgeeks.org/videos/stream-in-java-ibrutp/",
+      "focus": "Watch how stream operations express data processing as a pipeline."
+    }
+  ],
+  "final-review": [
+    {
+      "title": "Recap: Four Main Object Oriented Programming Concepts of Java",
+      "url": "https://www.geeksforgeeks.org/videos/four-main-object-oriented-programming-concepts-of-java/",
+      "focus": "Recap the four OOP principles by explaining each example before the instructor does."
+    },
+    {
+      "title": "Recap: Java Collections Framework",
+      "url": "https://www.geeksforgeeks.org/videos/java-collections-framework/",
+      "focus": "Recap which collection fits ordering, uniqueness, key-value lookup, and queue behavior."
+    }
+  ]
+}

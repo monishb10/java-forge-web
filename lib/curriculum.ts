@@ -18,6 +18,29 @@ export const phases=[
  {name:'Organize your code',label:'Make Java click',description:'Use objects, basic recursion, text builders, and growing lists.',color:'#2267CD'},
  {name:'Collections for DSA',label:'Build your toolkit',description:'Choose the right Java collection and understand how its operations behave.',color:'#2267CD'}
 ];
+// Learning follows the uploaded 18-stage sheet. Practice keeps its stable
+// topic/problem IDs so existing accepted programs and drafts remain valid.
+export const learningStages=[
+ {title:'Java Basics & Environment',description:'Understand how Java runs, then read and print your first values.',topics:['java-environment','input-output'],depth:'Core for DSA'},
+ {title:'Variables & Data Types',description:'Store values, choose types, and convert them safely.',topics:['variables'],depth:'Core for DSA'},
+ {title:'Operators',description:'Calculate results and build clear expressions.',topics:['operators'],depth:'Core for DSA'},
+ {title:'Control Flow',description:'Choose the right action with conditions and switch.',topics:['conditions'],depth:'Core for DSA'},
+ {title:'Loops',description:'Repeat a task and trace each iteration.',topics:['loops'],depth:'Core for DSA'},
+ {title:'Functions / Methods',description:'Break a program into small, reusable jobs.',topics:['methods'],depth:'Core for DSA'},
+ {title:'Arrays',description:'Traverse and update one- and two-dimensional data.',topics:['arrays'],depth:'Core for DSA'},
+ {title:'Strings',description:'Read text and build new text with StringBuilder.',topics:['strings','stringbuilder'],depth:'Core for DSA'},
+ {title:'Object-Oriented Programming',description:'Model state and behavior with classes and objects.',topics:['oop'],depth:'Core for DSA'},
+ {title:'Exception Handling',description:'Understand failures and recover where appropriate.',topics:['exception-handling'],depth:'Useful Java'},
+ {title:'Collections Framework',description:'Choose lists, sets, maps, queues, and ordering tools.',topics:['collections-framework','arraylist','linkedlist-api','hashmap','hashset','deque-api','queue-api','priorityqueue','comparator','collections'],depth:'Core for DSA'},
+ {title:'Generics',description:'Write reusable classes and methods with type safety.',topics:['generics'],depth:'Useful Java'},
+ {title:'Recursion',description:'Solve a smaller task and understand the call stack.',topics:['recursion-basics'],depth:'Core for DSA'},
+ {title:'File Handling',description:'Read and write text while managing resources.',topics:['file-handling'],depth:'Useful Java'},
+ {title:'Time & Space Complexity',description:'Compare how work and memory grow with input.',topics:['complexity'],depth:'Core for DSA'},
+ {title:'Multithreading & Concurrency',description:'Learn tasks, threads, joining, and shared state.',topics:['multithreading'],depth:'After basics'},
+ {title:'Java 8+ Features',description:'Read lambdas, functional interfaces, and stream pipelines.',topics:['java8-features'],depth:'After basics'},
+ {title:'Final Practice & Review',description:'Combine your Java skills and prepare to start DSA.',topics:['final-review'],depth:'Ready for DSA'}
+];
+export const learningTopicIds=learningStages.flatMap(stage=>stage.topics);
 // New editors are deliberately empty. Only a learner's own draft, or a lesson
 // example they explicitly choose to open in Playground, may populate them.
 export const starter='';
